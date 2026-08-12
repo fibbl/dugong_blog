@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes — RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-06-29" />
-    <meta property="article:modified_time" content="2026-06-29" />
+    <meta property="article:modified_time" content="2026-08-12" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to reconcile Shopify payouts with your sales",
       "description": "Your storefront says you sold four thousand dollars this week, but the deposit that lands in your bank is smaller, days later, with no breakdown attached. Shopify nets every payout down by processing fees, refunds, chargebacks, adjustments, and held reserves, then pays it in a batch that covers part of one day and part of another, so a single deposit can represent dozens or hundreds of individual transactions. The Payouts page lists the totals but does not post them to your books, the QuickBooks and Xero connectors record the deposit as lump income or duplicate the revenue, and Flow has no action that reconciles anything. The AI playbook that decomposes every payout into its parts, matches it to the orders and the bank deposit, categorizes each piece to the right ledger account, splits multiple gateways, and holds the deposits that do not tie out for a human.",
       "datePublished": "2026-06-29",
-      "dateModified": "2026-06-29",
+      "dateModified": "2026-08-12",
       "articleSection": "Research",
       "keywords": "Shopify payout reconciliation, Shopify payout doesn't match sales, reconcile Shopify payments QuickBooks, reconcile Shopify Xero, Shopify deposit smaller than sales, Shopify bookkeeping, Shopify payout fees refunds, match Shopify payout to bank deposit, multi gateway payouts, Shopify month end close",
       "wordCount": 2572,
@@ -115,6 +115,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No. Shopify Flow can react to an order or a payout event, tag a record, and send a notification, but it has no action that decomposes a payout, matches it to a bank deposit, or writes a journal entry to your books. You can use Flow to be told a payout landed. You cannot use it to reconcile that payout. The actual close, splitting the deposit into its parts and booking them to sales, fees, refunds, and the sales tax liability account, still happens by hand in a spreadsheet, inside your accounting software, or in a separate paid app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should I record a Shopify payout in my books?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As its parts, never as one lump of income. A payout is gross sales minus processing fees, minus refunds, minus chargebacks and their fees, minus any held reserve, so a correct entry books the sales as revenue, the fees to an expense account, the refunds against revenue, and the collected sales tax to a liability account, with the net matching the bank deposit to the cent. Record the deposit as a single line of fresh income instead and you have understated your real revenue, hidden your processing cost, and buried a refund in one entry, and if your accounting connector already synced the orders, the same sales are now counted twice. That is the error a bookkeeper finds at year end and unwinds by hand, and it is how a hurried month-end reconciliation puts wrong numbers in the accounts you file taxes on."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where can I see the fees and refunds inside a Shopify payout?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under Finances in the admin, on the Payouts page. Open any payout and Shopify breaks it into gross sales, fees, refunds, and the net that was paid, and you can export a payouts CSV or a transactions CSV covering the same figures. What that page will not do is post anything. Nothing carries those numbers into your accounting software as a real entry, nothing matches the net against the deposit in your bank feed, and nothing books the fee to an expense account or the tax to a liability account. You are handed the raw ingredients of a reconciliation and left to cook it yourself, every payout, every month. That gap is exactly what a whole shelf of paid apps exists to fill, which is the clearest sign of where the platform's own automation stops and the by-hand work begins."
           }
         }
       ]
@@ -898,6 +914,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">Can Shopify Flow reconcile payments or post accounting entries?</h2>
       <p class="faq-a">No. Shopify Flow can react to an order or a payout event, tag a record, and send a notification, but it has no action that decomposes a payout, matches it to a bank deposit, or writes a journal entry to your books. You can use Flow to be told a payout landed. You cannot use it to reconcile that payout. The actual close, splitting the deposit into its parts and booking them to sales, fees, refunds, and the sales tax liability account, still happens by hand in a spreadsheet, inside your accounting software, or in a separate paid app.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How should I record a Shopify payout in my books?</h2>
+      <p class="faq-a">As its parts, never as one lump of income. A payout is gross sales minus processing fees, minus refunds, minus chargebacks and their fees, minus any held reserve, so a correct entry books the sales as revenue, the fees to an expense account, the refunds against revenue, and the collected sales tax to a liability account, with the net matching the bank deposit to the cent. Record the deposit as a single line of fresh income instead and you have understated your real revenue, hidden your processing cost, and buried a refund in one entry, and if your accounting connector already synced the orders, the same sales are now counted twice. That is the error a bookkeeper finds at year end and unwinds by hand, and it is how a hurried month-end reconciliation puts wrong numbers in the accounts you file taxes on.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Where can I see the fees and refunds inside a Shopify payout?</h2>
+      <p class="faq-a">Under Finances in the admin, on the Payouts page. Open any payout and Shopify breaks it into gross sales, fees, refunds, and the net that was paid, and you can export a payouts CSV or a transactions CSV covering the same figures. What that page will not do is post anything. Nothing carries those numbers into your accounting software as a real entry, nothing matches the net against the deposit in your bank feed, and nothing books the fee to an expense account or the tax to a liability account. You are handed the raw ingredients of a reconciliation and left to cook it yourself, every payout, every month. That gap is exactly what a whole shelf of paid apps exists to fill, which is the clearest sign of where the platform's own automation stops and the by-hand work begins.</p>
+    </div>
   </div>
 </section>
 
@@ -907,6 +931,74 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
 <a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
       <div class="card-body">
         <div class="post-meta">

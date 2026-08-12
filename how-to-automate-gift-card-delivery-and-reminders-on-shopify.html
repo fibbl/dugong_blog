@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to automate gift card delivery and reminders on Shopify &mdash; Dugong Field Notes</title>
+<meta name="description" content="The buyer paid, the admin says sent, and the birthday came and went. The AI playbook that lands every Shopify gift card and wakes every sleeping balance." />
+<link rel="canonical" href="https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" />
+<meta name="author" content="Priya Singh" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="keywords" content="shopify gift card email not received, shopify gift card not sent, resend gift card shopify, shopify gift card recipient form, schedule gift card delivery shopify, shopify gift card expiry, shopify gift card balance reminder, gift card breakage, unused gift card liability, shopify flow gift card trigger, automate shopify gift cards, gift card never arrived, AI gift card workflow, Dugong" />
+<meta name="theme-color" content="#c6fe1e" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
+<meta property="article:published_time" content="2026-08-10" />
+    <meta property="article:modified_time" content="2026-08-10" />
+<meta property="article:author" content="Priya Singh" />
+<meta property="article:section" content="Research" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Dugong Field Notes" />
+<meta property="og:title" content="How to automate gift card delivery and reminders on Shopify" />
+<meta property="og:description" content="The order lands Tuesday at 9:41 pm: one $75 gift card, a message that says Happy 30th, Maya, and a send date picked for her birthday two weeks out. The buyer paid with an express checkout button, and that one tap quietly undid the rest, because Shopify's gift card recipient form does not support accelerated checkout: the card mailed itself to the buyer immediately, and the schedule never existed. Nobody finds out until two days after the birthday. Gift cards are the strangest product a store sells, paid in full before they exist, pure obligation afterward, and on Shopify everything after payment is one email and then silence. The email is gated by fulfillment, and gift cards in medium and high risk orders are not automatically fulfilled, so a fraud filter can strand a present without telling anyone. The recipient form is a theme feature, introduced in v9.0.0 of the free themes, missing from vintage ones, off until a checkbox is found in the Buy buttons block. Scheduled sends reach at most 90 days out and go approximately between 4:00 am and 10:00 am in the purchasing customer's timezone, not the recipient's. After creation the admin shows only the last four characters of the code, there is no delivered or bounced state, and no reminder machinery at all: Shopify Flow has no gift card trigger, and Bankrate counts about $27 billion of unspent card value sitting with 43 percent of American adults, an average of $244 each. The AI playbook that chaperones every card from minted to spent: confirms the send, catches the bounce, honors the date on the recipient's clock, wakes sleeping balances at 30 and 90 days, warns before expiry, resends in minutes, and reports the liability monthly." />
+<meta property="og:url" content="https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" />
+<meta property="og:image" content="https://blog.dugong.live/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to automate gift card delivery and reminders on Shopify" />
+<meta name="twitter:description" content="The buyer paid, the admin says sent, and the birthday came and went. The AI playbook that lands every Shopify gift card and wakes every sleeping balance." />
+<meta name="twitter:image" content="https://blog.dugong.live/og-image.png" />
+    <meta name="twitter:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#article",
+      "isPartOf": {
+        "@id": "https://blog.dugong.live/#blog"
+      },
+      "mainEntityOfPage": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html",
+      "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html",
+      "headline": "How to automate gift card delivery and reminders on Shopify",
+      "description": "The order lands Tuesday at 9:41 pm: one $75 gift card, a message that says Happy 30th, Maya, and a send date picked for her birthday two weeks out. The buyer paid with an express checkout button, and that one tap quietly undid the rest, because Shopify's gift card recipient form does not support accelerated checkout: the card mailed itself to the buyer immediately, and the schedule never existed. Nobody finds out until two days after the birthday. Gift cards are the strangest product a store sells, paid in full before they exist, pure obligation afterward, and on Shopify everything after payment is one email and then silence. The email is gated by fulfillment, and gift cards in medium and high risk orders are not automatically fulfilled, so a fraud filter can strand a present without telling anyone. The recipient form is a theme feature, introduced in v9.0.0 of the free themes, missing from vintage ones, off until a checkbox is found in the Buy buttons block. Scheduled sends reach at most 90 days out and go approximately between 4:00 am and 10:00 am in the purchasing customer's timezone, not the recipient's. After creation the admin shows only the last four characters of the code, there is no delivered or bounced state, and no reminder machinery at all: Shopify Flow has no gift card trigger, and Bankrate counts about $27 billion of unspent card value sitting with 43 percent of American adults, an average of $244 each. The AI playbook that chaperones every card from minted to spent: confirms the send, catches the bounce, honors the date on the recipient's clock, wakes sleeping balances at 30 and 90 days, warns before expiry, resends in minutes, and reports the liability monthly.",
+      "datePublished": "2026-08-10",
+      "dateModified": "2026-08-10",
+      "articleSection": "Research",
+      "keywords": "shopify gift card email not received, shopify gift card not sent, resend gift card shopify, shopify gift card recipient form, schedule gift card delivery shopify, shopify gift card expiry, gift card balance reminder, gift card breakage, shopify flow gift card",
+      "wordCount": 2600,
+      "timeRequired": "PT10M",
+      "inLanguage": "en",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.dugong.live/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Gift card",
+          "sameAs": "https://en.wikipedia.org/wiki/Gift_card"
+        },
+        {
+          "@type": "Thing",
+          "name": "Breakage",
+          "sameAs": "https://en.wikipedia.org/wiki/Breakage"
+        },
+        {
+          "@type": "Thing",
+          "name": "Credit CARD Act of 2009",
+          "sameAs": "https://en.wikipedia.org/wiki/Credit_CARD_Act_of_2009"
+        },
+        {
+          "@type": "Thing",
+          "name": "Shopify",
+          "sameAs": "https://en.wikipedia.org/wiki/Shopify"
+        },
+        {
+          "@type": "Thing",
+          "name": "E-commerce",
+          "sameAs": "https://en.wikipedia.org/wiki/E-commerce"
+        }
+      ],
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".article-title",
+          ".faq"
+        ]
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://blog.dugong.live/#priya-singh",
+        "name": "Priya Singh",
+        "jobTitle": "Commerce Research, Dugong",
+        "worksFor": {
+          "@id": "https://blog.dugong.live/#organization"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://blog.dugong.live/#organization",
+        "name": "Dugong",
+        "url": "https://dugong.live",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://blog.dugong.live/og-image.png",
+          "width": 1200,
+          "height": 630
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Field Notes",
+          "item": "https://blog.dugong.live/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The gift card that never arrives",
+          "item": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+{"@type": "Question", "name": "Why didn't my customer receive their Shopify gift card email?", "acceptedAnswer": {"@type": "Answer", "text": "Work through four suspects in order. First, fulfillment: the gift card email goes out when the card is fulfilled, and while gift cards fulfill automatically on payment by default, a store switched to manual fulfillment leaves the card waiting for a click, and medium and high risk orders skip automatic gift card fulfillment entirely, so a fraud flag can hold the send in silence. Second, the recipient form: unless your theme supports the form, it is activated in the theme editor, and the buyer filled it in through the standard Add to Cart flow, the card goes to the purchaser rather than the recipient, and accelerated checkout buttons bypass the form's validation altogether. Third, the address itself: a typo in the recipient email neither errors nor bounces anywhere you can see, because the admin has no delivered or bounced state, only sent. Fourth, spam. The repair is the Resend gift card button on the card's page under Products, then Gift cards, and since the admin shows only the last four characters of any code after creation, resending is the only repair there is."}},{"@type": "Question", "name": "Can customers schedule a Shopify gift card to send on a specific date?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, within boundaries worth knowing before you promise anyone a birthday. The recipient form's optional Send on date schedules a card at most 90 days in the future, and scheduled cards go out approximately between 4:00 am and 10:00 am in the purchasing customer's timezone, so the delivery morning keys off the buyer's clock unless the theme passes the recipient's timezone offset along. The form itself is a theme feature: it arrived in v9.0.0 of Shopify's free Online Store 2.0 themes, lives in Dawn and the Horizon family, does not exist on vintage themes, and stays off until the Show recipient information form for gift card products checkbox is enabled in the Buy buttons block. And the form's validation supports only the Add to Cart flow, so a buyer who pays with an accelerated checkout button can lose the recipient details, in which case the card sends immediately to the buyer and no schedule exists. If a specific date genuinely matters, an automation that queues the send itself and confirms to the buyer when the card lands is the only version of the promise you fully control."}},{"@type": "Question", "name": "Do Shopify gift cards expire, and should you set an expiry?", "acceptedAnswer": {"@type": "Answer", "text": "By default Shopify gift cards never expire, and the setting lives under Settings, then Payments, in the Default expiration section. If you switch expiry on, the default term is five years, which matches the floor the US CARD Act of 2009 sets for how quickly gift card funds can expire; several states are stricter, some ban gift card expiration outright, and in many states balances that sit unredeemed long enough become unclaimed property owed to the state rather than kept by the store, so check the rules everywhere you sell before touching the setting. The better question is what happens before any expiry: Shopify sends no balance reminders and no expiry warnings, and Bankrate's survey work counts about $27 billion of unused gift card value held by 43 percent of American adults, an average of $244 per person. A reminded card gets spent, and a spent card is usually a new customer's first visit to your store; an expired card is a small grudge with your brand's name on it. Remind first, and treat expiry as a legal detail rather than a revenue plan."}}
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#howto",
+      "name": "The gift card that never arrives",
+      "description": "The AI playbook for gift cards on Shopify: confirming every card actually sends and clearing risk holds the same day, catching bounces and missing recipients with resends in minutes, queueing scheduled cards to the recipient's own morning and confirming to the buyer, nudging sleeping balances at 30 and 90 days, warning before any expiry where one is set and legal, answering never-got-it messages with an immediate resend, and reporting outstanding liability, redemption rate, and breakage monthly.",
+      "inLanguage": "en",
+      "totalTime": "PT10M",
+      "step": [
+{"@type": "HowToStep", "position": 1, "name": "Watch the send", "text": "A gift card order still unfulfilled an hour after payment is a settings problem or a risk hold; either way a human hears about it the same day", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 2, "name": "Verify the landing", "text": "Bounces, dead inboxes, and missing recipients caught the day they happen, chased with one question, repaired with a resend in minutes", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 3, "name": "Honor the date", "text": "Scheduled cards queued to the recipient's own morning, with the buyer told the moment the card lands", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 4, "name": "Wake the balance", "text": "Nudges at 30 and 90 days unspent, balance and code re-attached so nobody has to dig", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 5, "name": "Warn before the cliff", "text": "Where an expiry term is set and legal, notices at 60 and 14 days out", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 6, "name": "Rescue the lost card", "text": "Never-got-it requests answered with a resend and a reply the same hour", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"},
+{"@type": "HowToStep", "position": 7, "name": "Report monthly", "text": "Outstanding liability, redemption rate, cards aging toward expiry, and breakage named, routed to whoever does the books", "url": "https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html#playbook"}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* =========================================================
+   DUGONG FIELD NOTES — matches dugong.live
+   Lime + warm off-white · Hanken Grotesk / Inter · easy to read
+   ========================================================= */
+
+:root {
+  --bg:           #f6f6f1;
+  --bg-2:         #ffffff;
+  --surface:      #ffffff;
+  --surface-2:    #fbfbf7;
+  --border:       rgba(15,15,12,.10);
+  --border-strong:rgba(15,15,12,.18);
+
+  --text:         #11110e;
+  --text-dim:     #56564e;
+  --text-faint:   #71716a;
+
+  --lime:         #c6fe1e;
+  --lime-deep:    #4f7000;
+  --lime-line:    rgba(168,224,0,.55);
+  --lime-tint:    rgba(198,254,30,.22);
+  --green:        #0a8f54;
+  --pink:         #c61f93;
+
+  /* legacy aliases so any stray var() still resolves */
+  --ink: var(--text); --ink-2: var(--text-dim); --muted: var(--text-dim);
+  --dim: var(--text-faint); --line: var(--border); --line-2: var(--border-strong);
+  --teal: var(--lime-deep); --sand: var(--pink);
+  --cream-dim: var(--text-dim); --gold: #b5882c;
+
+  --display: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --maxw:   1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+::selection { background: var(--lime); color: #11110e; }
+
+/* atmospheric background — lime glow + faint grid (from dugong.live) */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 78% -12%, rgba(198,254,30,.30), transparent 60%),
+    radial-gradient(720px 520px at 3% 8%, rgba(198,254,30,.12), transparent 58%);
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; opacity: .55; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15,15,12,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,15,12,.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+}
+.grain { display: none; }
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+em { font-style: italic; }
+
+/* ---- buttons (shared, dugong.live) ---- */
+.btn {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  border-radius: 10px; padding: 10px 18px;
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  border: 1px solid transparent; white-space: nowrap;
+  transition: transform .15s ease, background .2s, box-shadow .2s, border-color .2s;
+}
+.btn-primary { background: var(--lime); color: #11110e !important; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+.btn-ghost { background: var(--surface); color: var(--text) !important; border-color: var(--border-strong); }
+.btn-ghost:hover { background: #fff; transform: translateY(-1px); border-color: var(--text); }
+.btn-lg { padding: 14px 26px; font-size: 16px; border-radius: 12px; }
+
+/* TICKER */
+.ticker {
+  position: relative; z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: rgba(246,246,241,.6);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+  color: var(--text-faint); padding: 9px 0;
+}
+.ticker-track { display: inline-flex; white-space: nowrap; gap: 3rem; animation: ticker 55s linear infinite; }
+.ticker-track span { flex-shrink: 0; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0 var(--gutter); min-height: 66px;
+  background: rgba(246,246,241,.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 800; min-width: 0; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px; background: #11110e;
+  display: inline-grid; place-items: center; flex: none; color: #fff; font-size: 0;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark.big { width: 40px; height: 40px; border-radius: 11px; }
+.brand-mark.big svg { width: 24px; height: 24px; }
+.brand-name { font-size: 21px; letter-spacing: -0.02em; color: var(--text); }
+.brand-slash { color: var(--text-faint); font-size: 18px; font-weight: 500; }
+.brand-section { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em; color: var(--text-dim); text-transform: lowercase; font-weight: 400; }
+
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: var(--text-dim); font-family: var(--body); }
+.nav-links a { color: var(--text-dim); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  background: var(--lime); color: #11110e !important;
+  border: 1px solid var(--lime); padding: 10px 18px; border-radius: 10px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: transform .15s ease, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+@media (max-width: 820px) { .nav-links a:not(.nav-cta) { display: none; } }
+@media (max-width: 480px) {
+  .brand-slash, .brand-section { display: none; }
+  .nav-cta { font-size: 12.5px; padding: 8px 12px; }
+}
+@media (max-width: 360px) {
+  .nav-cta { font-size: 11.5px; padding: 7px 10px; }
+}
+
+/* SECTION HEAD */
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; flex-wrap: wrap; }
+.section-eyebrow {
+  font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em;
+  color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0;
+}
+.section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-strong), transparent); min-width: 40px; }
+
+.post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+
+.tag {
+  font-family: var(--display); font-weight: 700;
+  padding: 0.28rem 0.65rem; border-radius: 100px;
+  font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--lime-tint); color: var(--lime-deep); border: 1px solid var(--lime-line);
+}
+.tag-research   { background: var(--lime-tint); color: var(--lime-deep); border-color: var(--lime-line); }
+.tag-essay      { background: rgba(10,143,84,.12); color: var(--green); border-color: rgba(10,143,84,.30); }
+.tag-postmortem { background: rgba(198,31,147,.10); color: var(--pink); border-color: rgba(198,31,147,.30); }
+.tag-tactics    { background: #11110e; color: #fff; border-color: #11110e; }
+.tag-interview  { background: var(--surface); color: var(--text-dim); border-color: var(--border-strong); }
+.post-read { color: var(--text-faint); text-transform: uppercase; }
+
+/* GRID (for related cards) */
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+.card:hover { transform: translateY(-3px); border-color: var(--lime-line); box-shadow: 0 16px 40px -30px rgba(15,15,12,.4); }
+.card:hover .card-title { color: var(--lime-deep); }
+.card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-title { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.7rem; transition: color 0.25s; }
+.card-dek { font-family: var(--body); font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 1.2rem; flex: 1; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+.card-date { color: var(--text-faint); }
+.card-author { color: var(--text-dim); }
+
+/* FOOTER */
+.foot { position: relative; z-index: 2; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--border); background: var(--surface-2); }
+.foot-top { display: grid; grid-template-columns: 1.4fr 2fr; gap: clamp(2rem, 5vw, 5rem); max-width: var(--maxw); margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem; }
+@media (max-width: 760px) { .foot-top { grid-template-columns: 1fr; } }
+.foot-brand { display: flex; flex-direction: column; gap: 1rem; }
+.foot-tag { font-family: var(--body); font-weight: 400; font-size: 0.95rem; color: var(--text-dim); max-width: 22em; line-height: 1.45; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 560px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.25rem; } }
+@media (max-width: 340px) { .foot-cols { grid-template-columns: 1fr; } }
+.foot-cols > div { display: flex; flex-direction: column; gap: 0.55rem; }
+.foot-h { font-family: var(--display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.foot-cols a { font-family: var(--body); font-size: 0.92rem; color: var(--text-dim); transition: color 0.2s; }
+.foot-cols a:hover { color: var(--lime-deep); }
+.foot-bot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: var(--maxw); margin: 0 auto; padding: 1.5rem var(--gutter); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--text-faint); }
+
+/* POST PAGE */
+.article { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+.article-back { font-family: var(--display); font-weight: 600; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 2.5rem; display: inline-block; }
+.article-back:hover { color: var(--lime-deep); }
+.article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.4rem; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em; flex-wrap: wrap; }
+.article-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.035em; color: var(--text); margin-bottom: 1.35rem; }
+.article-title em { font-style: normal; position: relative; white-space: nowrap; color: var(--text); }
+.article-title em::after { content: ""; position: absolute; left: -.06em; right: -.06em; bottom: .06em; height: .32em; background: var(--lime); z-index: -1; border-radius: 3px; transform: rotate(-.5deg); }
+.article-dek { font-family: var(--body); font-weight: 400; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.55; color: var(--text-dim); margin-bottom: 2.25rem; }
+.article-byline { display: flex; align-items: center; gap: 0.75rem; padding: 1.2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.75rem; font-family: var(--mono); font-size: 0.85rem; }
+.byline-avatar { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 0.68rem; font-weight: 700; color: #fff; letter-spacing: 0; }
+.byline-name { color: var(--text); font-family: var(--display); font-weight: 600; }
+.byline-divider { color: var(--border-strong); }
+.byline-role { color: var(--text-faint); }
+
+.article-body { font-family: var(--body); font-weight: 400; font-size: 1.2rem; line-height: 1.8; color: var(--text); }
+.article-body p { margin-bottom: 1.5rem; }
+.article-body h2 { font-family: var(--display); font-weight: 800; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.03em; margin: 2.85rem 0 1.1rem; color: var(--text); }
+.article-body h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.02em; margin: 2.25rem 0 0.9rem; color: var(--text); }
+.article-body blockquote { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.4; letter-spacing: -0.02em; padding: 0.3rem 0 0.3rem 1.5rem; border-left: 4px solid var(--lime); margin: 2rem 0; color: var(--text); }
+.article-body blockquote em { font-style: normal; color: var(--text-faint); }
+.article-body code { font-family: var(--mono); font-size: 0.88em; background: var(--lime-tint); padding: 0.12em 0.4em; border-radius: 5px; color: var(--lime-deep); }
+.article-body pre { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 1.25rem; margin: 2rem 0; overflow-x: auto; font-family: var(--mono); font-size: 0.86rem; line-height: 1.65; color: var(--text-dim); }
+
+@media (max-width: 560px) {
+  .article-body pre { font-size: 0.74rem; padding: 1rem; white-space: pre-wrap; overflow-wrap: break-word; }
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body pre .k { color: var(--lime-deep); font-weight: 600; }
+.article-body pre .s { color: var(--pink); }
+.article-body pre .c { color: var(--text-faint); font-style: italic; }
+.article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.4rem; }
+.article-body li { margin-bottom: 0.65rem; padding-left: 0.25rem; }
+.article-body li::marker { color: var(--lime-deep); }
+.article-body strong { font-weight: 700; color: var(--text); }
+.article-body a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); transition: background 0.2s, border-color 0.2s; }
+.article-body a:hover { background: var(--lime-tint); border-color: var(--lime-deep); }
+.article-body hr { border: none; height: 1px; background: var(--border-strong); margin: 2.85rem 0; }
+
+.callout { display: flex; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--lime-tint); border: 1px solid var(--lime-line); border-left: 3px solid var(--lime-deep); border-radius: 12px; margin: 2rem 0; font-family: var(--body); font-size: 1rem; line-height: 1.6; color: var(--text-dim); }
+.callout strong { color: var(--text); }
+.callout-mark { font-family: var(--display); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0; padding-top: 0.2rem; }
+.callout-sand { background: rgba(198,31,147,.08); border-color: rgba(198,31,147,.28); border-left-color: var(--pink); }
+.callout-sand .callout-mark { color: var(--pink); }
+.callout a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); }
+
+.article-end { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.article-end-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.article-end-share { font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+.faq { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); position: relative; z-index: 2; border-top: 1px solid var(--border); }
+.faq .section-head { margin-bottom: 2rem; }
+.faq-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-family: var(--display); font-weight: 700; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--text); margin: 0 0 0.7rem; }
+.faq-a { font-family: var(--body); font-weight: 400; font-size: 1.08rem; line-height: 1.7; color: var(--text-dim); margin: 0; }
+.related { max-width: 1080px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); position: relative; z-index: 2; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 1.5rem; }
+@media (max-width: 760px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA band (to dugong.live) — mirrors the site's final card ---- */
+.cta-band { position: relative; z-index: 2; max-width: var(--maxw); margin: clamp(2.5rem,6vw,4.5rem) auto; padding: 0 var(--gutter); }
+.cta-band-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  padding: clamp(2.25rem,4vw,3.25rem) clamp(1.75rem,4vw,3.25rem);
+  border-radius: 26px; border: 1px solid var(--lime-line);
+  background: linear-gradient(135deg, rgba(198,254,30,.4), rgba(198,254,30,.12));
+  position: relative; overflow: hidden;
+}
+.cta-band-inner::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(198,254,30,.7), transparent 70%); top: -160px; right: -90px; pointer-events: none; }
+.cta-band-copy { max-width: 32em; position: relative; }
+.cta-eyebrow { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 0.7rem; display: block; }
+.cta-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem,3.4vw,2.5rem); line-height: 1.05; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.55rem; }
+.cta-title em { font-style: normal; color: var(--text-faint); }
+.cta-sub { font-size: 1rem; line-height: 1.55; color: var(--text-dim); }
+.cta-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; position: relative; }
+.cta-band .btn-primary { background: #11110e; color: #fff !important; border-color: #11110e; }
+.cta-band .btn-primary:hover { box-shadow: 0 12px 30px -10px rgba(15,15,12,.5); }
+.cta-fine { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.03em; color: var(--text-dim); }
+@media (max-width: 640px) { .cta-band-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+
+/* mobile: let highlighted title phrases wrap (nowrap em overflows small screens) */
+@media (max-width: 640px) {
+  .article-title em { white-space: normal; background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 96%, transparent 96%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .article-title em::after { display: none; }
+}
+
+/* ACCESSIBILITY */
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--lime-deep); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>&#9670; DISPATCH N&ordm; 104 &mdash; AUG 10, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+    <span>&#9670; DISPATCH N&ordm; 104 &mdash; AUG 10, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+  </div>
+</div>
+
+<header class="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+    <span class="brand-name">dugong</span>
+    <span class="brand-slash">/</span>
+    <span class="brand-section">field&nbsp;notes</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html#latest">Latest</a>
+    <a href="index.html#tags">Topics</a>
+    <a href="index.html#archive">Archive</a>
+    <a href="https://dugong.live" class="nav-cta">Try Dugong free &rarr;</a>
+  </nav>
+</header>
+<article class="article">
+
+  <a href="index.html" class="article-back">&larr; back to field notes</a>
+
+  <div class="article-meta">
+    <span class="tag tag-research">research</span>
+    <span style="color: var(--cream-dim);">DISPATCH N&ordm; 104</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">AUG 10, 2026</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">10 MIN READ</span>
+  </div>
+
+  <h1 class="article-title">
+    How to automate gift card delivery and reminders <em>on Shopify</em>
+  </h1>
+
+  <p class="article-dek">
+    A gift card is money inside an email, and Shopify never checks
+    whether the email landed, arrived on the right day, or got
+    spent. Here is where gift cards actually go after checkout, and
+    the playbook that walks every card from minted to redeemed.
+  </p>
+
+  <div class="article-byline">
+    <span class="byline-avatar" style="background: var(--gold);">PS</span>
+    <span class="byline-name">Priya Singh</span>
+    <span class="byline-divider">&middot;</span>
+    <span class="byline-role">Commerce Research, Dugong</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>
+      The order lands on a Tuesday at 9:41 pm: one digital gift
+      card, seventy five dollars, and a message in the recipient
+      form that says Happy 30th, Maya. Love, Dan. Dan has done
+      everything right. He typed his sister's email, wrote the
+      message, and picked September 12, her birthday, from the
+      little calendar. Then he paid the way he pays for everything,
+      with the express checkout button his phone offered, and that
+      one tap quietly undid the rest. Shopify's gift card recipient
+      form does not support accelerated checkout buttons. The card
+      mailed itself to Dan, immediately. The schedule never
+      existed.
+    </p>
+
+    <p>
+      Dan does not notice, because the email looks like a receipt
+      and receipts are for ignoring. September 12 comes and goes.
+      On the 14th, no thank-you text having arrived, he checks,
+      finds the code sitting in his own inbox under two weeks of
+      promotions, and writes the store a message with the word
+      unacceptable in it. The merchant opens the admin and finds
+      nothing wrong: order paid, card issued, notification sent,
+      every light green. The birthday was still missed, and of the
+      three people involved, the store was the only one who could
+      have known in time.
+    </p>
+
+    <p>
+      The <a href="https://en.wikipedia.org/wiki/Gift_card">gift
+      card</a> is the strangest product in your catalog. It costs
+      nothing to ship, carries no inventory, and is paid in full
+      before it exists. It is also the only product that is
+      entirely a promise: the customer hands you money, and what
+      they get is your obligation to hand it back later, as
+      merchandise, to someone you have usually never met. Bankrate
+      has measured how that promise ages. As of its 2024 survey, 43
+      percent of American adults were sitting on at least one
+      unused gift card or store credit, an average of $244 per
+      person, roughly $27 billion nationwide. A fifth of them have
+      let a card expire outright. Walmart and Starbucks each carry
+      more than a billion dollars of unspent card value on their
+      books. None of that money is missing. All of it is asleep.
+    </p>
+
+    <h2>An email with money inside</h2>
+
+    <p>
+      On Shopify, a sold gift card is a unique code inside a
+      notification email, and everything that goes wrong starts
+      with when and where that email travels. The when is gated by
+      fulfillment. By default, gift cards fulfill automatically the
+      moment the order is paid, and the email follows. But switch
+      your store to manual fulfillment and the card waits for a
+      human to click. And there is a quieter exception that catches
+      stores with all the right settings: when an order is flagged
+      medium or high risk, Shopify does not auto-fulfill the gift
+      cards in it. The help documentation says it plainly: gift
+      cards in that order aren't automatically fulfilled. The
+      caution is not wrong, because instant digital delivery makes
+      gift cards a favorite target for
+      <a href="how-to-stop-card-testing-attacks-on-shopify.html">stolen-card
+      fraud</a>. But the hold is silent. Your
+      <a href="how-to-handle-high-risk-orders-on-shopify.html">fraud
+      filter</a> can strand a birthday, and nothing anywhere will
+      say so.
+    </p>
+
+    <p>
+      The where has more trapdoors. The email reaches the recipient
+      only if the buyer filled in the recipient form, and the
+      recipient form is less a Shopify feature than a theme
+      feature. It arrived in v9.0.0 of Shopify's free Online Store
+      2.0 themes, lives in Dawn and the Horizon family, does not
+      exist on vintage themes, and even where it exists it is off
+      until someone finds the checkbox that activates it, Show
+      recipient information form for gift card products, inside the
+      Buy buttons block of the theme editor. No form, and every
+      gift card email goes to the buyer, who may or may not realize
+      that forwarding it is now their job.
+    </p>
+
+    <p>
+      Fill the form and two footnotes still apply. The first is
+      Dan's: the form's validation works only with the Add to Cart
+      flow, not with accelerated checkout buttons, so the buyer
+      most eager to pay is the one whose recipient details fall
+      off. The second is timing: the <code>Send on</code> date can
+      sit at most 90 days in the future, and scheduled cards go out
+      approximately between 4:00 am and 10:00 am in the purchasing
+      customer's timezone. The birthday email keys off the buyer's
+      clock, not the birthday. And underneath all of it run two
+      separate notification templates, New gift card for the
+      recipient and Gift card receipt for the buyer; customize
+      them, or carry customizations from before the recipient
+      feature existed, and the recipient fields can simply be
+      absent, along with the Add to Apple Wallet button that was
+      supposed to put the card somewhere it could not be lost.
+    </p>
+
+    <blockquote>
+      Shopify can mint money it cannot deliver, and remember money
+      it will never mention again.
+    </blockquote>
+
+    <div class="callout callout-sand">
+      <span class="callout-mark">&#9670; NOTE</span>
+      <span>
+        Three boundaries worth knowing before the next gift card
+        sells. Gift cards fulfill automatically on payment
+        <strong>except in medium and high risk orders</strong>,
+        which hold them silently. The recipient form is
+        <strong>theme-dependent</strong> (v9.0.0 of the free
+        themes and later), validates only through
+        <strong>Add to Cart</strong>, schedules at most
+        <strong>90 days</strong> ahead, and sends between
+        <strong>4:00 am and 10:00 am in the buyer's
+        timezone</strong>. And after creation the admin shows only
+        the <strong>last four characters</strong> of any code,
+        while <strong>Shopify Flow has no gift card
+        trigger</strong> of any kind.
+      </span>
+    </div>
+
+    <h2>Sent is not delivered</h2>
+
+    <p>
+      Search the community forums for gift card email not received
+      and settle in; the genre runs back years and always has the
+      same shape. A customer bought a card, the recipient has
+      nothing, and the admin says sent. Sent is the only state
+      Shopify has. There is no delivered, no bounced, no opened, no
+      landed in spam under a casino newsletter. A typo in the
+      recipient's email does not error; it mails seventy five
+      dollars to a stranger-shaped void and reports success.
+    </p>
+
+    <p>
+      The security model then removes the obvious repair. Once a
+      gift card is created, its full code is shown exactly once.
+      After that the admin displays only the last four characters,
+      and the API behaves the same way, returning the last
+      characters and nothing more, because a gift card code is
+      currency and Shopify treats reading it back as a hole. So you
+      cannot look the code up and paste it into an apologetic
+      email. What you can do is open Products, then Gift cards,
+      find the card, and click Resend gift card, which works, one
+      card at a time, provided you already know which card failed.
+      Nothing in the system will tell you which cards failed. The
+      store learns about a failed delivery from an angry human,
+      weeks later, on the exact day the failure was engineered to
+      hurt the most.
+    </p>
+
+    <h2>The $27 billion that never gets spent</h2>
+
+    <p>
+      The cards that do land enter a second silence. Shopify keeps
+      a perfect ledger of every card, its balance, its dates, its
+      remaining value, and volunteers none of it to anyone. There
+      are no balance reminders, no you-still-have-$43.50 note at
+      the six month mark, no warning as an expiry date approaches.
+      Expiry itself is a settings choice: under Settings, then
+      Payments, gift cards default to never expiring, because
+      expiring them is illegal in some countries, and if you set a
+      term the default is five years. That number is not
+      arbitrary: the US
+      <a href="https://en.wikipedia.org/wiki/Credit_CARD_Act_of_2009">CARD
+      Act of 2009</a> made five years the federal floor, several
+      states go further and ban expiration outright, and in many
+      states a balance that sits unredeemed long enough becomes
+      unclaimed property owed to the government, not kept by the
+      store.
+      <a href="https://en.wikipedia.org/wiki/Breakage">Breakage</a>,
+      the industry's word for money that will never be spent, shows
+      up in giant retailers' earnings as income. At your size it is
+      mostly a liability line with paperwork attached.
+    </p>
+
+    <p>
+      Which is why reminding is not charity. A gift card recipient
+      is usually a stranger to your store: someone else chose you
+      for them, and the redemption visit is the
+      <a href="how-to-segment-repeat-customers-on-shopify.html">first
+      visit</a>, the one where they decide what your brand is. A
+      card spent is a customer acquired at zero ad cost. A card
+      expired is a person who now remembers your brand as the small
+      theft at the bottom of a drawer. The $244 sitting with the
+      average American is not refusing to be spent. Nobody is
+      asking for it.
+    </p>
+
+    <p>
+      The automation gap has a precise shape. Shopify Flow, the
+      platform's own automation tool, has no gift card trigger:
+      nothing fires when a card is created, sent, redeemed, or
+      approaches its expiry date. What Flow does have, since the
+      Get data actions arrived, is Get gift card data, which can
+      query up to 100 cards at a time on a schedule and loop over
+      the results. The raw material for a reminder program sits one
+      query away. The program itself, the cadence, the copy, the
+      thresholds, the legal footnote per jurisdiction, exists
+      nowhere, because it was never going to ship as a checkbox.
+    </p>
+
+    <h2>What the automation actually has to do</h2>
+
+    <p>
+      None of this needs invention. It needs the job description of
+      a good concierge, executed every time: make sure the gift
+      arrives, on the day it was meant for, tell the giver it
+      landed, and never let the money be forgotten. As a Dugong
+      playbook, in plain prose:
+    </p>
+
+    <pre id="playbook"><code><span class="c"># trigger</span>
+<span class="k">On</span> every gift card, from the minute
+it is minted to the day it hits zero
+
+<span class="c"># steps</span>
+1. <span class="k">Watch</span> the send: fulfillment confirmed
+   within the hour, risk holds cleared
+   by a human the same day
+2. <span class="k">Verify</span> the landing: bounces caught,
+   missing recipients chased with one
+   question, resends in minutes
+3. <span class="k">Honor</span> the date: scheduled cards
+   queued to the recipient's morning,
+   buyer told when it lands
+4. <span class="k">Wake</span> the balance: nudge at 30 and
+   90 days unspent, balance and code
+   re-attached
+5. <span class="k">Warn</span> before the cliff: 60 and 14
+   days out, where expiry is set
+   and legal
+6. <span class="k">Rescue</span> the lost card: never-got-it
+   answered with a resend, same hour
+7. <span class="k">Report</span> monthly: liability, redemption
+   rate, aging cards, breakage named
+</code></pre>
+
+    <p>
+      Steps one and two are the chaperone Shopify never assigned. A
+      gift card order still unfulfilled an hour after payment is
+      either a settings problem or a risk hold, and a risk hold on
+      a gift card deserves a same-day human decision, because a
+      buyer is watching an inbox somewhere assuming the present is
+      on its way. The landing check is the part merchants assume
+      already exists: watch the notification actually leave, catch
+      the bounce or the dead address the day it happens, and when a
+      gift card order arrives through an express button with no
+      recipient attached and a message that plainly names one, hold
+      the send and ask the buyer a single question: was this meant
+      for someone else? Dan answers that question in one minute on
+      Tuesday night, or he writes the unacceptable email two weeks
+      later.
+    </p>
+
+    <p>
+      Steps three through five are the memory. If a date was
+      promised, queue the send yourself and aim it at the
+      recipient's own morning instead of trusting a window pinned
+      to the buyer's timezone, then tell the buyer the moment it
+      lands, because the giver's anxiety is the quiet churn risk in
+      the whole transaction. After that, remind: a nudge at 30 and
+      90 days of stillness with the balance stated and the code
+      re-attached so nobody digs through old email, and where an
+      expiry term is set and lawful, plain warnings at 60 and 14
+      days. Every reminder is your brand doing the recipient a
+      favor with someone else's money, which is the cheapest
+      goodwill in commerce.
+    </p>
+
+    <p>
+      Steps six and seven close the loop. She-never-got-it becomes
+      a resend and a warm reply inside the hour, instead of a
+      ticket that waits for Monday. And the monthly report carries
+      the numbers this pipeline exists to move: total outstanding
+      balance, redemption rate, cards aging toward expiry, and
+      breakage named per month, routed to whoever does your books,
+      because an auditor asking about unclaimed property is the
+      expensive way to learn the word escheatment.
+    </p>
+
+    <h2>Why this is a compiler problem, not an app problem</h2>
+
+    <p>
+      Gift card apps are real products, and the good ones run the
+      storefront half well: designs, denominations, bulk issuance,
+      greeting videos, their own scheduling stacks. But follow the
+      card past the purchase and the failure tail runs through
+      systems no app owns end to end: your risk tolerance on held
+      orders, your email domain's deliverability, your theme's
+      checkout quirks, your states' unclaimed property rules, your
+      accountant's calendar. That is not a settings page. It is a
+      paragraph of judgment, and it is different at every store,
+      which is the argument behind
+      <a href="best-shopify-automations-to-set-up.html">the
+      automations no one builds</a>: the paragraph should compile
+      into the workflow, instead of being shaved down until it fits
+      the checkboxes an app happened to ship.
+    </p>
+
+    <p>
+      Run Dan's Tuesday again with the paragraph compiled. The
+      order lands at 9:41 with a gift card, no recipient attached,
+      and a message that names a Maya. The playbook holds the send
+      and asks Dan one question by reply. Recipient repaired by
+      9:52, card queued for the morning of September 12 on Maya's
+      clock, Dan notified the moment it lands. Maya redeems on the
+      13th, a $75 card against a $112 basket, her first order at a
+      store she had never heard of two days earlier. Nobody opened
+      the admin. Nothing happened on the 14th, because there was
+      nothing to find out.
+    </p>
+
+    <hr />
+
+    <h2>The workflow worth building this week</h2>
+
+    <p>
+      Start with an hour of honesty. Open Products, then Gift
+      cards, and export everything. Three numbers matter: the total
+      outstanding balance, which is the size of the interest-free
+      loan your customers have made you and the liability your
+      books should already carry; the count of cards with balance
+      and no movement in six months; and the count inside 90 days
+      of any expiry you set years ago and forgot. Then place two
+      test orders for your own card: one through Add to Cart with
+      the recipient form filled in, one through the express
+      button. Watch which inbox each email reaches. Most stores
+      learn something from the second test that they are glad to
+      have learned on purpose.
+    </p>
+
+    <p>
+      Then run the playbook in draft mode for two weeks: let it
+      flag the unfulfilled cards, catch the bounces, draft every
+      nudge and resend, and send nothing. You are auditing its
+      judgment against yours. Does it hold the send you would
+      hold, ask the question you would ask, word the reminder the
+      way you would say it. When its calls match yours, let the
+      clean paths run and keep the risk holds and the odd ones for
+      a human, which is where they belonged all along.
+    </p>
+
+    <p>
+      Then say the brief out loud, the way you would hand gift
+      cards to a new hire. Watch every card from the minute it is
+      minted. Make sure it lands where it was aimed, on the day it
+      was meant for, and tell the giver. Nudge sleeping balances
+      at 30 and 90 days, warn before anything expires, resend
+      within minutes when someone asks, and show me the liability
+      once a month. That is the whole paragraph. The compiler
+      turns it into the workflow, and the drawer where $27 billion
+      currently sleeps stays, for your store at least, empty.
+    </p>
+
+    <div class="callout">
+      <span class="callout-mark">&#9670; READING</span>
+      <span>
+        Two companion pieces if this one landed:
+        <a href="how-to-handle-high-risk-orders-on-shopify.html">the
+        high-risk flag that makes you guess</a>, on the risk
+        analysis that quietly holds gift cards, and
+        <a href="how-to-stop-card-testing-attacks-on-shopify.html">the
+        card-testing attack that floods your store</a>, on why
+        fraud tools watch gift cards so closely in the first
+        place.
+      </span>
+    </div>
+
+    <p>
+      If you are a Shopify merchant with a gift card horror story,
+      a support inbox that fills every January with where-is-my-card
+      emails, or a balance ledger you have never once looked at,
+      the inbox is open: <code>field-notes@dugong.live</code>. We
+      are collecting case studies for the next issue.
+    </p>
+
+  </div>
+
+  <div class="article-end">
+    <div class="article-end-tags">
+      <span class="tag tag-research">research</span>
+      <span class="tag tag-essay">essay</span>
+    </div>
+    <span class="article-end-share">share &middot; copy link &middot; &#10022;</span>
+  </div>
+
+</article>
+
+
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="section-head">
+    <span class="section-eyebrow" id="faq-heading">&#9670; COMMON QUESTIONS</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h2 class="faq-q">Why didn't my customer receive their Shopify gift card email?</h2>
+      <p class="faq-a">Work through four suspects in order. First, fulfillment: the gift card email goes out when the card is fulfilled, and while gift cards fulfill automatically on payment by default, a store switched to manual fulfillment leaves the card waiting for a click, and medium and high risk orders skip automatic gift card fulfillment entirely, so a fraud flag can hold the send in silence. Second, the recipient form: unless your theme supports the form, it is activated in the theme editor, and the buyer filled it in through the standard Add to Cart flow, the card goes to the purchaser rather than the recipient, and accelerated checkout buttons bypass the form's validation altogether. Third, the address itself: a typo in the recipient email neither errors nor bounces anywhere you can see, because the admin has no delivered or bounced state, only sent. Fourth, spam. The repair is the Resend gift card button on the card's page under Products, then Gift cards, and since the admin shows only the last four characters of any code after creation, resending is the only repair there is.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Can customers schedule a Shopify gift card to send on a specific date?</h2>
+      <p class="faq-a">Yes, within boundaries worth knowing before you promise anyone a birthday. The recipient form's optional Send on date schedules a card at most 90 days in the future, and scheduled cards go out approximately between 4:00 am and 10:00 am in the purchasing customer's timezone, so the delivery morning keys off the buyer's clock unless the theme passes the recipient's timezone offset along. The form itself is a theme feature: it arrived in v9.0.0 of Shopify's free Online Store 2.0 themes, lives in Dawn and the Horizon family, does not exist on vintage themes, and stays off until the Show recipient information form for gift card products checkbox is enabled in the Buy buttons block. And the form's validation supports only the Add to Cart flow, so a buyer who pays with an accelerated checkout button can lose the recipient details, in which case the card sends immediately to the buyer and no schedule exists. If a specific date genuinely matters, an automation that queues the send itself and confirms to the buyer when the card lands is the only version of the promise you fully control.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Do Shopify gift cards expire, and should you set an expiry?</h2>
+      <p class="faq-a">By default Shopify gift cards never expire, and the setting lives under Settings, then Payments, in the Default expiration section. If you switch expiry on, the default term is five years, which matches the floor the US CARD Act of 2009 sets for how quickly gift card funds can expire; several states are stricter, some ban gift card expiration outright, and in many states balances that sit unredeemed long enough become unclaimed property owed to the state rather than kept by the store, so check the rules everywhere you sell before touching the setting. The better question is what happens before any expiry: Shopify sends no balance reminders and no expiry warnings, and Bankrate's survey work counts about $27 billion of unused gift card value held by 43 percent of American adults, an average of $244 per person. A reminded card gets spent, and a spent card is usually a new customer's first visit to your store; an expired card is a small grudge with your brand's name on it. Remind first, and treat expiry as a legal detail rather than a revenue plan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="section-head">
+    <span class="section-eyebrow">&#9670; READ NEXT</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="related-grid">
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that says delivered but never arrived</h3>
+        <p class="card-dek">
+          Tracking says delivered, the porch says nothing, and the refund is on you. The AI playbook that pulls carrier proof, runs the 48 hour play, and decides with evidence.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 7</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-capture-payments-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The payment that expires before you capture it</h3>
+        <p class="card-dek">
+          Authorized is not paid: Shopify gives you 7 days to capture before the hold expires. The AI playbook that captures every order before the clock runs out.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 3</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-follow-up-on-unpaid-draft-orders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The quote that goes quiet</h3>
+        <p class="card-dek">
+          Shopify sends one draft order invoice and never a reminder, so quotes die in silence. The AI playbook that follows up, answers, and retires stale quotes.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 3</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-sync-inventory-between-two-shopify-stores.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The last unit both your stores just sold</h3>
+        <p class="card-dek">
+          Two Shopify stores cannot share a shelf: no native sync, drifting counts, the same last unit sold twice. The AI playbook that ends the double-sell for good.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 3</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-let-customers-cancel-their-own-orders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancellation request that ships anyway</h3>
+        <p class="card-dek">
+          Shopify's new cancel button only files a request: nothing pauses, and the order ships anyway. The AI playbook that holds fulfillment and wins the race.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 2</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-clear-dead-stock-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The dead stock your dashboard never mentions</h3>
+        <p class="card-dek">
+          Shopify has no last-sold date, no aging alert, and no automatic markdowns, so dead stock sits until stocktake. The AI playbook that finds and clears it on time.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 1</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-handle-high-risk-orders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The high-risk flag that makes you guess</h3>
+        <p class="card-dek">
+          Shopify&rsquo;s &ldquo;high-risk&rdquo; flag is a blackbox coin-flip between a chargeback and a false decline. The AI playbook that investigates.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUN 6</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-stop-card-testing-attacks-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The card-testing attack that floods your store overnight</h3>
+        <p class="card-dek">
+          A bot runs stolen cards through your checkout in a flood of tiny orders overnight, and Shopify bills you a fee for every attempt. The AI playbook that reads the burst, cancels the junk, and shuts the source down.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUL 1</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark big"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+      <span class="foot-tag">field&nbsp;notes from the dugong research desk</span>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <span class="foot-h">read</span>
+        <a href="index.html">Latest</a>
+        <a href="index.html">Essays</a>
+        <a href="index.html">Post-mortems</a>
+        <a href="index.html">Interviews</a>
+      </div>
+      <div>
+        <span class="foot-h">product</span>
+        <a href="https://dugong.live">Dugong</a>
+        <a href="https://dugong.live">Pricing</a>
+        <a href="https://dugong.live">AI Engine</a>
+        <a href="https://dugong.live">Docs</a>
+      </div>
+      <div>
+        <span class="foot-h">company</span>
+        <a href="https://dugong.live">About</a>
+        <a href="https://dugong.live">Careers</a>
+        <a href="https://dugong.live">Privacy</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>&copy; 2026 Dugong AI Inc.</span>
+    <span>Set in Hanken Grotesk &amp; Inter. Made on a slow afternoon.</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".card, .section-head, .article-body p, .article-body h2, .article-body pre, .article-body .callout, .article-body blockquote")
+  .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes — RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-06-30" />
-    <meta property="article:modified_time" content="2026-06-30" />
+    <meta property="article:modified_time" content="2026-08-10" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to set up pre-orders on Shopify without holding in-stock items",
       "description": "A customer buys one in-stock item and one pre-order item in the same cart, and Shopify holds the whole order until the late one is ready, so the thing on your shelf sits there for weeks. Shopify has no real pre-order: the only native lever is a continue selling checkbox that shows a normal Add to Cart button, gives no expected ship date, and tags nothing, so the order arrives looking like any other and the customer never learns part of it is a pre-order. Nothing splits a mixed cart automatically, partial fulfillment is a manual step per order, and Flow cannot charge later, notify on restock, fulfill when stock lands, or turn selling back off when the run is gone. The AI playbook that ships what is ready now, labels and holds the pre-order line, keeps the customer informed, fulfills the moment stock arrives, and stops overselling on its own.",
       "datePublished": "2026-06-30",
-      "dateModified": "2026-06-30",
+      "dateModified": "2026-08-10",
       "articleSection": "Research",
       "keywords": "Shopify preorder, Shopify pre-order app, Shopify mixed cart preorder, preorder and in-stock items together, Shopify split order preorder, Shopify partial fulfillment preorder, Shopify continue selling when out of stock, Shopify backorder, Shopify oversold preorder, tag preorder orders, Shopify preorder ship date",
       "wordCount": 2586,
@@ -115,6 +115,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "No. Shopify Flow can react when an order is created, tag it, and send a notification, so you can use it to mark an order that contains an out-of-stock item. But Flow has no action that splits a mixed cart and fulfills only the in-stock lines, charges a held pre-order later, watches incoming inventory and fulfills the pre-order the moment it lands, emails the customer a real ship date, or turns the continue selling toggle back off when the run sells out so the store stops overselling. It can tell you a pre-order came in. It cannot run the pre-order from purchase to delivery, which is the part that actually takes the work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I ship the in-stock items now and the pre-order items later on Shopify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The mechanism is partial fulfillment, and it exists, but only as a manual step taken order by order: open the order, select the lines that are ready, ship just those, and leave the pre-order lines open. Shopify does not flag which orders need the split, does not tell the customer the order is arriving in two parts, and does not remember to come back to the open line when stock lands, so at launch volume the manual path becomes a spreadsheet of who is still waiting on what. The automated version runs the same motion continuously: label the pre-order lines with their promised window, fulfill the ready lines immediately, tell the customer what ships now and what ships later with a real date, then watch incoming stock and fulfill the held lines the day it arrives, oldest order first, updating anyone whose date slips."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the continue selling when out of stock setting safe to use for pre-orders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the only native lever, and it is a blunt one: permission to oversell with no tooling for the promise you just made. The shopper sees a normal Add to Cart button with no hint the item ships later, no expected ship date, and no deposit now with the balance later, and the order lands in the admin untagged, indistinguishable from an in-stock sale. The riskier end is the close of the run. The toggle does not turn itself off when stock arrives or when the incoming run is fully committed, so a store that forgets it keeps selling past the units it will actually receive, still silently, still untagged. That is how a controlled pre-order decays into plain overselling. If the toggle is doing the selling, something else has to do the labeling, the customer messaging, the split fulfillment, and the shutoff, because the checkbox does none of it."
           }
         }
       ]
@@ -898,6 +914,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">Can Shopify Flow manage pre-orders?</h2>
       <p class="faq-a">No. Shopify Flow can react when an order is created, tag it, and send a notification, so you can use it to mark an order that contains an out-of-stock item. But Flow has no action that splits a mixed cart and fulfills only the in-stock lines, charges a held pre-order later, watches incoming inventory and fulfills the pre-order the moment it lands, emails the customer a real ship date, or turns the continue selling toggle back off when the run sells out so the store stops overselling. It can tell you a pre-order came in. It cannot run the pre-order from purchase to delivery, which is the part that actually takes the work.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How do I ship the in-stock items now and the pre-order items later on Shopify?</h2>
+      <p class="faq-a">The mechanism is partial fulfillment, and it exists, but only as a manual step taken order by order: open the order, select the lines that are ready, ship just those, and leave the pre-order lines open. Shopify does not flag which orders need the split, does not tell the customer the order is arriving in two parts, and does not remember to come back to the open line when stock lands, so at launch volume the manual path becomes a spreadsheet of who is still waiting on what. The automated version runs the same motion continuously: label the pre-order lines with their promised window, fulfill the ready lines immediately, tell the customer what ships now and what ships later with a real date, then watch incoming stock and fulfill the held lines the day it arrives, oldest order first, updating anyone whose date slips.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Is the continue selling when out of stock setting safe to use for pre-orders?</h2>
+      <p class="faq-a">It is the only native lever, and it is a blunt one: permission to oversell with no tooling for the promise you just made. The shopper sees a normal Add to Cart button with no hint the item ships later, no expected ship date, and no deposit now with the balance later, and the order lands in the admin untagged, indistinguishable from an in-stock sale. The riskier end is the close of the run. The toggle does not turn itself off when stock arrives or when the incoming run is fully committed, so a store that forgets it keeps selling past the units it will actually receive, still silently, still untagged. That is how a controlled pre-order decays into plain overselling. If the toggle is doing the selling, something else has to do the labeling, the customer messaging, the split fulfillment, and the shutoff, because the checkbox does none of it.</p>
+    </div>
   </div>
 </section>
 
@@ -907,6 +931,74 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
 <a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
       <div class="card-body">
         <div class="post-meta">

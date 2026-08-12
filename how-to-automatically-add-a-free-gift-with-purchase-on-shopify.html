@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes — RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-07-08" />
-    <meta property="article:modified_time" content="2026-07-08" />
+    <meta property="article:modified_time" content="2026-08-12" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to automatically add a free gift to the cart on Shopify",
       "description": "You set up a spend seventy-five, get a free gift promotion, a customer crosses the threshold, and the free gift never appears in their cart, because a Shopify discount only reduces a price, it never adds the item to the cart. Buy X Get Y has no store-wide cart-value trigger, only fires on specific products or collections, supports one tier per discount, and will not stack under a larger automatic discount, so the gift you promised silently does not happen and the customer either checks out without it or emails asking where it went. Even with a gift app, the auto-add usually fires on the cart page, so a wallet button, a checkout permalink, or a jump straight to checkout skips it, and nothing pulls the gift back out when the cart drops under the threshold or reprices it when the qualifying item is removed. This is one of the most-repeated requests in Shopify merchant communities running promotions. The AI playbook that reads the cart in real time, decides the right gift by threshold, tier, and customer, adds it on every path into checkout, swaps or removes it when the cart changes, honors stock so it never gifts an item it cannot ship, tells the customer clearly, and holds the edge cases for a human.",
       "datePublished": "2026-07-08",
-      "dateModified": "2026-07-08",
+      "dateModified": "2026-08-12",
       "articleSection": "Research",
       "keywords": "Shopify free gift with purchase, Shopify auto add free gift to cart, Shopify buy x get y not adding to cart, Shopify gift with purchase threshold, Shopify free gift over amount, Shopify BOGO auto add, Shopify free gift app, Shopify cart value gift, Shopify automatic gift",
       "wordCount": 2461,
@@ -115,6 +115,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Because Buy X Get Y discounts the gift, it does not insert it. If the gift item is not already in the cart there is nothing for the discount to reduce, so nothing appears. On top of that, Shopify does not stack multiple discounts on the same item, so if a larger automatic discount is already applying, the gift can be ignored, and the native rule supports only one tier per discount. The gift showing up reliably, changing as the cart changes, and coming back out when the customer drops below the threshold is exactly the part Shopify leaves to you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the free gift missing when customers check out with Shop Pay or Apple Pay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the usual workaround lives on the cart page, and wallet checkouts never visit it. The common fix for the missing add-to-cart trigger is theme code that inserts the gift when the cart subtotal crosses the threshold. But a modern store has many doors into checkout that skip the cart page entirely: the Shop Pay, Apple Pay, and Google Pay buttons that jump straight from the product page, a buy-it-now button, a saved cart link, a checkout permalink shared in an email. A gift added by cart-page code is simply absent on every one of those paths, so the offer looks live in the admin and is quietly half-off in reality, excluding the wallet-button share of orders, which on many stores is large and growing. Delivering the gift on every path takes an automation that watches the cart itself, not code that decorates one page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a customer drops below the gift threshold after the gift is added?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On most setups, they keep the gift. The cart is not a one-way street: a customer who earned the gift can remove the qualifying item or change their mind and slide back under the threshold, and at that point the gift should come back out of the cart. Cart-page code that only ever adds is how a shopper walks away with a free item on a forty-dollar order that never qualified, and the margin leaks one gift at a time, invisibly, because nothing reports it. The rule has to run in both directions, placing the gift the instant the cart earns it and removing it the moment the cart stops qualifying, on every path to checkout. That two-way watch is exactly the part Shopify leaves to you, because a discount only prices the gift, it never manages the cart."
           }
         }
       ]
@@ -853,6 +869,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">Why does my Buy X Get Y free gift not show up in the cart?</h2>
       <p class="faq-a">Because Buy X Get Y discounts the gift, it does not insert it. If the gift item is not already in the cart there is nothing for the discount to reduce, so nothing appears. On top of that, Shopify does not stack multiple discounts on the same item, so if a larger automatic discount is already applying, the gift can be ignored, and the native rule supports only one tier per discount. The gift showing up reliably, changing as the cart changes, and coming back out when the customer drops below the threshold is exactly the part Shopify leaves to you.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Why is the free gift missing when customers check out with Shop Pay or Apple Pay?</h2>
+      <p class="faq-a">Because the usual workaround lives on the cart page, and wallet checkouts never visit it. The common fix for the missing add-to-cart trigger is theme code that inserts the gift when the cart subtotal crosses the threshold. But a modern store has many doors into checkout that skip the cart page entirely: the Shop Pay, Apple Pay, and Google Pay buttons that jump straight from the product page, a buy-it-now button, a saved cart link, a checkout permalink shared in an email. A gift added by cart-page code is simply absent on every one of those paths, so the offer looks live in the admin and is quietly half-off in reality, excluding the wallet-button share of orders, which on many stores is large and growing. Delivering the gift on every path takes an automation that watches the cart itself, not code that decorates one page.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">What happens if a customer drops below the gift threshold after the gift is added?</h2>
+      <p class="faq-a">On most setups, they keep the gift. The cart is not a one-way street: a customer who earned the gift can remove the qualifying item or change their mind and slide back under the threshold, and at that point the gift should come back out of the cart. Cart-page code that only ever adds is how a shopper walks away with a free item on a forty-dollar order that never qualified, and the margin leaks one gift at a time, invisibly, because nothing reports it. The rule has to run in both directions, placing the gift the instant the cart earns it and removing it the moment the cart stops qualifying, on every path to checkout. That two-way watch is exactly the part Shopify leaves to you, because a discount only prices the gift, it never manages the cart.</p>
+    </div>
   </div>
 </section>
 
@@ -862,6 +886,74 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
 <a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
       <div class="card-body">
         <div class="post-meta">

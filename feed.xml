@@ -15,7 +15,47 @@
       <title>Dugong Field Notes</title>
       <link>https://blog.dugong.live/</link>
     </image>
-    <lastBuildDate>Fri, 07 Aug 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 13:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>How to catch pricing errors on Shopify before orders flood in</title>
+      <link>https://blog.dugong.live/how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Wed, 12 Aug 2026 13:00:00 +0000</pubDate>
+      <description>The bulk edit saves at 9:41 pm: two hundred prices updated ahead of a supplier increase, and somewhere around row 140 a walnut coffee table drops from $249 to $2.49. Shopify accepts it in a quarter second, asks nothing, and sells it all night, because a wrong price transacts at exactly the speed of a right one. The genre has a history. A pricing engine capped nearly everything on Zappos' sister site 6pm.com at $49.95 from midnight to 6 am in 2010 and cost over $1.6 million, honored in full. A repricer fault sent listings from about 2,000 Amazon UK sellers to a penny for roughly an hour in December 2014, sold one seller's 675 costumes at 1p each, and Amazon told merchants it could not cancel or reimburse what had already shipped. On Shopify every door into the price field is unlocked: the admin, the bulk editor, the CSV import where a regional decimal setting once turned a merchant's €16,99 into €1699,00 on a simple export and re-import, and every app with write scope, including the supplier sync that publishes a 0.00 price when the feed disconnects, which customers can then purchase, as one merchant reported in a thread that collected zero replies. Flow fires an event when inventory moves by one unit and nothing when a price moves by a hundred dollars: staff said in 2022 that the product updated trigger did not exist, and in 2024, plainer, that there is no Shopify event for price updated. There is no price history, no undo, and no record of who changed what. The AI playbook that snapshots the catalog, diffs every price write from every source, judges the change against your own rules, zero, below cost, past the threshold with no sale on the calendar, quarantines first and asks second, holds the orders that slipped in, and turns the worst morning in ecommerce into one message answered from the couch.</description>
+    </item>
+
+    <item>
+      <title>How to catch Shopify orders stuck in transit before your customer does</title>
+      <link>https://blog.dugong.live/how-to-catch-shopify-orders-stuck-in-transit.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-catch-shopify-orders-stuck-in-transit.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Wed, 12 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The order ships Wednesday morning: label bought in the admin, tracking emailed automatically, first scan at the regional hub that evening. Then nothing. No scan Thursday, none over the weekend, and by day six the only alert anyone has received is the customer asking whether her package is lost, which is also the first moment anyone at the store looks. Shopify never noticed, because every shipping signal it has fires on an event: a scan arrives and the status chip advances, an email goes out when the order ships, leaves for delivery, and lands, and the fulfillment event model even reserves a delayed status among its eleven. Nothing anywhere fires when events stop coming. If the carrier is not one Shopify recognizes, the order sits on Tracking added for the whole journey and nobody is told the silence is structural. Merchants have asked for the missing alert by name: a 2024 Shopify Plus community thread describes packages traveling two weeks with no tracking update, asks to tag and alert those orders after X days so action beats the complaint, and the staff reply concedes Flow would need you to store the state yourself or lean on Wait steps. Meanwhile the carrier clocks run from the ship date, not from the day you notice: USPS accepts a Missing Mail search seven days after mailing, UPS opens claims 24 hours after the scheduled delivery date passes and wants notice within 60 days, FedEx runs on a similar window, and Descartes found 67 percent of consumers hit a delivery problem in a single quarter and 63 percent of those punished the brand for it. The AI playbook that learns each lane's normal rhythm, flags the stall in days, tells the customer before they ask, opens the trace on the carrier's clock, files the claim inside the window, decides the reship, and reports the lanes that keep going quiet.</description>
+    </item>
+
+    <item>
+      <title>How to automate gift card delivery and reminders on Shopify</title>
+      <link>https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-automate-gift-card-delivery-and-reminders-on-shopify.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Mon, 10 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The order lands Tuesday at 9:41 pm: one $75 gift card, a message that says Happy 30th, Maya, and a send date picked for her birthday two weeks out. The buyer paid with an express checkout button, and that one tap quietly undid the rest, because Shopify's gift card recipient form does not support accelerated checkout: the card mailed itself to the buyer immediately, and the schedule never existed. Nobody finds out until two days after the birthday. Gift cards are the strangest product a store sells, paid in full before they exist, pure obligation afterward, and on Shopify everything after payment is one email and then silence. The email is gated by fulfillment, and gift cards in medium and high risk orders are not automatically fulfilled, so a fraud filter can strand a present without telling anyone. The recipient form is a theme feature, introduced in v9.0.0 of the free themes, missing from vintage ones, off until a checkbox is found in the Buy buttons block. Scheduled sends reach at most 90 days out and go approximately between 4:00 am and 10:00 am in the purchasing customer's timezone, not the recipient's. After creation the admin shows only the last four characters of the code, there is no delivered or bounced state, and no reminder machinery at all: Shopify Flow has no gift card trigger, and Bankrate counts about $27 billion of unspent card value sitting with 43 percent of American adults, an average of $244 each. The AI playbook that chaperones every card from minted to spent: confirms the send, catches the bounce, honors the date on the recipient's clock, wakes sleeping balances at 30 and 90 days, warns before expiry, resends in minutes, and reports the liability monthly.</description>
+    </item>
+
+    <item>
+      <title>How to automatically restock returns on Shopify</title>
+      <link>https://blog.dugong.live/how-to-automatically-restock-returns-on-shopify.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-automatically-restock-returns-on-shopify.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Sun, 09 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The cardigan comes back Thursday in perfect condition, the refund went out Tuesday, and the product page has said sold out for a week: the unit that ends the stockout is eleven feet from the door, in a bin nobody owns. Americans returned $890 billion of merchandise in 2024, roughly one online order in five comes back, and every one of those boxes has to cross a doorstep twice, but on Shopify the second crossing has no checkout: restocking is one checkbox inside the refund dialog, selected by default, that adds the unit straight back to available at the location that originally fulfilled the order, the same minute, with no arrival check, no condition step, and no memory if you skip it. Shopify Flow hears every return status you click and has no trigger for the box physically landing at your door, and the API has carried damaged and quality_control inventory states since August 2023 that the returns flow never touches. The AI playbook that watches the return label to your door, grades every box against your written policy, restocks sellable units where they actually sit, routes open-box to the outlet and damaged to the damaged state with shrinkage named, releases the refund the hour the grade clears, and reports the recovery rate every Friday.</description>
+    </item>
 
     <item>
       <title>How to handle delivered but not received claims on Shopify</title>
@@ -561,7 +601,7 @@
       <guid isPermaLink="true">https://blog.dugong.live/best-shopify-automations-to-set-up.html</guid>
       <dc:creator>Priya Singh</dc:creator>
       <category>Research</category>
-      <pubDate>Wed, 28 May 2026 09:00:00 +0000</pubDate>
+      <pubDate>Thu, 28 May 2026 09:00:00 +0000</pubDate>
       <description>A field study of 1,374 Shopify playbooks: tagging is 14% of automations, returns under 1%. The gap between what's easy to automate and what's worth automating.</description>
     </item>
 
@@ -571,7 +611,7 @@
       <guid isPermaLink="false">https://blog.dugong.live/#dispatch-47</guid>
       <dc:creator>Aanya Rao</dc:creator>
       <category>Research</category>
-      <pubDate>Wed, 28 May 2026 08:00:00 +0000</pubDate>
+      <pubDate>Thu, 28 May 2026 08:00:00 +0000</pubDate>
       <description>For fifteen years, workflow automation looked like a canvas of rectangles connected by lines. After watching three million runs across twelve thousand teams, we're convinced the canvas was always the problem.</description>
     </item>
 

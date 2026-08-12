@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes — RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-06-18" />
-    <meta property="article:modified_time" content="2026-06-18" />
+    <meta property="article:modified_time" content="2026-08-12" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to automatically tag orders on Shopify",
       "description": "Shopify Flow will tag an order when one simple condition is true, like a total over a threshold or a specific product in the cart. The real tagging job is never one condition: it is the product, the order value, the customer's history, the shipping destination, and the free-text line a buyer typed into the order note, all read together. So the tags that route fulfillment, fire downstream flows, and build customer segments still get set by hand, one order at a time, or split across a brittle stack of single-condition workflows. The AI playbook that reads the whole order, tags it from one clean vocabulary, backfills the orders that predate the rule, and never ships an invalid or near-duplicate tag.",
       "datePublished": "2026-06-18",
-      "dateModified": "2026-06-18",
+      "dateModified": "2026-08-12",
       "articleSection": "Research",
       "keywords": "Shopify order tags, auto tag orders, Shopify Flow order tagging, tag orders for fulfillment, order tagging automation, Shopify Flow multiple conditions, order tags invalid, tag orders by note",
       "wordCount": 1880,
@@ -114,6 +114,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Only in a limited way. Flow can reference note attributes and line item custom attributes inside a condition, so structured key-value data set at checkout can be used. What it cannot do is read a free-text order note the way a human does and decide what it means, so a buyer who types please ship before Friday or no invoice in the box is invisible to the rule. There is also a separate limit worth knowing: Shopify's Admin API does not let you change line item properties on an order that already exists, only order-level tags and notes, so anything you correct after the fact lives at the order level, not on the line."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Shopify order tags case-sensitive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Case-sensitive enough to break your reporting. Shopify will happily store vip, VIP, and Vip as three separate tags, and a segment or report built on one of them silently misses the orders carrying the other two, so a wholesale count or an email audience can be wrong without anything ever looking broken. The same looseness has a strict twin: a tag assembled from order data by an automation can be rejected outright for invalid characters or excess length, which surfaces as an order-tags-is-invalid error and a workflow that fails without telling anyone. The fix for both is the same discipline: one controlled vocabulary that every workflow and every human writes against, normalized before the tag is written, with no near-duplicate casings, no invalid characters, and nothing past the length limit. A tag is the wiring that routes orders and builds segments, and wiring needs standards."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I apply a new tagging rule to past Shopify orders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With a one-time backfill, and it is the step most tagging setups skip. A rule created today only fires on the orders that arrive after it, so every segment, report, and export built on the new tag is blind to your own history: the orders that predate the rule carry nothing, and any count built on the tag quietly undercounts. That matters because tags are not decoration, they are what fulfillment routing, other automations, marketing segments, and downstream tools like your email platform all read. The backfill is one pass over the older orders that applies the same plain-language rules and the same normalized vocabulary, written back at the order level through the API, touching nothing else on the order, with every tag logged alongside the reason it was applied. Run it once when the rule ships and your segments mean what they say from day one."
           }
         }
       ]
@@ -852,6 +868,14 @@ one-time backfill of past orders
       <h2 class="faq-q">Can Shopify Flow tag an order based on the order note or line item properties?</h2>
       <p class="faq-a">Only in a limited way. Flow can reference note attributes and line item custom attributes inside a condition, so structured key-value data set at checkout can be used. What it cannot do is read a free-text order note the way a human does and decide what it means, so a buyer who types please ship before Friday or no invoice in the box is invisible to the rule. There is also a separate limit worth knowing: Shopify's Admin API does not let you change line item properties on an order that already exists, only order-level tags and notes, so anything you correct after the fact lives at the order level, not on the line.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Are Shopify order tags case-sensitive?</h2>
+      <p class="faq-a">Case-sensitive enough to break your reporting. Shopify will happily store vip, VIP, and Vip as three separate tags, and a segment or report built on one of them silently misses the orders carrying the other two, so a wholesale count or an email audience can be wrong without anything ever looking broken. The same looseness has a strict twin: a tag assembled from order data by an automation can be rejected outright for invalid characters or excess length, which surfaces as an order-tags-is-invalid error and a workflow that fails without telling anyone. The fix for both is the same discipline: one controlled vocabulary that every workflow and every human writes against, normalized before the tag is written, with no near-duplicate casings, no invalid characters, and nothing past the length limit. A tag is the wiring that routes orders and builds segments, and wiring needs standards.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How do I apply a new tagging rule to past Shopify orders?</h2>
+      <p class="faq-a">With a one-time backfill, and it is the step most tagging setups skip. A rule created today only fires on the orders that arrive after it, so every segment, report, and export built on the new tag is blind to your own history: the orders that predate the rule carry nothing, and any count built on the tag quietly undercounts. That matters because tags are not decoration, they are what fulfillment routing, other automations, marketing segments, and downstream tools like your email platform all read. The backfill is one pass over the older orders that applies the same plain-language rules and the same normalized vocabulary, written back at the order level through the API, touching nothing else on the order, with every tag logged alongside the reason it was applied. Run it once when the rule ships and your segments mean what they say from day one.</p>
+    </div>
   </div>
 </section>
 
@@ -861,6 +885,74 @@ one-time backfill of past orders
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
 <a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
       <div class="card-body">
         <div class="post-meta">
