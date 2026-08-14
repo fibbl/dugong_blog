@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-08-03" />
-    <meta property="article:modified_time" content="2026-08-03" />
+    <meta property="article:modified_time" content="2026-08-13" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -53,7 +53,7 @@
       "headline": "How to sync inventory between two Shopify stores",
       "description": "At 9:41 on a Saturday night your retail store sells the last Meridian hoodie in medium, and seconds later your wholesale store sells it again. Neither store did anything wrong: two Shopify stores are two sealed inventories, and nothing native bridges them. Locations only work inside one store, Flow cannot cross accounts, and when merchants ask in community threads titled Can multiple Shopify websites share one inventory, the staff answer is a list of third-party apps. The apps match variants by SKU and sync on a delay, which is exactly where the trouble lives: blank SKUs miss silently, two-way loops have corrupted both catalogs, and the last-unit race happens inside the webhook window on the busiest weekend of the quarter. The AI playbook that treats sync as judgment instead of plumbing: match variants by SKU and report the blanks, pick one source of truth per SKU, mirror every change with the reason attached, hold the last units back from the mirrored store, read both orders when the race happens anyway and keep the one that matters more, pause during supplier feeds, and reconcile nightly with the drift named.",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-03",
+      "dateModified": "2026-08-13",
       "articleSection": "Research",
       "keywords": "sync inventory between two Shopify stores, multiple Shopify stores same inventory, share inventory between Shopify stores, multi store inventory sync Shopify, two Shopify stores one warehouse, Shopify multi store sync, wholesale and retail Shopify stores shared inventory, Shopify oversell two stores",
       "wordCount": 2310,
@@ -164,7 +164,9 @@
             "@type": "Answer",
             "text": "Audit SKUs first, mirror one way, and reconcile nightly. Sync tools match variants by SKU, so a blank or duplicated SKU becomes a silent miss or a wrong match; fix the catalog before wiring anything. Pick one store per SKU as the source of truth, usually the store attached to the physical shelf, and mirror changes outward instead of running two-way sync, which is how feedback loops corrupt both stores. Run the first two weeks in dry-run mode, where the automation reports what it would have changed and you check its arithmetic, then let the clear cases run and keep the odd ones for a human. Pause mirroring during bulk imports and supplier feed updates, and reconcile the full count nightly with a report naming the SKUs that keep drifting, because a sync that is quietly wrong is worse than no sync at all."
           }
-        }
+        },
+{"@type": "Question", "name": "How do I stop two Shopify stores from selling the same last unit?", "acceptedAnswer": {"@type": "Answer", "text": "With a buffer, because the double-sell is a policy problem before it is a speed problem: the final units of anything should be sellable in one place only. Holding two units back on the mirrored store means the wholesale site shows sold out while retail sells the last two at full margin, or the reverse if stockists are the priority, and which store wins the endgame is a decision about your business, which is exactly why no app ships it as a default. When the race happens inside the sync window anyway, a rule refunds whichever order arrived second, which on a bad night means refunding a stockist who reorders every quarter in favor of a first-time buyer an hour old. The better version weighs both orders, keeps the one the relationship says to keep, and sends the other customer an apology with a restock date inside the hour."}},
+{"@type": "Question", "name": "Should inventory sync keep running during a bulk import?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pause the mirror while bulk imports and supplier feeds run, and reconcile before it resumes, because the mirror itself can become the weapon: a supplier CSV that zeroes a column, imported into the source store with the mirror live, becomes two zeroed catalogs at machine speed. The app reviews document the neighboring failures, one sync that rewrote SKUs and zeroed inventory across the catalog, where the recovery was a full physical recount, and a two-way sync that kept firing after the app was uninstalled, pushing stale counts back and forth while collections quietly dropped out of view. The habit that keeps any mirror honest is the nightly count comparison with the drift reported each morning and the repeat offenders named, because a SKU that drifts weekly has a physical cause standing in your stockroom, not a software one."}}
       ]
     },
     {
@@ -955,6 +957,14 @@ refund, cancellation, restock, manual edit
       <h2 class="faq-q">What is the safest way to set up inventory sync between two Shopify stores?</h2>
       <p class="faq-a">Audit SKUs first, mirror one way, and reconcile nightly. Sync tools match variants by SKU, so a blank or duplicated SKU becomes a silent miss or a wrong match; fix the catalog before wiring anything. Pick one store per SKU as the source of truth, usually the store attached to the physical shelf, and mirror changes outward instead of running two-way sync, which is how feedback loops corrupt both stores. Run the first two weeks in dry-run mode, where the automation reports what it would have changed and you check its arithmetic, then let the clear cases run and keep the odd ones for a human. Pause mirroring during bulk imports and supplier feed updates, and reconcile the full count nightly with a report naming the SKUs that keep drifting, because a sync that is quietly wrong is worse than no sync at all.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How do I stop two Shopify stores from selling the same last unit?</h2>
+      <p class="faq-a">With a buffer, because the double-sell is a policy problem before it is a speed problem: the final units of anything should be sellable in one place only. Holding two units back on the mirrored store means the wholesale site shows sold out while retail sells the last two at full margin, or the reverse if stockists are the priority, and which store wins the endgame is a decision about your business, which is exactly why no app ships it as a default. When the race happens inside the sync window anyway, a rule refunds whichever order arrived second, which on a bad night means refunding a stockist who reorders every quarter in favor of a first-time buyer an hour old. The better version weighs both orders, keeps the one the relationship says to keep, and sends the other customer an apology with a restock date inside the hour.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Should inventory sync keep running during a bulk import?</h2>
+      <p class="faq-a">No. Pause the mirror while bulk imports and supplier feeds run, and reconcile before it resumes, because the mirror itself can become the weapon: a supplier CSV that zeroes a column, imported into the source store with the mirror live, becomes two zeroed catalogs at machine speed. The app reviews document the neighboring failures, one sync that rewrote SKUs and zeroed inventory across the catalog, where the recovery was a full physical recount, and a two-way sync that kept firing after the app was uninstalled, pushing stale counts back and forth while collections quietly dropped out of view. The habit that keeps any mirror honest is the nightly count comparison with the drift reported each morning and the repeat offenders named, because a SKU that drifts weekly has a physical cause standing in your stockroom, not a software one.</p>
+    </div>
   </div>
 </section>
 
@@ -964,6 +974,23 @@ refund, cancellation, restock, manual edit
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The parcel customs sends back</h3>
+        <p class="card-dek">
+          De minimis is gone, the EU followed, and every parcel now bills by the six digit code your catalog never carried. The AI playbook that classifies every variant and stops the doorstep surprise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 13</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+
 <a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
       <div class="card-body">
         <div class="post-meta">
