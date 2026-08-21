@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to stop fake customer accounts and spam signups on Shopify &mdash; Dugong Field Notes</title>
+<meta name="description" content="Fake customer accounts flood Shopify stores past every captcha, wrecking email reputation and analytics. The AI playbook that catches bots before they cost you." />
+<link rel="canonical" href="https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" />
+<meta name="author" content="Priya Singh" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="keywords" content="shopify fake customer accounts, stop spam customer signups shopify, shopify bot signups, fake newsletter subscribers shopify, delete spam customers shopify, shopify bot attack, fake abandoned checkouts shopify, shopify spam accounts klaviyo, shopify captcha not working, bot traffic shopify analytics, shopify customer list cleanup, AI bot detection shopify, shopify flow delete customer, Dugong" />
+<meta name="theme-color" content="#c6fe1e" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
+<meta property="article:published_time" content="2026-08-14" />
+    <meta property="article:modified_time" content="2026-08-15" />
+<meta property="article:author" content="Priya Singh" />
+<meta property="article:section" content="Research" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Dugong Field Notes" />
+<meta property="og:title" content="How to stop fake customer accounts and spam signups on Shopify" />
+<meta property="og:description" content="The count is there when you open the admin Monday morning: 340 new customers overnight, in a store that logged 19 sessions. The names are keyboard mash, the addresses repeat, and every one of them is subscribed to your newsletter. Merchants have been reporting this for years and are still reporting it now: a March 2024 thread describes hundreds and thousands of fake signups per week wrecking email marketing, and a May 2025 Shopify Plus thread maps the current wave, a bot running more than 18,000 rotating IPs with browser-identical headers, hitting storefront routes to corrupt analytics and backend endpoints to spam carts and mint accounts. The replies read like a casualty list: 1,000 fake accounts a day, 500 abandoned orders a day, domain reputation sliding as welcome emails fire at addresses that report them as spam. Captcha does not stop it: one merchant had both captcha settings enabled and called the result no difference, then hired Shopify Experts who could not prevent it either. Apps operate after the request has already hit Shopify's infrastructure, the fix lives at the WAF level only Shopify controls, and the platform points merchants back to apps. So merchants built their own defense out of Shopify Flow: rules that delete customers when the first name is empty or the address equals a known bot template, and one merchant wiped nearly 50,000 fake accounts that way. The rules work until the bot rotates: Flow matches exact strings, a stray comma breaks the match, every new address template needs a new rule, and the Shopify-to-Klaviyo sync can push a bot profile into your email list before the delete lands. Meanwhile the fallout compounds quietly: ESPs bill by profile count, abandoned cart flows email bots, sessions rise while conversion falls, and Performance Max reads the polluted data as a store that stopped converting and scales your reach down. The AI playbook that reads every new profile the way a merchant's eye does, scores it against the patterns bots cannot hide, quarantines it before the email sync, deletes with an audit trail, sweeps the backlog, alerts on signup storms, and reports what it caught weekly." />
+<meta property="og:url" content="https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" />
+<meta property="og:image" content="https://blog.dugong.live/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to stop fake customer accounts and spam signups on Shopify" />
+<meta name="twitter:description" content="Fake customer accounts flood Shopify stores past every captcha, wrecking email reputation and analytics. The AI playbook that catches bots before they cost you." />
+<meta name="twitter:image" content="https://blog.dugong.live/og-image.png" />
+    <meta name="twitter:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#article",
+      "isPartOf": {
+        "@id": "https://blog.dugong.live/#blog"
+      },
+      "mainEntityOfPage": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html",
+      "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html",
+      "headline": "How to stop fake customer accounts and spam signups on Shopify",
+      "description": "The count is there when you open the admin Monday morning: 340 new customers overnight, in a store that logged 19 sessions. The names are keyboard mash, the addresses repeat, and every one of them is subscribed to your newsletter. Merchants have been reporting this for years and are still reporting it now: a March 2024 thread describes hundreds and thousands of fake signups per week wrecking email marketing, and a May 2025 Shopify Plus thread maps the current wave, a bot running more than 18,000 rotating IPs with browser-identical headers, hitting storefront routes to corrupt analytics and backend endpoints to spam carts and mint accounts. The replies read like a casualty list: 1,000 fake accounts a day, 500 abandoned orders a day, domain reputation sliding as welcome emails fire at addresses that report them as spam. Captcha does not stop it: one merchant had both captcha settings enabled and called the result no difference, then hired Shopify Experts who could not prevent it either. Apps operate after the request has already hit Shopify's infrastructure, the fix lives at the WAF level only Shopify controls, and the platform points merchants back to apps. So merchants built their own defense out of Shopify Flow: rules that delete customers when the first name is empty or the address equals a known bot template, and one merchant wiped nearly 50,000 fake accounts that way. The rules work until the bot rotates: Flow matches exact strings, a stray comma breaks the match, every new address template needs a new rule, and the Shopify-to-Klaviyo sync can push a bot profile into your email list before the delete lands. Meanwhile the fallout compounds quietly: ESPs bill by profile count, abandoned cart flows email bots, sessions rise while conversion falls, and Performance Max reads the polluted data as a store that stopped converting and scales your reach down. The AI playbook that reads every new profile the way a merchant's eye does, scores it against the patterns bots cannot hide, quarantines it before the email sync, deletes with an audit trail, sweeps the backlog, alerts on signup storms, and reports what it caught weekly.",
+      "datePublished": "2026-08-14",
+      "dateModified": "2026-08-15",
+      "articleSection": "Research",
+      "keywords": "shopify fake customer accounts, spam customer signups, bot signups shopify, fake newsletter subscribers, delete spam customers, shopify bot attack, fake abandoned checkouts, captcha not working, customer list cleanup, AI bot detection",
+      "wordCount": 2600,
+      "timeRequired": "PT10M",
+      "inLanguage": "en",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.dugong.live/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Spambot",
+          "sameAs": "https://en.wikipedia.org/wiki/Spambot"
+        },
+        {
+          "@type": "Thing",
+          "name": "Email spam",
+          "sameAs": "https://en.wikipedia.org/wiki/Email_spam"
+        },
+        {
+          "@type": "Thing",
+          "name": "CAPTCHA",
+          "sameAs": "https://en.wikipedia.org/wiki/CAPTCHA"
+        },
+        {
+          "@type": "Thing",
+          "name": "Shopify",
+          "sameAs": "https://en.wikipedia.org/wiki/Shopify"
+        }
+      ],
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".article-title",
+          ".faq"
+        ]
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://blog.dugong.live/#priya-singh",
+        "name": "Priya Singh",
+        "jobTitle": "Commerce Research, Dugong",
+        "worksFor": {
+          "@id": "https://blog.dugong.live/#organization"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://blog.dugong.live/#organization",
+        "name": "Dugong",
+        "url": "https://dugong.live",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://blog.dugong.live/og-image.png",
+          "width": 1200,
+          "height": 630
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Field Notes",
+          "item": "https://blog.dugong.live/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The customer list the bots built",
+          "item": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is my Shopify store getting hundreds of fake customer signups?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because bots reach the account and newsletter endpoints directly, and nothing on the platform stops them. Merchants have documented waves of this for years: a March 2024 community thread describes hundreds to thousands of fake signups per week, and a May 2025 Shopify Plus thread maps a bot using more than 18,000 rotating IP addresses with browser-identical headers, hitting storefront pages to corrupt analytics and backend endpoints to spam carts and mint accounts. One reply reported 1,000 fake accounts a day, another 500 abandoned orders a day. The signups often appear on the account register route even when classic customer accounts are switched off, which is why removing the signup form from your theme does not end them. The motive hardly matters, list poisoning, competitor sabotage, or credential probing all look the same in your admin: a customer with a keyboard-mash name, a template address, zero sessions, zero orders, and a newsletter subscription. The practical consequence is that prevention is not fully in your hands, filtering happens at the web application firewall in front of Shopify's infrastructure, which only Shopify operates, so the merchant's working layer is containment: catching each fake profile the moment it is created and keeping it out of your email list."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does reCAPTCHA stop fake customer accounts on Shopify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not reliably. Shopify's captcha setting protects storefront forms, but merchants report the accounts keep coming with it enabled: one wrote in April 2025 that both captcha settings were on and it made no difference, and followed up in June that hired Shopify Experts could not prevent the signups either. The current wave of bots does not fill in your form like a person, it addresses Shopify's endpoints directly with rotating IPs and browser-identical headers, so the challenge never happens where the abuse does. Blocking apps hit the same wall: as the Plus merchant who documented the exploit put it, apps operate after the request has already hit Shopify's infrastructure, and the fix would have to land at the WAF level that only Shopify controls. Captcha and double opt-in are still worth enabling, they filter the crude bots and keep unconfirmed emails out of your marketing sends, and double opt-in in particular protects deliverability because a bot that never clicks confirm never becomes a contactable subscriber in most ESPs. But treat both as seatbelts, not as the fix. The merchants who got their stores back did it with detection and cleanup: identify the fake profiles fast, keep them out of the email sync, and delete them on a schedule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI detect and delete fake customer accounts on Shopify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and it closes the gap that defeated the hand-built rules. Merchants already run Shopify Flow automations that delete customers when the first name is empty or the address matches a known bot template, one merchant wiped nearly 50,000 fake accounts with five such rules. The weakness is that Flow matches exact strings: a stray comma breaks the condition, and every time the bot rotates its address template the rules go blind until someone writes a new one. Spotting a fake profile is a reading task, which is what a language model does well: keyboard-mash names, address templates with drifted house numbers, disposable email domains, a shipping city you have never sold to, an account with a newsletter subscription but no sessions and no orders, and a signup rate that jumped fifty-fold against the store's baseline. A model reads each new profile in context, scores it with a confidence and a reason, tags the confident fakes for deletion, and routes the ambiguous ones to a human. The two rules that keep it safe: quarantine the profile from your email platform before the sync can pick it up, and never silently delete a profile that has ever placed an order."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do fake customer accounts actually cost a Shopify store?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three bills, and none of them says bots on the invoice. The first is sender reputation: a November 2023 merchant watched his welcome automation fire at a wave of fake signups, several of which reported the email as spam, teaching mailbox providers that his store sends junk. Reputation burns fast and rebuilds slowly, and re-warming a list is a slow and painful process. The second is subscription cost: email platforms bill by profile count, so a few thousand ghosts on a Klaviyo tier is real money every month, paid to send nothing to nobody, while bot-abandoned carts trigger yet more automated sends. The third is the one merchants say radicalized them: the numbers stop meaning anything. Sessions rise while conversion falls, attribution scatters, and Performance Max reads a store that stopped converting and quietly scales reach down. As one merchant put it after months of cleanup, I just cannot trust our numbers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I keep fake Shopify signups out of my email list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Win the race between the signup and the sync. Deleting a fake profile in Shopify is not enough on its own, because the Shopify-to-Klaviyo sync can pick up a new profile before your cleanup runs, and your welcome email still fires at a ghost that no longer exists in the admin. The merchants who solved this push a bot marker into the email platform in the same breath the profile is scored, keep a standing quarantine segment there that no flow is allowed to touch, and only then delete in Shopify, in logged batches, never touching a profile that has ever placed an order. Keep double opt-in enabled as a seatbelt, since a bot that never clicks confirm never becomes a contactable subscriber in most ESPs. Then sweep the backlog, because the ghosts already on your list keep receiving sends and counting against billing until they are suppressed."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#howto",
+      "name": "The customer list the bots built",
+      "description": "The AI playbook for fake Shopify customer accounts: scoring every new profile against the patterns bots cannot hide, quarantining suspected fakes before the email platform sync, deleting confident fakes with an audit trail, alerting on signup storms against the store's baseline, sweeping the existing list for ghosts, restricting marketing flows to profiles scored human, and reporting list health weekly.",
+      "inLanguage": "en",
+      "totalTime": "PT10M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Score every new profile",
+          "text": "Name, address, email domain, geography, and session history read together, confidence attached",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Quarantine before the sync",
+          "text": "Suspected bots tagged and kept out of every marketing flow before the email platform picks them up",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Delete with an audit trail",
+          "text": "Confident fakes removed in logged batches, never a profile that has placed an order",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Watch the velocity",
+          "text": "Signup rate against the store's baseline, a storm pages a human instead of filling the list",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Sweep the backlog",
+          "text": "The existing list scored the same way, ghosts suppressed from billing and sends",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Guard the sends",
+          "text": "Welcome and abandoned cart flows fire only on profiles scored human",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Report weekly",
+          "text": "Caught, deleted, list health, and the storms that broke the baseline",
+          "url": "https://blog.dugong.live/how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html#playbook"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* =========================================================
+   DUGONG FIELD NOTES — matches dugong.live
+   Lime + warm off-white · Hanken Grotesk / Inter · easy to read
+   ========================================================= */
+
+:root {
+  --bg:           #f6f6f1;
+  --bg-2:         #ffffff;
+  --surface:      #ffffff;
+  --surface-2:    #fbfbf7;
+  --border:       rgba(15,15,12,.10);
+  --border-strong:rgba(15,15,12,.18);
+
+  --text:         #11110e;
+  --text-dim:     #56564e;
+  --text-faint:   #71716a;
+
+  --lime:         #c6fe1e;
+  --lime-deep:    #4f7000;
+  --lime-line:    rgba(168,224,0,.55);
+  --lime-tint:    rgba(198,254,30,.22);
+  --green:        #0a8f54;
+  --pink:         #c61f93;
+
+  /* legacy aliases so any stray var() still resolves */
+  --ink: var(--text); --ink-2: var(--text-dim); --muted: var(--text-dim);
+  --dim: var(--text-faint); --line: var(--border); --line-2: var(--border-strong);
+  --teal: var(--lime-deep); --sand: var(--pink);
+  --cream-dim: var(--text-dim); --gold: #b5882c;
+
+  --display: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --maxw:   1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+::selection { background: var(--lime); color: #11110e; }
+
+/* atmospheric background — lime glow + faint grid (from dugong.live) */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 78% -12%, rgba(198,254,30,.30), transparent 60%),
+    radial-gradient(720px 520px at 3% 8%, rgba(198,254,30,.12), transparent 58%);
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; opacity: .55; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15,15,12,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,15,12,.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+}
+.grain { display: none; }
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+em { font-style: italic; }
+
+/* ---- buttons (shared, dugong.live) ---- */
+.btn {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  border-radius: 10px; padding: 10px 18px;
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  border: 1px solid transparent; white-space: nowrap;
+  transition: transform .15s ease, background .2s, box-shadow .2s, border-color .2s;
+}
+.btn-primary { background: var(--lime); color: #11110e !important; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+.btn-ghost { background: var(--surface); color: var(--text) !important; border-color: var(--border-strong); }
+.btn-ghost:hover { background: #fff; transform: translateY(-1px); border-color: var(--text); }
+.btn-lg { padding: 14px 26px; font-size: 16px; border-radius: 12px; }
+
+/* TICKER */
+.ticker {
+  position: relative; z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: rgba(246,246,241,.6);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+  color: var(--text-faint); padding: 9px 0;
+}
+.ticker-track { display: inline-flex; white-space: nowrap; gap: 3rem; animation: ticker 55s linear infinite; }
+.ticker-track span { flex-shrink: 0; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0 var(--gutter); min-height: 66px;
+  background: rgba(246,246,241,.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 800; min-width: 0; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px; background: #11110e;
+  display: inline-grid; place-items: center; flex: none; color: #fff; font-size: 0;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark.big { width: 40px; height: 40px; border-radius: 11px; }
+.brand-mark.big svg { width: 24px; height: 24px; }
+.brand-name { font-size: 21px; letter-spacing: -0.02em; color: var(--text); }
+.brand-slash { color: var(--text-faint); font-size: 18px; font-weight: 500; }
+.brand-section { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em; color: var(--text-dim); text-transform: lowercase; font-weight: 400; }
+
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: var(--text-dim); font-family: var(--body); }
+.nav-links a { color: var(--text-dim); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  background: var(--lime); color: #11110e !important;
+  border: 1px solid var(--lime); padding: 10px 18px; border-radius: 10px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: transform .15s ease, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+@media (max-width: 820px) { .nav-links a:not(.nav-cta) { display: none; } }
+@media (max-width: 480px) {
+  .brand-slash, .brand-section { display: none; }
+  .nav-cta { font-size: 12.5px; padding: 8px 12px; }
+}
+@media (max-width: 360px) {
+  .nav-cta { font-size: 11.5px; padding: 7px 10px; }
+}
+
+/* SECTION HEAD */
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; flex-wrap: wrap; }
+.section-eyebrow {
+  font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em;
+  color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0;
+}
+.section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-strong), transparent); min-width: 40px; }
+
+.post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+
+.tag {
+  font-family: var(--display); font-weight: 700;
+  padding: 0.28rem 0.65rem; border-radius: 100px;
+  font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--lime-tint); color: var(--lime-deep); border: 1px solid var(--lime-line);
+}
+.tag-research   { background: var(--lime-tint); color: var(--lime-deep); border-color: var(--lime-line); }
+.tag-essay      { background: rgba(10,143,84,.12); color: var(--green); border-color: rgba(10,143,84,.30); }
+.tag-postmortem { background: rgba(198,31,147,.10); color: var(--pink); border-color: rgba(198,31,147,.30); }
+.tag-tactics    { background: #11110e; color: #fff; border-color: #11110e; }
+.tag-interview  { background: var(--surface); color: var(--text-dim); border-color: var(--border-strong); }
+.post-read { color: var(--text-faint); text-transform: uppercase; }
+
+/* GRID (for related cards) */
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+.card:hover { transform: translateY(-3px); border-color: var(--lime-line); box-shadow: 0 16px 40px -30px rgba(15,15,12,.4); }
+.card:hover .card-title { color: var(--lime-deep); }
+.card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-title { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.7rem; transition: color 0.25s; }
+.card-dek { font-family: var(--body); font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 1.2rem; flex: 1; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+.card-date { color: var(--text-faint); }
+.card-author { color: var(--text-dim); }
+
+/* FOOTER */
+.foot { position: relative; z-index: 2; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--border); background: var(--surface-2); }
+.foot-top { display: grid; grid-template-columns: 1.4fr 2fr; gap: clamp(2rem, 5vw, 5rem); max-width: var(--maxw); margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem; }
+@media (max-width: 760px) { .foot-top { grid-template-columns: 1fr; } }
+.foot-brand { display: flex; flex-direction: column; gap: 1rem; }
+.foot-tag { font-family: var(--body); font-weight: 400; font-size: 0.95rem; color: var(--text-dim); max-width: 22em; line-height: 1.45; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 560px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.25rem; } }
+@media (max-width: 340px) { .foot-cols { grid-template-columns: 1fr; } }
+.foot-cols > div { display: flex; flex-direction: column; gap: 0.55rem; }
+.foot-h { font-family: var(--display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.foot-cols a { font-family: var(--body); font-size: 0.92rem; color: var(--text-dim); transition: color 0.2s; }
+.foot-cols a:hover { color: var(--lime-deep); }
+.foot-bot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: var(--maxw); margin: 0 auto; padding: 1.5rem var(--gutter); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--text-faint); }
+
+/* POST PAGE */
+.article { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+.article-back { font-family: var(--display); font-weight: 600; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 2.5rem; display: inline-block; }
+.article-back:hover { color: var(--lime-deep); }
+.article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.4rem; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em; flex-wrap: wrap; }
+.article-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.035em; color: var(--text); margin-bottom: 1.35rem; }
+.article-title em { font-style: normal; position: relative; white-space: nowrap; color: var(--text); }
+.article-title em::after { content: ""; position: absolute; left: -.06em; right: -.06em; bottom: .06em; height: .32em; background: var(--lime); z-index: -1; border-radius: 3px; transform: rotate(-.5deg); }
+.article-dek { font-family: var(--body); font-weight: 400; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.55; color: var(--text-dim); margin-bottom: 2.25rem; }
+.article-byline { display: flex; align-items: center; gap: 0.75rem; padding: 1.2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.75rem; font-family: var(--mono); font-size: 0.85rem; }
+.byline-avatar { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 0.68rem; font-weight: 700; color: #fff; letter-spacing: 0; }
+.byline-name { color: var(--text); font-family: var(--display); font-weight: 600; }
+.byline-divider { color: var(--border-strong); }
+.byline-role { color: var(--text-faint); }
+
+.article-body { font-family: var(--body); font-weight: 400; font-size: 1.2rem; line-height: 1.8; color: var(--text); }
+.article-body p { margin-bottom: 1.5rem; }
+.article-body h2 { font-family: var(--display); font-weight: 800; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.03em; margin: 2.85rem 0 1.1rem; color: var(--text); }
+.article-body h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.02em; margin: 2.25rem 0 0.9rem; color: var(--text); }
+.article-body blockquote { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.4; letter-spacing: -0.02em; padding: 0.3rem 0 0.3rem 1.5rem; border-left: 4px solid var(--lime); margin: 2rem 0; color: var(--text); }
+.article-body blockquote em { font-style: normal; color: var(--text-faint); }
+.article-body code { font-family: var(--mono); font-size: 0.88em; background: var(--lime-tint); padding: 0.12em 0.4em; border-radius: 5px; color: var(--lime-deep); }
+.article-body pre { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 1.25rem; margin: 2rem 0; overflow-x: auto; font-family: var(--mono); font-size: 0.86rem; line-height: 1.65; color: var(--text-dim); }
+
+@media (max-width: 560px) {
+  .article-body pre { font-size: 0.74rem; padding: 1rem; white-space: pre-wrap; overflow-wrap: break-word; }
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body pre .k { color: var(--lime-deep); font-weight: 600; }
+.article-body pre .s { color: var(--pink); }
+.article-body pre .c { color: var(--text-faint); font-style: italic; }
+.article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.4rem; }
+.article-body li { margin-bottom: 0.65rem; padding-left: 0.25rem; }
+.article-body li::marker { color: var(--lime-deep); }
+.article-body strong { font-weight: 700; color: var(--text); }
+.article-body a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); transition: background 0.2s, border-color 0.2s; }
+.article-body a:hover { background: var(--lime-tint); border-color: var(--lime-deep); }
+.article-body hr { border: none; height: 1px; background: var(--border-strong); margin: 2.85rem 0; }
+
+.callout { display: flex; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--lime-tint); border: 1px solid var(--lime-line); border-left: 3px solid var(--lime-deep); border-radius: 12px; margin: 2rem 0; font-family: var(--body); font-size: 1rem; line-height: 1.6; color: var(--text-dim); }
+.callout strong { color: var(--text); }
+.callout-mark { font-family: var(--display); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0; padding-top: 0.2rem; }
+.callout-sand { background: rgba(198,31,147,.08); border-color: rgba(198,31,147,.28); border-left-color: var(--pink); }
+.callout-sand .callout-mark { color: var(--pink); }
+.callout a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); }
+
+.article-end { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.article-end-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.article-end-share { font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+.faq { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); position: relative; z-index: 2; border-top: 1px solid var(--border); }
+.faq .section-head { margin-bottom: 2rem; }
+.faq-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-family: var(--display); font-weight: 700; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--text); margin: 0 0 0.7rem; }
+.faq-a { font-family: var(--body); font-weight: 400; font-size: 1.08rem; line-height: 1.7; color: var(--text-dim); margin: 0; }
+.related { max-width: 1080px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); position: relative; z-index: 2; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 1.5rem; }
+@media (max-width: 760px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA band (to dugong.live) — mirrors the site's final card ---- */
+.cta-band { position: relative; z-index: 2; max-width: var(--maxw); margin: clamp(2.5rem,6vw,4.5rem) auto; padding: 0 var(--gutter); }
+.cta-band-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  padding: clamp(2.25rem,4vw,3.25rem) clamp(1.75rem,4vw,3.25rem);
+  border-radius: 26px; border: 1px solid var(--lime-line);
+  background: linear-gradient(135deg, rgba(198,254,30,.4), rgba(198,254,30,.12));
+  position: relative; overflow: hidden;
+}
+.cta-band-inner::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(198,254,30,.7), transparent 70%); top: -160px; right: -90px; pointer-events: none; }
+.cta-band-copy { max-width: 32em; position: relative; }
+.cta-eyebrow { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 0.7rem; display: block; }
+.cta-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem,3.4vw,2.5rem); line-height: 1.05; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.55rem; }
+.cta-title em { font-style: normal; color: var(--text-faint); }
+.cta-sub { font-size: 1rem; line-height: 1.55; color: var(--text-dim); }
+.cta-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; position: relative; }
+.cta-band .btn-primary { background: #11110e; color: #fff !important; border-color: #11110e; }
+.cta-band .btn-primary:hover { box-shadow: 0 12px 30px -10px rgba(15,15,12,.5); }
+.cta-fine { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.03em; color: var(--text-dim); }
+@media (max-width: 640px) { .cta-band-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+
+/* mobile: let highlighted title phrases wrap (nowrap em overflows small screens) */
+@media (max-width: 640px) {
+  .article-title em { white-space: normal; background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 96%, transparent 96%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .article-title em::after { display: none; }
+}
+
+/* ACCESSIBILITY */
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--lime-deep); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>&#9670; DISPATCH N&ordm; 108 &mdash; AUG 14, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+    <span>&#9670; DISPATCH N&ordm; 108 &mdash; AUG 14, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+  </div>
+</div>
+
+<header class="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+    <span class="brand-name">dugong</span>
+    <span class="brand-slash">/</span>
+    <span class="brand-section">field&nbsp;notes</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html#latest">Latest</a>
+    <a href="index.html#tags">Topics</a>
+    <a href="index.html#archive">Archive</a>
+    <a href="https://dugong.live" class="nav-cta">Try Dugong free &rarr;</a>
+  </nav>
+</header>
+<article class="article">
+
+  <a href="index.html" class="article-back">&larr; back to field notes</a>
+
+  <div class="article-meta">
+    <span class="tag tag-research">research</span>
+    <span style="color: var(--cream-dim);">DISPATCH N&ordm; 108</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">AUG 14, 2026</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">10 MIN READ</span>
+  </div>
+
+  <h1 class="article-title">
+    How to stop <em>fake customer accounts</em> and spam signups on Shopify
+  </h1>
+
+  <p class="article-dek">
+    Captcha is on, double opt-in is on, and the fake accounts keep coming: gibberish names, template addresses, every one of them subscribed to your newsletter. Prevention lives at a layer only Shopify controls. Containment does not. Here is what the bots actually cost, why exact-match Flow rules keep losing, and the playbook that reads every new profile before it reaches your email list.
+  </p>
+
+  <div class="article-byline">
+    <span class="byline-avatar" style="background: var(--gold);">PS</span>
+    <span class="byline-name">Priya Singh</span>
+    <span class="byline-divider">&middot;</span>
+    <span class="byline-role">Commerce Research, Dugong</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>
+      The count is there when you open the admin Monday at 6:12
+      am: 340 new customers overnight. It would be the best night
+      in the store's history except that analytics logged 19
+      sessions, the first names read like a cat crossed the
+      keyboard, four addresses repeat a few hundred times with
+      the house number drifting, and every single profile arrived
+      subscribed to your newsletter.
+    </p>
+
+    <p>
+      This is not a new problem having a moment. It is an old
+      problem that never got fixed. A community thread asking how
+      to stop spam bots signing up for accounts has been
+      collecting replies for years and sat at 3,107 views with
+      activity as recent as May 2025. In March 2024 a merchant
+      opened a thread titled 1000s of fake customer account sign
+      ups, all caps, saying they were getting flooded with
+      hundreds and thousands of fake signups a week, that it was
+      completely messing up their email marketing, and that they
+      had already torn the newsletter form out of their theme
+      without effect. The replies said what replies always say:
+      turn on captcha, turn on double opt-in.
+    </p>
+
+    <p>
+      Then in April 2025 a merchant posted the follow-up the
+      genre had been waiting for: both captcha settings enabled,
+      and it made no difference. Two months later, the same
+      merchant again: these solutions do not work, I have hired
+      Shopify Experts and they cannot prevent this either.
+    </p>
+
+    <h2>The signup nothing stops</h2>
+
+    <p>
+      To understand why the standard advice fails, read the
+      thread that finally mapped the thing. In May 2025 a Shopify
+      Plus merchant documented what they called a platform-wide
+      exploit: a bot running on more than 18,000 rotating IP
+      addresses, presenting browser-identical user agents and
+      headers, hitting storefront pages to corrupt sessions and
+      attribution, then addressing Shopify's backend endpoints
+      directly to spam carts and mint accounts. Because the
+      requests never touch your theme's form, the captcha
+      challenge never happens where the abuse does. One merchant
+      in an earlier wave noticed signups appearing on the account
+      register route while classic customer accounts were
+      switched off entirely, which tells you how little the
+      storefront has to do with it.
+    </p>
+
+    <p>
+      The same thread explains why apps cannot save you, in one
+      of the more clarifying sentences the genre has produced:
+      apps operate after the request hits Shopify's
+      infrastructure. Blocking traffic before it reaches the
+      platform happens at the web application firewall, and the
+      WAF belongs to Shopify, not to you and not to any app in
+      the store. The merchants escalated with that exact
+      argument, and reported back that support pointed them to
+      apps, the apps' own vendors conceded they could not stop
+      it, and the thread title acquired its second clause:
+      Shopify refuses to act at platform level.
+    </p>
+
+    <p>
+      The replies underneath read like a casualty list. One
+      merchant counted 1,000 fake accounts a day. Another
+      reported more than 500 abandoned orders a day. A third
+      described hundreds of abandoned carts daily and bogus
+      customer accounts queued to receive emails, and named the
+      real fear: domain blacklisting. And the wave has not
+      passed: the successor threads, bots creating and abandoning
+      carts, bot traffic corrupting analytics and ad attribution,
+      bots abusing checkout every day and nothing works, were
+      still collecting replies through June, July, and August
+      2026, one of them 175 replies deep.
+    </p>
+
+    <h2>What a fake subscriber costs you</h2>
+
+    <p>
+      The damage starts where one merchant's November 2023 thread
+      started: the welcome automation. A wave of fake signups
+      subscribed to his list, his automated welcome email fired
+      at all of them, and multiple fake accounts reported the
+      message as spam. Spam complaints are the heaviest signal a
+      mailbox provider tracks, so the bots were not just
+      polluting his list, they were teaching Gmail that his store
+      sends junk. Sender reputation burns fast and rebuilds
+      slowly: as a merchant in the 2025 thread put it, if it
+      drops you re-warm the list, which is a slow and painful
+      process.
+    </p>
+
+    <p>
+      The second bill arrives from your email platform, which
+      charges by profile count. A few thousand ghosts on a
+      Klaviyo tier is real money every month, paid to send
+      nothing to nobody, and the
+      <a href="how-to-set-up-an-abandoned-cart-email-sequence-on-shopify.html">abandoned
+      cart sequence</a> makes it worse, because the same bots
+      abandon carts by the hundreds and every fake checkout is
+      another automated send burning budget and reputation at
+      once. If your welcome flow mints a discount code, the bots
+      collect those too, a quieter cousin of
+      <a href="how-to-stop-discount-code-abuse-on-shopify.html">the
+      code that leaks to a coupon site</a>.
+    </p>
+
+    <p>
+      The third bill is the one merchants say radicalized them:
+      the numbers stop meaning anything. Sessions rise while
+      conversion falls, attribution scatters, and the polluted
+      feed flows into the ad platforms, where Performance Max
+      reads a store that stopped converting and quietly scales
+      your reach down. The Plus merchant who mapped the exploit
+      walked through exactly that chain. Another, after months of
+      cleanup, put it more simply: I just cannot trust our
+      numbers. Every downstream decision leans on the customer
+      list, the
+      <a href="how-to-segment-repeat-customers-on-shopify.html">segments
+      you market to</a>, the LTV math, the reorder forecasts,
+      and all of it inherits the garbage.
+    </p>
+
+    <h2>The five Flows merchants built instead</h2>
+
+    <p>
+      Since prevention was off the table, the merchants in the
+      2025 thread built containment by hand, and their solution
+      is worth studying because it is the right idea wearing the
+      wrong tool. One merchant published his setup: five Shopify
+      Flow automations triggered on customer created, deleting
+      the profile when the first name is empty, or when the
+      address equals House Number 43. Gray Colony, or 23,
+      Scottsdate, Happytown, the exact templates his wave of bots
+      was stamping out. Redundant rules catch what the first
+      pass misses. He reported the set caught 99.9 percent of
+      his bots, and that segment sweeps built on the same
+      criteria wiped nearly 50,000 fake accounts from his store.
+    </p>
+
+    <p>
+      Now look at the seams. Another merchant found 90 percent of
+      his bots shared one location string and zero orders, built
+      the equivalent rule, and it caught nothing until a reply
+      pointed out the problem: Flow only finds exact matches, and
+      his condition had a comma the data did not. That is the
+      whole fragility in one punctuation mark. The rules match
+      strings, the bot writes the strings, so the bot decides
+      when your rules stop working: rotate the address template
+      and every Flow goes blind until a human notices, reads the
+      new pattern, and writes another rule. Zero orders in an
+      ecommerce platform should be a dead giveaway, the same
+      merchant observed, and he is right, but a giveaway is a
+      judgment, and Flow does not do judgment, it does equals.
+    </p>
+
+    <p>
+      There is also a race hiding under the rules. Deleting the
+      profile in Shopify is not the same as keeping it out of
+      your email platform: the Shopify-to-Klaviyo sync can pick
+      up a new profile before the Flow deletes it, which is why
+      the merchants who solved this properly also push a bot
+      marker into the email platform and exclude that segment
+      from every flow. Miss that step and your welcome email
+      still fires at a profile that no longer exists in your
+      admin.
+    </p>
+
+    <div class="callout callout-sand">
+      <span class="callout-mark">&#9670; NOTE</span>
+      <span>
+        The scale, in the merchants' own numbers: 18,000 plus
+        rotating IPs. 1,000 fake accounts a day on one store, 500
+        abandoned orders a day on another. Nearly 50,000 fake
+        profiles deleted from a single shop. Threads at 175
+        replies, at 4,703 views, at 4,212 views, still active
+        June through August 2026. And the oldest thread in the
+        genre has been asking the same question for years.
+      </span>
+    </div>
+
+    <h2>Reading the profile, not matching the string</h2>
+
+    <p>
+      Here is the thing the hand-built rules were reaching for.
+      When the merchant scanned his customer list and knew
+      instantly which profiles were fake, he was not matching
+      strings, he was reading: this first name is keyboard mash,
+      this address is the same template with the digits drifted,
+      this email domain is disposable, this city is one we have
+      never sold to, this account subscribed to marketing at
+      3 am with no session history and no order. Each signal is
+      weak alone and damning together, and weighing weak signals
+      together is precisely the judgment call that language
+      models are good at and exact-match rules are not. It is
+      the same shape as
+      <a href="how-to-handle-high-risk-orders-on-shopify.html">triaging
+      a high-risk order flag</a>, applied one step earlier in
+      the funnel, to the account instead of the order.
+    </p>
+
+    <p>
+      A model reads each new profile in context and returns a
+      score, a confidence, and a reason: 96 percent bot, name
+      entropy plus template address matching 214 profiles
+      created this week. High confidence fakes get tagged and
+      queued. Ambiguous ones, and there are always ambiguous
+      ones, the real customer with a typo in her name, the VPN
+      user with a freemail address, go to a human, because
+      deleting a real customer to fight bots is the one failure
+      worse than the bots.
+    </p>
+
+    <h2>What the automation actually has to do</h2>
+
+    <p>
+      Catching one wave is a cleanup. Staying clean is a process,
+      because the bots rotate and the list keeps feeding every
+      system downstream. The worker this needs watches the door,
+      the backlog, and the email platform at the same time. As a
+      Dugong playbook, in plain prose:
+    </p>
+
+    <pre id="playbook"><code><span class="c"># trigger</span>
+<span class="k">On</span> every customer created,
+and every hour for the backlog
+
+<span class="c"># steps</span>
+1. <span class="k">Score</span> every new profile: name,
+   address, email domain, geography,
+   sessions, confidence attached
+2. <span class="k">Quarantine</span> before the sync: tag
+   suspected bots and keep them out
+   of every marketing flow
+3. <span class="k">Delete</span> with an audit trail:
+   confident fakes in logged batches,
+   never a profile with an order
+4. <span class="k">Watch</span> the velocity: signups
+   against the store's baseline,
+   a storm pages a human
+5. <span class="k">Sweep</span> the backlog: score the
+   existing list, suppress the ghosts
+   your ESP is billing you for
+6. <span class="k">Guard</span> the sends: welcome and
+   abandoned cart flows fire only
+   on profiles scored human
+7. <span class="k">Report</span> weekly: caught, deleted,
+   list health, and the storms
+   that broke the baseline
+</code></pre>
+
+    <p>
+      Step two is the one that saves your sender reputation,
+      because it wins the race the Flow builders lost: the
+      quarantine tag lands on the profile in the same breath it
+      is scored, before the email sync runs, and the email
+      platform side carries a standing segment that no flow is
+      allowed to touch. Step three is where the audit trail
+      earns its keep. Deletion in batches, logged, reversible in
+      the sense that you know exactly what was removed and why,
+      and bounded by one hard rule: a profile that has ever
+      placed an order never gets deleted by a machine, it gets a
+      review, the same courtesy
+      <a href="how-to-merge-duplicate-customer-profiles-on-shopify.html">a
+      suspected duplicate</a> gets before a merge.
+    </p>
+
+    <p>
+      Step four is the difference between absorbing an attack
+      and noticing one. A store that gains 20 customers on a
+      normal night and 340 tonight should not process the storm
+      quietly, it should page somebody, with the pattern
+      attached: what the profiles share, when it started,
+      whether the shape matches
+      <a href="how-to-stop-card-testing-attacks-on-shopify.html">a
+      card-testing run</a> warming up, since account floods and
+      checkout floods travel together often enough that the
+      first is worth treating as a tripwire for the second.
+    </p>
+
+    <p>
+      And the honest limit, stated plainly: none of this
+      prevents the signups. Prevention happens at the WAF in
+      front of Shopify's infrastructure, only Shopify operates
+      that layer, and the community record of asking them to is
+      the thread this dispatch is built on. Keep captcha and
+      double opt-in enabled, they filter the crude bots and keep
+      unconfirmed addresses out of your sends. But your working
+      layer is containment, and containment done in the same
+      minute as the signup gets you functionally everything
+      prevention would: the list stays human, the flows stay
+      quiet, the numbers stay yours.
+    </p>
+
+    <h2>Why this is a compiler problem, not an app problem</h2>
+
+    <p>
+      The blocker apps are not useless, they are just fighting
+      on the wrong terrain, matching IPs and countries after the
+      request already landed, which is why the thread is full of
+      merchants who installed them and kept getting flooded.
+      What actually varies store to store is judgment: what a
+      fake looks like against your real customer base, which
+      geographies are plausible for you, how aggressive deletion
+      can be before it risks a real customer, which segment
+      must never receive a send. Those are sentences about your
+      store, and the argument of
+      <a href="best-shopify-automations-to-set-up.html">the
+      automations no one builds</a> applies verbatim: the
+      sentences should compile into the workflow, instead of
+      being shaved down to whatever a settings page exposes.
+    </p>
+
+    <p>
+      Run Monday morning again with the sentences compiled. The
+      storm starts at 2:41 am; by 2:43 the first hundred
+      profiles are scored, tagged, and invisible to your email
+      platform. At 3:05 the velocity alarm pages with a pattern
+      summary: 340 profiles, four address templates, one
+      disposable domain family. You read it over coffee, approve
+      the batch deletion, and spot-check the nine profiles the
+      model was unsure about, two of which are real people with
+      odd typos, kept. Your welcome flow sent nothing overnight.
+      Your Klaviyo bill did not move. Your conversion rate on
+      Monday means what it says. The list has 340 fewer
+      customers than the bots intended, which is to say, the
+      right number.
+    </p>
+
+    <hr />
+
+    <h2>The workflow worth building this week</h2>
+
+    <p>
+      Start with the sweep, because the backlog is where the
+      money is leaking. Export your customers CSV and sort for
+      the giveaway the merchants named: zero orders, zero
+      sessions, subscribed to email. Read a hundred of them and
+      you will see your store's bot signatures in twenty
+      minutes, the address templates, the name patterns, the
+      domains. Then build the quarantine segment in your email
+      platform first, before any deletion, so the ghosts stop
+      receiving sends and stop counting against billing while
+      you work.
+    </p>
+
+    <p>
+      Then run the scorer in propose-only mode for two weeks:
+      let it read every new signup and tag what it would have
+      deleted, and check its homework against your own eye. You
+      are calibrating where its confidence deserves yours,
+      exactly the drill from
+      <a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html">the
+      pricing guardrail</a>, pointed at profiles instead of
+      prices.
+    </p>
+
+    <p>
+      Then say the brief out loud, the way you would hand list
+      hygiene to a new hire. Read every new customer profile the
+      minute it is created and score whether it is a real
+      person. Tag the fakes before the email platform syncs, and
+      keep that segment out of every flow. Delete the confident
+      ones in logged batches, never anyone who has ordered.
+      Tell me the morning we gain ten times our normal signups,
+      with the pattern attached. Once a week, show me what you
+      caught, what you deleted, and what the list looks like
+      without the ghosts. That is the whole paragraph. The
+      compiler turns it into the workflow, and the next storm
+      breaks against it at 2:41 am while you sleep.
+    </p>
+
+    <div class="callout">
+      <span class="callout-mark">&#9670; READING</span>
+      <span>
+        Two companion pieces if this one landed:
+        <a href="how-to-stop-card-testing-attacks-on-shopify.html">the
+        card testing attack that floods your store</a>, on the
+        checkout-side bot flood and the fraud fees it burns, and
+        <a href="how-to-merge-duplicate-customer-profiles-on-shopify.html">the
+        customer Shopify counts three times</a>, on the other way
+        a customer list quietly fills with records that are not
+        customers.
+      </span>
+    </div>
+
+    <p>
+      If you are a Shopify merchant with a bot story, the list
+      that tripled overnight, the welcome flow that emailed a
+      thousand ghosts, the Flow rule the bots broke with one
+      comma, the inbox is open:
+      <code>field-notes@dugong.live</code>. We are collecting
+      case studies for the next issue.
+    </p>
+
+  </div>
+
+  <div class="article-end">
+    <div class="article-end-tags">
+      <span class="tag tag-research">research</span>
+      <span class="tag tag-essay">essay</span>
+    </div>
+    <span class="article-end-share">share &middot; copy link &middot; &#10022;</span>
+  </div>
+
+</article>
+
+
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="section-head">
+    <span class="section-eyebrow" id="faq-heading">&#9670; COMMON QUESTIONS</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h2 class="faq-q">Why is my Shopify store getting hundreds of fake customer signups?</h2>
+      <p class="faq-a">Because bots reach the account and newsletter endpoints directly, and nothing on the platform stops them. Merchants have documented waves of this for years: a March 2024 community thread describes hundreds to thousands of fake signups per week, and a May 2025 Shopify Plus thread maps a bot using more than 18,000 rotating IP addresses with browser-identical headers, hitting storefront pages to corrupt analytics and backend endpoints to spam carts and mint accounts. One reply reported 1,000 fake accounts a day, another 500 abandoned orders a day. The signups often appear on the account register route even when classic customer accounts are switched off, which is why removing the signup form from your theme does not end them. The motive hardly matters, list poisoning, competitor sabotage, or credential probing all look the same in your admin: a customer with a keyboard-mash name, a template address, zero sessions, zero orders, and a newsletter subscription. The practical consequence is that prevention is not fully in your hands, filtering happens at the web application firewall in front of Shopify's infrastructure, which only Shopify operates, so the merchant's working layer is containment: catching each fake profile the moment it is created and keeping it out of your email list.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Does reCAPTCHA stop fake customer accounts on Shopify?</h2>
+      <p class="faq-a">Not reliably. Shopify's captcha setting protects storefront forms, but merchants report the accounts keep coming with it enabled: one wrote in April 2025 that both captcha settings were on and it made no difference, and followed up in June that hired Shopify Experts could not prevent the signups either. The current wave of bots does not fill in your form like a person, it addresses Shopify's endpoints directly with rotating IPs and browser-identical headers, so the challenge never happens where the abuse does. Blocking apps hit the same wall: as the Plus merchant who documented the exploit put it, apps operate after the request has already hit Shopify's infrastructure, and the fix would have to land at the WAF level that only Shopify controls. Captcha and double opt-in are still worth enabling, they filter the crude bots and keep unconfirmed emails out of your marketing sends, and double opt-in in particular protects deliverability because a bot that never clicks confirm never becomes a contactable subscriber in most ESPs. But treat both as seatbelts, not as the fix. The merchants who got their stores back did it with detection and cleanup: identify the fake profiles fast, keep them out of the email sync, and delete them on a schedule.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Can AI detect and delete fake customer accounts on Shopify?</h2>
+      <p class="faq-a">Yes, and it closes the gap that defeated the hand-built rules. Merchants already run Shopify Flow automations that delete customers when the first name is empty or the address matches a known bot template, one merchant wiped nearly 50,000 fake accounts with five such rules. The weakness is that Flow matches exact strings: a stray comma breaks the condition, and every time the bot rotates its address template the rules go blind until someone writes a new one. Spotting a fake profile is a reading task, which is what a language model does well: keyboard-mash names, address templates with drifted house numbers, disposable email domains, a shipping city you have never sold to, an account with a newsletter subscription but no sessions and no orders, and a signup rate that jumped fifty-fold against the store's baseline. A model reads each new profile in context, scores it with a confidence and a reason, tags the confident fakes for deletion, and routes the ambiguous ones to a human. The two rules that keep it safe: quarantine the profile from your email platform before the sync can pick it up, and never silently delete a profile that has ever placed an order.</p>
+    </div>
+      <div class="faq-item">
+      <h2 class="faq-q">What do fake customer accounts actually cost a Shopify store?</h2>
+      <p class="faq-a">Three bills, and none of them says bots on the invoice. The first is sender reputation: a November 2023 merchant watched his welcome automation fire at a wave of fake signups, several of which reported the email as spam, teaching mailbox providers that his store sends junk. Reputation burns fast and rebuilds slowly, and re-warming a list is a slow and painful process. The second is subscription cost: email platforms bill by profile count, so a few thousand ghosts on a Klaviyo tier is real money every month, paid to send nothing to nobody, while bot-abandoned carts trigger yet more automated sends. The third is the one merchants say radicalized them: the numbers stop meaning anything. Sessions rise while conversion falls, attribution scatters, and Performance Max reads a store that stopped converting and quietly scales reach down. As one merchant put it after months of cleanup, I just cannot trust our numbers.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How do I keep fake Shopify signups out of my email list?</h2>
+      <p class="faq-a">Win the race between the signup and the sync. Deleting a fake profile in Shopify is not enough on its own, because the Shopify-to-Klaviyo sync can pick up a new profile before your cleanup runs, and your welcome email still fires at a ghost that no longer exists in the admin. The merchants who solved this push a bot marker into the email platform in the same breath the profile is scored, keep a standing quarantine segment there that no flow is allowed to touch, and only then delete in Shopify, in logged batches, never touching a profile that has ever placed an order. Keep double opt-in enabled as a seatbelt, since a bot that never clicks confirm never becomes a contactable subscriber in most ESPs. Then sweep the backlog, because the ghosts already on your list keep receiving sends and counting against billing until they are suppressed.</p>
+    </div>
+</div>
+</section>
+
+<section class="related">
+  <div class="section-head">
+    <span class="section-eyebrow">&#9670; READ NEXT</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="related-grid">
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The parcel customs sends back</h3>
+        <p class="card-dek">
+          De minimis is gone, the EU followed, and every parcel now bills by the six digit code your catalog never carried. The AI playbook that classifies every variant and stops the doorstep surprise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 13</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-pricing-errors-on-shopify-before-orders-flood-in.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The misprice that sells all night</h3>
+        <p class="card-dek">
+          One slipped decimal and the $249 table sells for $2.49 at full checkout speed: no alarm, no history, no undo anywhere in Shopify. The AI playbook that catches the wrong price in a minute and holds the orders it let in.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-stuck-in-transit.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that stops moving</h3>
+        <p class="card-dek">
+          The first scan comes in, then six days of nothing: Shopify has no alert for a shipment that goes quiet. The AI playbook that catches the stall, tells the customer first, and beats the claim window.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 12</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          The refund goes out, the box comes back, and the shelf never hears: Shopify's restock is one blind checkbox. The AI playbook that receives, grades, and restocks every return.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-handle-delivered-but-not-received-claims-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The package that says delivered but never arrived</h3>
+        <p class="card-dek">
+          Tracking says delivered, the porch says nothing, and the refund is on you. The AI playbook that pulls carrier proof, runs the 48 hour play, and decides with evidence.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 7</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automatically-capture-payments-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The payment that expires before you capture it</h3>
+        <p class="card-dek">
+          Authorized is not paid: Shopify gives you 7 days to capture before the hold expires. The AI playbook that captures every order before the clock runs out.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 3</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-card-testing-attacks-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The card-testing attack that floods your store overnight</h3>
+        <p class="card-dek">
+          A bot runs stolen cards through your checkout in a flood of tiny orders overnight, and Shopify bills you a fee for every attempt. The AI playbook that reads the burst, cancels the junk, and shuts the source down.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUL 1</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-discount-code-abuse-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The discount code that leaked to a coupon site</h3>
+        <p class="card-dek">
+          Your creator code has 900 redemptions from strangers, and one per customer turns out to mean one per email address. The AI playbook that spots the leak and closes it without declining real buyers.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUL 25</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark big"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+      <span class="foot-tag">field&nbsp;notes from the dugong research desk</span>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <span class="foot-h">read</span>
+        <a href="index.html">Latest</a>
+        <a href="index.html">Essays</a>
+        <a href="index.html">Post-mortems</a>
+        <a href="index.html">Interviews</a>
+      </div>
+      <div>
+        <span class="foot-h">product</span>
+        <a href="https://dugong.live">Dugong</a>
+        <a href="https://dugong.live">Pricing</a>
+        <a href="https://dugong.live">AI Engine</a>
+        <a href="https://dugong.live">Docs</a>
+      </div>
+      <div>
+        <span class="foot-h">company</span>
+        <a href="https://dugong.live">About</a>
+        <a href="https://dugong.live">Careers</a>
+        <a href="https://dugong.live">Privacy</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>&copy; 2026 Dugong AI Inc.</span>
+    <span>Set in Hanken Grotesk &amp; Inter. Made on a slow afternoon.</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".card, .section-head, .article-body p, .article-body h2, .article-body pre, .article-body .callout, .article-body blockquote")
+  .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+</script>
+</body>
+</html>

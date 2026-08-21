@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-07-31" />
-    <meta property="article:modified_time" content="2026-07-31" />
+    <meta property="article:modified_time" content="2026-08-15" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -53,7 +53,7 @@
       "headline": "How to change a Shopify order from local pickup to shipping",
       "description": "A customer in Marietta, Georgia checks out on her phone in eleven seconds, and the order lands as a pickup at your Denver shop, 1,400 miles away. She never chose pickup: Shopify checkout preselects the cheapest delivery option, local pickup is free, and Shop Pay carried her straight past the choice. Merchants report several of these a week, and the community thread asking Shopify to stop defaulting to pickup has been collecting replies for years, with a feature request logged and no timeline. The order cannot be fixed either: order editing does not touch the delivery method, and orders placed with local pickup or local delivery often cannot be edited at all, so the supported path is cancel, refund, rebuild as a draft order, and invoice the shipping. The half workaround of buying a label anyway leaves a pickup order that still sends pickup instructions and never collected a shipping fee. The AI playbook that reads every new order's delivery method against its address, distance, and history, asks the customer the same hour, converts the order cleanly when they meant shipping, confirms pickup when they meant pickup, keeps pickup orders out of the label queue, and counts the wrong-method orders so you can fix the checkout copy that causes them.",
       "datePublished": "2026-07-31",
-      "dateModified": "2026-07-31",
+      "dateModified": "2026-08-15",
       "articleSection": "Research",
       "keywords": "change Shopify order from local pickup to shipping, customer accidentally chose local pickup Shopify, Shop Pay defaults to local pickup, convert pickup order to shipping Shopify, edit delivery method Shopify order, local pickup order shipped by mistake, Shopify checkout preselects cheapest rate, wrong delivery method Shopify",
       "wordCount": 2362,
@@ -163,6 +163,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Separate them the moment they land. A pickup order shows only a small badge in the Shopify orders list, which is easy to miss when someone is bulk-selecting fifty orders to buy labels in a busy week. The reliable pattern is a tag applied the moment a pickup order is created, a saved view for the fulfillment team built on that tag, and a label flow that refuses to include tagged orders in a batch. The same tag drives the rest of pickup hygiene: ready-for-pickup notifications, a nudge when an order has sat uncollected for a week, and a flag when a pickup order's address suggests the customer actually wanted shipping. Shopify Flow can apply the tag on a condition. Deciding which pickup orders deserve a closer look before fulfillment takes reading the whole order, which is where AI automation earns its keep."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I ask the customer before converting a pickup order to shipping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, in the same hour the order lands, with one short email asking whether she wants pickup at the shop or shipping for the standard rate. Reached within the hour, the customer answers in minutes, because the mistake is hers and she knows it, and the fix becomes a two-message exchange followed by a clean conversion: fee collected, order rebuilt with a shipping line, original cancelled, notes on both numbers so support can follow the trail in a month. Reached after the order has sat on the pickup shelf, the same conversation is a refund, an apology, and a review you would rather not receive. The quiet failure is the customer who never emails at all: her order waits two weeks for a delivery that was never coming, and the first you hear of it is a where is my order ticket with a temper, a chargeback, or nothing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Shopify check whether a pickup order makes sense for the customer's address?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. There is no distance check anywhere in the platform, so an order for pickup in Denver placed by a customer in Georgia sails through checkout, lands in the admin, and looks exactly like every legitimate pickup order above and below it. The only visible difference is a small badge in the orders list, the easiest thing on the screen to miss during a sale week when someone is bulk-selecting sixty orders to buy labels. The check has to be built: read the delivery method against the rest of the order, the customer's address, the distance to the pickup location, their history, and any gift signals, then flag the mismatches before fulfillment, the pickup from 1,400 miles away or the shipping order from the regular who collects every Friday. A sensible threshold is a sentence, not a setting: past fifty miles, ask before treating it as real, and wave the regulars through."
           }
         }
       ]
@@ -941,7 +957,15 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">How do I stop pickup orders from being shipped by mistake?</h2>
       <p class="faq-a">Separate them the moment they land. A pickup order shows only a small badge in the Shopify orders list, which is easy to miss when someone is bulk-selecting fifty orders to buy labels in a busy week. The reliable pattern is a tag applied the moment a pickup order is created, a saved view for the fulfillment team built on that tag, and a label flow that refuses to include tagged orders in a batch. The same tag drives the rest of pickup hygiene: ready-for-pickup notifications, a nudge when an order has sat uncollected for a week, and a flag when a pickup order's address suggests the customer actually wanted shipping. Shopify Flow can apply the tag on a condition. Deciding which pickup orders deserve a closer look before fulfillment takes reading the whole order, which is where AI automation earns its keep.</p>
     </div>
-  </div>
+      <div class="faq-item">
+      <h2 class="faq-q">Should I ask the customer before converting a pickup order to shipping?</h2>
+      <p class="faq-a">Yes, in the same hour the order lands, with one short email asking whether she wants pickup at the shop or shipping for the standard rate. Reached within the hour, the customer answers in minutes, because the mistake is hers and she knows it, and the fix becomes a two-message exchange followed by a clean conversion: fee collected, order rebuilt with a shipping line, original cancelled, notes on both numbers so support can follow the trail in a month. Reached after the order has sat on the pickup shelf, the same conversation is a refund, an apology, and a review you would rather not receive. The quiet failure is the customer who never emails at all: her order waits two weeks for a delivery that was never coming, and the first you hear of it is a where is my order ticket with a temper, a chargeback, or nothing.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Does Shopify check whether a pickup order makes sense for the customer's address?</h2>
+      <p class="faq-a">No. There is no distance check anywhere in the platform, so an order for pickup in Denver placed by a customer in Georgia sails through checkout, lands in the admin, and looks exactly like every legitimate pickup order above and below it. The only visible difference is a small badge in the orders list, the easiest thing on the screen to miss during a sale week when someone is bulk-selecting sixty orders to buy labels. The check has to be built: read the delivery method against the rest of the order, the customer's address, the distance to the pickup location, their history, and any gift signals, then flag the mismatches before fulfillment, the pickup from 1,400 miles away or the shipping order from the regular who collects every Friday. A sensible threshold is a sentence, not a setting: past fifty miles, ask before treating it as real, and wave the regulars through.</p>
+    </div>
+</div>
 </section>
 
 <section class="related">
@@ -950,6 +974,70 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The customer list the bots built</h3>
+        <p class="card-dek">
+          Overnight the store gains 340 customers and 19 sessions: bots minting fake accounts that captcha does not stop, every one subscribed to your emails. The AI playbook that reads each new profile, quarantines the fakes before your email platform syncs, and keeps the list human.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 14</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
 <a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
       <div class="card-body">
         <div class="post-meta">

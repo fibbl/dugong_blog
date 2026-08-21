@@ -107,4 +107,5 @@ Sitemap: https://blog.dugong.live/sitemap.xml
 
 # Site summary for answer engines (llms.txt convention):
 # https://blog.dugong.live/llms.txt
+# Full article text: https://blog.dugong.live/llms-full.txt
 # RSS: https://blog.dugong.live/feed.xml

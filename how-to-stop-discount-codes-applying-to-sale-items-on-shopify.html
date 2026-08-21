@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-07-20" />
-    <meta property="article:modified_time" content="2026-07-20" />
+    <meta property="article:modified_time" content="2026-08-15" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to stop discount codes from applying to sale items on Shopify",
       "description": "You run a sale by lowering prices and setting compare-at prices, a shopper adds the marked-down items, then pastes a welcome or newsletter code at checkout, and Shopify applies it on top, because a markdown made through price edits is not a discount to the discount engine at all. The combination settings only govern how discounts combine with other discounts, so there is no exclude sale items setting anywhere in the admin. The workarounds route through eligibility collections keyed off compare-at prices, which decay as the sale rotates, and codes minted by popup, loyalty, and review apps are born sitewide outside your control. Shopify Scripts, the old Plus-only way to strip a code when it met a markdown, stopped executing on June 30, 2026. The AI playbook that reads the discount policy in plain language, keeps the sale and full-price collections true on every price change, scopes every new code at creation including app-minted ones, resolves the single best discount when a code meets a markdown, explains the outcome to the shopper, and holds the genuine exceptions for a human.",
       "datePublished": "2026-07-20",
-      "dateModified": "2026-07-20",
+      "dateModified": "2026-08-15",
       "articleSection": "Research",
       "keywords": "Shopify exclude sale items from discount code, Shopify discount code on sale items, Shopify stop discount stacking, Shopify double discount, Shopify discount combinations, Shopify prevent discount codes on sale items, Shopify welcome code sale items, Shopify discount stacking rules",
       "wordCount": 2010,
@@ -116,6 +116,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "The hard part is that popup, loyalty, and review apps mint their own codes, usually sitewide, and a setting you fix today does not govern the codes the app issues tomorrow. Some apps offer collection restrictions, many do not, and each one is a separate setting to remember. The dependable approach is to enforce the rule at the store rather than inside each app: watch for new codes as they are created, scope them to your full-price collection the moment they appear, and guard checkout so a code that still meets a marked-down item resolves to the single best discount instead of stacking. That way the policy holds no matter which app minted the code or when it was issued."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did discount codes suddenly start applying to my sale items in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check whether a Shopify Script was doing the guarding. Plus merchants used to enforce exactly this rule, no codes on sale items, with a Script that stripped or reduced a discount the moment it met a markdown, and Shopify Scripts stopped executing on June 30, 2026. A store that quietly relied on one is now double-discounting in the open, and the change surfaces exactly the way merchants describe it: codes that never used to land on markdowns suddenly do, with no setting anywhere that changed. The durable replacement is to enforce the policy at the two points the platform still gives you. Scope every code at the moment it is created, including the codes minted by popup, loyalty, and review apps, and guard the checkout so a code meeting a marked-down item resolves to the single best discount you actually meant instead of the deepest stack that slipped through."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should some discount codes be allowed to work on sale items?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and that is why a single toggle was never going to be enough. A service-recovery code your support team sends after a late order should probably work on anything, sale items included, because the goodwill matters more than the margin. A creator code during a launch might be allowed to touch the sale collection deliberately, and a loyalty voucher might be allowed to stack up to a floor and no further. The real policy is never simply codes off sale items, full stop. It is codes on sale items on these terms, and the terms differ by code, by campaign, and by how much margin the markdown already gave away. The workable shape is a written rule with named exceptions: codes stay off live markdowns unless the code itself says otherwise, no combination ever pushes an item below the floor, and anything that does not fit goes to a person before it ships."
           }
         }
       ]
@@ -781,7 +797,15 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">How do I stop welcome popup codes from working on sale items?</h2>
       <p class="faq-a">The hard part is that popup, loyalty, and review apps mint their own codes, usually sitewide, and a setting you fix today does not govern the codes the app issues tomorrow. Some apps offer collection restrictions, many do not, and each one is a separate setting to remember. The dependable approach is to enforce the rule at the store rather than inside each app: watch for new codes as they are created, scope them to your full-price collection the moment they appear, and guard checkout so a code that still meets a marked-down item resolves to the single best discount instead of stacking. That way the policy holds no matter which app minted the code or when it was issued.</p>
     </div>
-  </div>
+      <div class="faq-item">
+      <h2 class="faq-q">Why did discount codes suddenly start applying to my sale items in 2026?</h2>
+      <p class="faq-a">Check whether a Shopify Script was doing the guarding. Plus merchants used to enforce exactly this rule, no codes on sale items, with a Script that stripped or reduced a discount the moment it met a markdown, and Shopify Scripts stopped executing on June 30, 2026. A store that quietly relied on one is now double-discounting in the open, and the change surfaces exactly the way merchants describe it: codes that never used to land on markdowns suddenly do, with no setting anywhere that changed. The durable replacement is to enforce the policy at the two points the platform still gives you. Scope every code at the moment it is created, including the codes minted by popup, loyalty, and review apps, and guard the checkout so a code meeting a marked-down item resolves to the single best discount you actually meant instead of the deepest stack that slipped through.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Should some discount codes be allowed to work on sale items?</h2>
+      <p class="faq-a">Yes, and that is why a single toggle was never going to be enough. A service-recovery code your support team sends after a late order should probably work on anything, sale items included, because the goodwill matters more than the margin. A creator code during a launch might be allowed to touch the sale collection deliberately, and a loyalty voucher might be allowed to stack up to a floor and no further. The real policy is never simply codes off sale items, full stop. It is codes on sale items on these terms, and the terms differ by code, by campaign, and by how much margin the markdown already gave away. The workable shape is a written rule with named exceptions: codes stay off live markdowns unless the code itself says otherwise, no combination ever pushes an item below the floor, and anything that does not fit goes to a person before it ships.</p>
+    </div>
+</div>
 </section>
 
 <section class="related">
@@ -790,6 +814,70 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The customer list the bots built</h3>
+        <p class="card-dek">
+          Overnight the store gains 340 customers and 19 sessions: bots minting fake accounts that captcha does not stop, every one subscribed to your emails. The AI playbook that reads each new profile, quarantines the fakes before your email platform syncs, and keeps the list human.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 14</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
 <a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
       <div class="card-body">
         <div class="post-meta">

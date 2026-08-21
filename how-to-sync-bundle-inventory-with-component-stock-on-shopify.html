@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-07-15" />
-    <meta property="article:modified_time" content="2026-07-15" />
+    <meta property="article:modified_time" content="2026-08-15" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -51,7 +51,7 @@
       "headline": "How to automatically sync bundle inventory with component stock on Shopify",
       "description": "Shopify treats a bundle as its own product with its own stock number, so selling a bundle does not deduct the individual products inside it, and selling one of those products does not reduce how many bundles are still available. When a component is shared across several bundles and its own product page, one sale should reduce all of them, and Shopify links none of it, so the store oversells the part and promises a bundle it can no longer build. The native Shopify Bundles app does link a fixed bundle to its components and shows availability from the lowest component, which is real and useful, but it caps components, does not cover mix-and-match cleanly, tracks by overall stock rather than by location, and does nothing for bundles built the older way as a standalone product or variant, and an order edit breaks the link entirely. There is no native rule that keeps every bundle, every component, and every other listing that shares a component in sync in real time. The AI playbook that watches component stock per location, decrements the parts on a bundle sale and the bundle count on a part sale, cascades a shared component across every bundle that uses it, syncs the same signal to other channels so the count is not phantom, and escalates the judgment calls to a human.",
       "datePublished": "2026-07-15",
-      "dateModified": "2026-07-15",
+      "dateModified": "2026-08-15",
       "articleSection": "Research",
       "keywords": "Shopify bundle inventory not updating, Shopify bundle inventory sync, Shopify bundle components not deducting, Shopify bundle overselling, sync bundle stock Shopify, Shopify kit inventory tracking, Shopify bundle component inventory",
       "wordCount": 2153,
@@ -116,6 +116,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "You need component-level tracking that cascades. When one candle sits inside a starter kit, a gift set, and its own product page, selling any one of those should reduce the real candle count, and that single deduction should update how many of each bundle can still be built. Shopify does not cascade this on its own, so the moment a component is reused across bundles the counts fall out of step after the first few sales. The dependable fix is to treat every component as the source of truth, deduct from it on any sale that consumes it, and recompute each bundle's availability from the parts it needs, per location, so a sale in one place cannot promise a bundle another location cannot build."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Shopify Bundles app track inventory per location?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and that is one of its sharpest limits. The free Bundles app tracks a bundle against overall component stock rather than per location, so a store shipping from two warehouses can sell a bundle in a place that cannot actually assemble it: the parts exist, but not together, and the availability math never notices. The other edges of the happy path sit nearby. A fixed bundle is capped at a limited number of components and variants, so a big mix-and-match builder outgrows it, and the build your own six-pack offer, the one that most needs component math, is the one it handles worst. And it does nothing for bundles built the older way, as a standalone product or a variant with its own inventory number, which is still how a lot of buy the set and save listings exist. Those carry a count that no component sale ever touches, per location or otherwise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do Shopify bundles stay in sync after order edits and marketplace syncs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and these are the two seams that break even a properly linked bundle. Edit an order after it is placed, remove a bundle, add one, or change a quantity, and the component math does not re-run, because Shopify never modeled the relationship as something an edit should recalculate. Sync your catalog to a marketplace and the bundle usually travels as one atomic SKU, so selling ten kits on your store leaves the component still showing its full quantity on Amazon, and you oversell the part on the channel you were not even watching. Returns have the same shape: a returned gift set may come back with two of its three items, so crediting a whole bundle's worth of stock back is wrong. Each of these needs the recipe re-resolved and the cascade re-run, per location and across every channel, with partial returns and negative counts held for a person rather than guessed at."
           }
         }
       ]
@@ -766,7 +782,15 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="faq-q">How do I keep a shared component in sync across multiple bundles on Shopify?</h2>
       <p class="faq-a">You need component-level tracking that cascades. When one candle sits inside a starter kit, a gift set, and its own product page, selling any one of those should reduce the real candle count, and that single deduction should update how many of each bundle can still be built. Shopify does not cascade this on its own, so the moment a component is reused across bundles the counts fall out of step after the first few sales. The dependable fix is to treat every component as the source of truth, deduct from it on any sale that consumes it, and recompute each bundle's availability from the parts it needs, per location, so a sale in one place cannot promise a bundle another location cannot build.</p>
     </div>
-  </div>
+      <div class="faq-item">
+      <h2 class="faq-q">Does the Shopify Bundles app track inventory per location?</h2>
+      <p class="faq-a">No, and that is one of its sharpest limits. The free Bundles app tracks a bundle against overall component stock rather than per location, so a store shipping from two warehouses can sell a bundle in a place that cannot actually assemble it: the parts exist, but not together, and the availability math never notices. The other edges of the happy path sit nearby. A fixed bundle is capped at a limited number of components and variants, so a big mix-and-match builder outgrows it, and the build your own six-pack offer, the one that most needs component math, is the one it handles worst. And it does nothing for bundles built the older way, as a standalone product or a variant with its own inventory number, which is still how a lot of buy the set and save listings exist. Those carry a count that no component sale ever touches, per location or otherwise.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Do Shopify bundles stay in sync after order edits and marketplace syncs?</h2>
+      <p class="faq-a">No, and these are the two seams that break even a properly linked bundle. Edit an order after it is placed, remove a bundle, add one, or change a quantity, and the component math does not re-run, because Shopify never modeled the relationship as something an edit should recalculate. Sync your catalog to a marketplace and the bundle usually travels as one atomic SKU, so selling ten kits on your store leaves the component still showing its full quantity on Amazon, and you oversell the part on the channel you were not even watching. Returns have the same shape: a returned gift set may come back with two of its three items, so crediting a whole bundle's worth of stock back is wrong. Each of these needs the recipe re-resolved and the cascade re-run, per location and across every channel, with partial returns and negative counts held for a person rather than guessed at.</p>
+    </div>
+</div>
 </section>
 
 <section class="related">
@@ -775,6 +799,70 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The customer list the bots built</h3>
+        <p class="card-dek">
+          Overnight the store gains 340 customers and 19 sessions: bots minting fake accounts that captcha does not stop, every one subscribed to your emails. The AI playbook that reads each new profile, quarantines the fakes before your email platform syncs, and keeps the list human.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 14</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
 <a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
       <div class="card-body">
         <div class="post-meta">

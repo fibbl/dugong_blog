@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-08-03" />
-    <meta property="article:modified_time" content="2026-08-03" />
+    <meta property="article:modified_time" content="2026-08-15" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -53,7 +53,7 @@
       "headline": "How to automatically follow up on unpaid draft orders on Shopify",
       "description": "You build the quote in a draft order, send the invoice, and Shopify's part in the sale is over: one email, one checkout link, and no reminder, ever. The reminder machinery exists one screen away, up to five scheduled emails for orders with payment terms, and draft orders are excluded because a draft has no due date to count from. So merchants keep the pipeline in their heads or a spreadsheet, chase quotes in Friday batches when the oldest are three weeks cold, and watch drafts pile up by the hundred with no canceled status, no expiry, and invoice links that stay payable for months at prices locked when the quote was written. Flow is the wrong shape for the job: its draft trigger fires once at creation, its draft actions stop at tags, and the accepted workaround emails your own staff a list of open drafts, automating the guilt instead of the follow-up. The AI playbook that reads each draft's value, age, customer, and stock, reminds on the cadence the quote deserves, answers the small replies and escalates the negotiations, never chases a quote that can no longer be filled, retires dead quotes so stale links and prices die with them, and reports the pipeline weekly.",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-03",
+      "dateModified": "2026-08-15",
       "articleSection": "Research",
       "keywords": "Shopify draft order follow up, unpaid draft order invoice Shopify, Shopify draft order payment reminder, Shopify quote follow up automation, draft order invoice link expires, auto cancel draft orders Shopify, Shopify Flow draft order trigger, B2B quote follow up Shopify",
       "wordCount": 2410,
@@ -163,6 +163,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not with the customer. Flow has a Draft order created trigger, and it fires once, at the moment of creation, for drafts that contain products. There is no trigger for an invoice that has sat unpaid for a number of days, and the actions available against a draft are organizational, tagging mainly, with nothing that emails a customer about a draft at all. The accepted community workaround is a Scheduled time trigger that sends your own staff a list of open drafts on a schedule, which automates the reminder to you rather than the follow-up itself. A real follow-up means reading the draft's value, age, stock, and any reply that has already arrived before writing to a human being, then choosing between a nudge, an answer, an escalation, and retirement. That is judgment rather than a condition, and it is the part an AI workflow adds on top of what Flow can see."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I see which Shopify draft orders are still unpaid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open the Drafts page and filter to Invoice sent, because that is all the visibility Shopify gives you. A draft has exactly three states, Open, Invoice sent, and Completed, and only a customer can reach the third one, by paying. There is no aging view, no overdue state, and no due date, so a draft wears the same badge on day forty that it wore in the first hour, and this month's live quotes sit interleaved with long-dead ones. The useful exercise is to count three things on that filtered list: how many drafts there are, how old the oldest is, and what they add up to, then check how many ever received a single follow-up. Most stores that quote at all discover a five-figure pipeline being run entirely on remorse, which is why so many merchants end up keeping the real list in a spreadsheet next to Shopify."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a customer pays a draft order invoice after the stock has sold out?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The checkout refuses her, and the sale dies at the finish line. Shopify does not hold inventory for a draft order unless you deliberately reserve it, and nobody reserves stock for a maybe, so the customer who finally clicks the invoice link in week three can meet a checkout that declines the purchase because one line item sold out on Tuesday. Nobody alerts you when that happens either, so a quote that survived your silence is lost silently too. The protection is to check stock before every reminder: never chase payment for a quote you can no longer fill, and when a line has sold out, either re-quote honestly at current availability or decide whether to reserve the remaining units. A nudge that says pay now for items you cannot ship is worse than no nudge, because it converts your own follow-up into a refund and an apology."
           }
         }
       ]
@@ -956,7 +972,15 @@ a daily sweep of open drafts
       <h2 class="faq-q">Can Shopify Flow follow up on unpaid draft orders?</h2>
       <p class="faq-a">Not with the customer. Flow has a Draft order created trigger, and it fires once, at the moment of creation, for drafts that contain products. There is no trigger for an invoice that has sat unpaid for a number of days, and the actions available against a draft are organizational, tagging mainly, with nothing that emails a customer about a draft at all. The accepted community workaround is a Scheduled time trigger that sends your own staff a list of open drafts on a schedule, which automates the reminder to you rather than the follow-up itself. A real follow-up means reading the draft's value, age, stock, and any reply that has already arrived before writing to a human being, then choosing between a nudge, an answer, an escalation, and retirement. That is judgment rather than a condition, and it is the part an AI workflow adds on top of what Flow can see.</p>
     </div>
-  </div>
+      <div class="faq-item">
+      <h2 class="faq-q">How do I see which Shopify draft orders are still unpaid?</h2>
+      <p class="faq-a">Open the Drafts page and filter to Invoice sent, because that is all the visibility Shopify gives you. A draft has exactly three states, Open, Invoice sent, and Completed, and only a customer can reach the third one, by paying. There is no aging view, no overdue state, and no due date, so a draft wears the same badge on day forty that it wore in the first hour, and this month's live quotes sit interleaved with long-dead ones. The useful exercise is to count three things on that filtered list: how many drafts there are, how old the oldest is, and what they add up to, then check how many ever received a single follow-up. Most stores that quote at all discover a five-figure pipeline being run entirely on remorse, which is why so many merchants end up keeping the real list in a spreadsheet next to Shopify.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">What happens if a customer pays a draft order invoice after the stock has sold out?</h2>
+      <p class="faq-a">The checkout refuses her, and the sale dies at the finish line. Shopify does not hold inventory for a draft order unless you deliberately reserve it, and nobody reserves stock for a maybe, so the customer who finally clicks the invoice link in week three can meet a checkout that declines the purchase because one line item sold out on Tuesday. Nobody alerts you when that happens either, so a quote that survived your silence is lost silently too. The protection is to check stock before every reminder: never chase payment for a quote you can no longer fill, and when a line has sold out, either re-quote honestly at current availability or decide whether to reserve the remaining units. A nudge that says pay now for items you cannot ship is worse than no nudge, because it converts your own follow-up into a refund and an apology.</p>
+    </div>
+</div>
 </section>
 
 <section class="related">
@@ -965,6 +989,70 @@ a daily sweep of open drafts
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The customer list the bots built</h3>
+        <p class="card-dek">
+          Overnight the store gains 340 customers and 19 sessions: bots minting fake accounts that captcha does not stop, every one subscribed to your emails. The AI playbook that reads each new profile, quarantines the fakes before your email platform syncs, and keeps the list human.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 14</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
 <a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
       <div class="card-body">
         <div class="post-meta">
