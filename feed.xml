@@ -15,7 +15,27 @@
       <title>Dugong Field Notes</title>
       <link>https://blog.dugong.live/</link>
     </image>
-    <lastBuildDate>Thu, 20 Aug 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 12:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>How to fix order confirmation emails not sending on Shopify</title>
+      <link>https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Sun, 23 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The phone rings at ten past four: I placed an order this morning and I never got a receipt. Did you actually charge me? You open the order and the timeline line that should read Order confirmation email sent is simply not there. Merchants have been comparing notes on this since October 2021, in a thread that ran 26 replies and was still collecting posts in July 2025. The original case is the whole problem in miniature: a phone order, a draft, the email address added a moment too late, and Shopify staff confirming there is no way within the admin to send an order confirmation if none went out the first time, only a feature request that cannot be tracked. The thread aged publicly: a year later, did this ever come through, still a big issue; May 2023, in capitals, it's been a whole year; January 2024, it is nothing more than one resend button, could be fixed in five minutes; February 2024, other platforms are implementing AI and here I am not being able to send an order confirmation email. The workarounds merchants traded are their own indictment: email the customer a screenshot of the order page, or dig the order status URL out of More actions and paste it into a plain email. And the missing button is only one door. A March 2023 merchant reported a lot of customers saying they never received the confirmation, and named where their minds go: people automatically think they get scammed. Confirmations land in spam when the sending domain is not authenticated. They go to the typo the customer made at checkout. Orders placed through checkout links or the Storefront API arrive with the source marked via import and Shopify suppresses the email on purpose, as a July 2025 thread discovered, to prevent duplicates it decided you might send. And when an email bounces, nothing in the admin says so: asked in a thread active in February 2025 where to find emails that were not delivered, merchants learned there is no such log. The AI playbook that watches every new order for the confirmation event, diagnoses the silent ones by cause, sends a replacement receipt through the invoice door before the customer asks, catches the typo addresses, matches bounces and never-got-it tickets back to their orders, and reports weekly on which door the silence came through.</description>
+    </item>
+
+    <item>
+      <title>How to stop your Shopify inventory changing by itself</title>
+      <link>https://blog.dugong.live/how-to-stop-your-shopify-inventory-changing-by-itself.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-stop-your-shopify-inventory-changing-by-itself.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Sat, 22 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The number is wrong on a Tuesday morning: a product you counted by hand last week shows 41 units, and you own 1. Nothing in the admin says why. Merchants have been comparing notes on this for years in a thread opened in May 2022 and still collecting replies in February 2025: sold out Christmas toys back in stock with their original numbers, in a store that had definitely sold them; items with 1 unit showing more than 40; a merchant who watched it happen at least once a month for two years while support was unable to assist. One merchant's low stock alert became an accidental monitoring system: every night at 9:20pm his digital products reset to zero, he set them back to 1000, and the next night they were zero again, five nights running. Another discovered that duplicating a product doubled its inventory, and summed up the aftermath: overselling, refunds, and Shopify's response just blames the user. In a second thread a store woke to the majority of its catalog reset to zero overnight, with no inventory apps installed and an adjustment history showing no evidence of the change; ten months later the only update was another merchant asking, was this resolved? Having the same issue today and no one can help. Shopify's own position, from staff in the thread: inventory should not change without a user or an app making the change. Which is true, and is precisely the problem, because the admin shows you the number, not the story. Adjustment history runs 180 days, reads one variant at a time, and files some mysteries under Data correction, defined in the help docs as an error correction that was made automatically. The causes are findable: a wholesale channel writing retail counts, a dropship app resyncing, a duplicate doubling, a CSV overwriting, a POS tap. The merchants' workaround is a standing stock take, and one settled for showing one less unit than he owns. The AI playbook that watches every adjustment as it lands, matches each one to an order, transfer, return, or named app, flags the orphans in minutes, keeps its own ledger past the 180 day window, and reports weekly on which door the changes came through.</description>
+    </item>
 
     <item>
       <title>How to catch Shopify orders that never sync to ShipStation</title>

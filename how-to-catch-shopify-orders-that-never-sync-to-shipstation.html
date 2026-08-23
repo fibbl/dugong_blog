@@ -15,6 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
 <meta property="article:published_time" content="2026-08-20" />
+<meta property="article:modified_time" content="2026-08-22" />
 <meta property="article:author" content="Priya Singh" />
 <meta property="article:section" content="Research" />
 
@@ -52,7 +53,7 @@
       "headline": "How to catch Shopify orders that never sync to ShipStation",
       "description": "The order lands on a Tuesday: paid in full, confirmation sent, another green row in a busy week. Nine days later the customer emails asking where it is, you open ShipStation to check the label, and there is no label, because there is no order. Shopify never sent it. No error on either dashboard, no email, nothing to click: the order fell into the gap between the store and the warehouse and aged there until the customer found it for you. Merchants have the receipts. A March 2024 thread mapped one failure precisely: customer pays, a new tax amount is applied, the authorization is voided, Shopify emails the customer a payment failure notice, the invoice is paid again, and the order never exports. About one a week that we know about, the merchant wrote, then at least half a dozen a week by the next update. ShipStation confirmed no event ever reached their side. Shopify staff answered twice, and both answers were the same: talk to ShipStation. The genre is older than that thread. In February 2021 a merchant learned Printful never received two orders his customers had already been charged for, and the official advice was to refund them. In March 2022 another reported orders not flowing with everything connected correctly, in a thread still collecting replies in May 2025. In October 2025 a merchant posted his own YouTube workaround to a thread that got zero replies. The failure has a dozen mundane causes, a voided authorization, an order already marked fulfilled, a manual draft order, a hold, a status filter, and one shape: every system reports that it is fine, and the order is nowhere. The only defense merchants have found is diffing two order lists by hand, which the March 2024 merchant called a nightmare in busy seasons where we'll have thousands of orders per day. The AI playbook that reconciles Shopify against ShipStation or any 3PL on a clock, flags every paid order missing from the pick queue within the hour, reads the payment timeline for the signatures that predict a skip, chases each gap with the probable cause attached, watches the tracking on the way back, and reports weekly on where the pipe leaked.",
       "datePublished": "2026-08-20",
-      "dateModified": "2026-08-20",
+      "dateModified": "2026-08-22",
       "articleSection": "Research",
       "keywords": "shopify orders not syncing to shipstation, order not importing shipstation, order missing in shipstation, order never sent to 3PL, printful never received order, fulfillment sync failure, order export failed, order reconciliation, AI sync monitoring, silent integration failure",
       "wordCount": 2500,
@@ -152,6 +153,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, and it is the right shape of work for it, because the job is reconciliation plus judgment. An automation like Dugong watches both sides of the seam: every paid, open, shippable Shopify order must have a matching row in ShipStation or the 3PL within the lag a normal order takes, and one that misses the window gets flagged with its story attached, how old it is, what the payment timeline shows, whether it matches a known signature like a voided and repaid authorization, a manual order, or a hold. The judgment matters at the edges: an order on a deliberate hold or failing address validation is not missing, it is waiting, and a blind rule cannot tell those apart. The same watch runs the pipe in reverse, catching shipments whose tracking never lands back on the Shopify order, which is its own quiet genre of customer confusion. What no automation can do is patch Shopify's export pipeline itself: if the platform never emits the event, the fix belongs to Shopify and ShipStation. What changes is the discovery time. The documented cases surfaced when customers asked where their orders were. A reconciled queue surfaces the same failure the hour it happens, with the evidence already gathered."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do Shopify orders marked as fulfilled sync to ShipStation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. An order already marked fulfilled in Shopify is skipped by the import by design, which turned out to be the whole mystery for the merchant in an October 2025 community thread whose orders had stopped arriving. The skip list is longer than most merchants learn until something goes missing: manual and draft orders do not always flow the way online store orders do, a payment still pending keeps an order back, holds and archived orders sit outside the export, and on the ShipStation side a filter, a tag rule, or a second store connection can claim or hide the import. None of these announce themselves. The order looks normal in Shopify, and ShipStation cannot alert you about a row it never received, so the gap is invisible from inside either system. Before concluding an order is missing, check every status and every store connection in ShipStation, run a manual store refresh since the scheduled pull can simply be late, and then read the order itself for the state that kept it home: a fulfillment written too early, a hold, or a payment timeline that never settled."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the tracking number from ShipStation not showing on my Shopify order?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the pipe leaks in both directions, and the return trip gets even less attention than the import. An order can ship perfectly and the tracking number never make it back onto the Shopify order, which leaves Shopify emailing nobody and the customer refreshing an order page that says unfulfilled forever. It is the same seam as the missing import, reversed: a fulfillment created on one side must land on the other within your store's normal lag, and neither dashboard tells you when it does not. The watch that catches it is the same reconciliation pointed the other way, one that knows how long tracking normally takes to land and flags the shipment that misses its window with the order and its age attached, so someone can push the number across by hand before the customer notices. The standing caveat applies in this direction too: no watcher patches the pipeline itself. If the platform never emits the event, the fix belongs to Shopify and ShipStation, and what the automation changes is the discovery time, from a customer complaint days later to an alert the hour it happens."
           }
         }
       ]
@@ -989,6 +1006,14 @@ and on a clock for the queue
       <h2 class="faq-q">Can AI catch Shopify orders that never reach my fulfillment software automatically?</h2>
       <p class="faq-a">Yes, and it is the right shape of work for it, because the job is reconciliation plus judgment. An automation like Dugong watches both sides of the seam: every paid, open, shippable Shopify order must have a matching row in ShipStation or the 3PL within the lag a normal order takes, and one that misses the window gets flagged with its story attached, how old it is, what the payment timeline shows, whether it matches a known signature like a voided and repaid authorization, a manual order, or a hold. The judgment matters at the edges: an order on a deliberate hold or failing address validation is not missing, it is waiting, and a blind rule cannot tell those apart. The same watch runs the pipe in reverse, catching shipments whose tracking never lands back on the Shopify order, which is its own quiet genre of customer confusion. What no automation can do is patch Shopify's export pipeline itself: if the platform never emits the event, the fix belongs to Shopify and ShipStation. What changes is the discovery time. The documented cases surfaced when customers asked where their orders were. A reconciled queue surfaces the same failure the hour it happens, with the evidence already gathered.</p>
     </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Do Shopify orders marked as fulfilled sync to ShipStation?</h2>
+      <p class="faq-a">No. An order already marked fulfilled in Shopify is skipped by the import by design, which turned out to be the whole mystery for the merchant in an October 2025 community thread whose orders had stopped arriving. The skip list is longer than most merchants learn until something goes missing: manual and draft orders do not always flow the way online store orders do, a payment still pending keeps an order back, holds and archived orders sit outside the export, and on the ShipStation side a filter, a tag rule, or a second store connection can claim or hide the import. None of these announce themselves. The order looks normal in Shopify, and ShipStation cannot alert you about a row it never received, so the gap is invisible from inside either system. Before concluding an order is missing, check every status and every store connection in ShipStation, run a manual store refresh since the scheduled pull can simply be late, and then read the order itself for the state that kept it home: a fulfillment written too early, a hold, or a payment timeline that never settled.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Why is the tracking number from ShipStation not showing on my Shopify order?</h2>
+      <p class="faq-a">Because the pipe leaks in both directions, and the return trip gets even less attention than the import. An order can ship perfectly and the tracking number never make it back onto the Shopify order, which leaves Shopify emailing nobody and the customer refreshing an order page that says unfulfilled forever. It is the same seam as the missing import, reversed: a fulfillment created on one side must land on the other within your store's normal lag, and neither dashboard tells you when it does not. The watch that catches it is the same reconciliation pointed the other way, one that knows how long tracking normally takes to land and flags the shipment that misses its window with the order and its age attached, so someone can push the number across by hand before the customer notices. The standing caveat applies in this direction too: no watcher patches the pipeline itself. If the platform never emits the event, the fix belongs to Shopify and ShipStation, and what the automation changes is the discovery time, from a customer complaint days later to an alert the hour it happens.</p>
+    </div>
   </div>
 </section>
 
@@ -998,6 +1023,38 @@ and on a clock for the queue
     <span class="section-rule"></span>
   </div>
   <div class="related-grid">
+<a href="how-to-fix-order-confirmation-emails-not-sending-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order confirmation that never arrives</h3>
+        <p class="card-dek">
+          The customer paid at 9:47 and calls at four asking if she was scammed: the confirmation email never sent, and Shopify has no button to send one. The AI playbook that catches every silent order in minutes and sends the receipt through a door that opens.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 23</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-your-shopify-inventory-changing-by-itself.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">11&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The stock count that changes overnight</h3>
+        <p class="card-dek">
+          Sold out products refill themselves, full ones zero out at 9:20pm, and the adjustment history can show nothing at all. The AI playbook that matches every inventory change to its story and names the hand on the dial.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 22</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
 <a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
       <div class="card-body">
         <div class="post-meta">

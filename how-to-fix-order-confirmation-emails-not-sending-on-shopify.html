@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to fix order confirmation emails not sending on Shopify &mdash; Dugong Field Notes</title>
+<meta name="description" content="Shopify order confirmations that never send: spam, typos, suppressed channels, no resend button. The AI playbook that catches every silent order in minutes." />
+<link rel="canonical" href="https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html" />
+<meta name="author" content="Priya Singh" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="keywords" content="shopify order confirmation email not sending, customer did not receive order confirmation shopify, resend order confirmation email shopify, shopify confirmation email went to spam, shopify order confirmation email missing, shopify checkout links no confirmation email, shopify draft order confirmation email, shopify email delivery log, order confirmation automation, AI order monitoring, Dugong" />
+<meta name="theme-color" content="#c6fe1e" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
+<meta property="article:published_time" content="2026-08-23" />
+<meta property="article:modified_time" content="2026-08-23" />
+<meta property="article:author" content="Priya Singh" />
+<meta property="article:section" content="Research" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Dugong Field Notes" />
+<meta property="og:title" content="How to fix order confirmation emails not sending on Shopify" />
+<meta property="og:description" content="The phone rings at ten past four: I placed an order this morning and I never got a receipt. Did you actually charge me? You open the order and the timeline line that should read Order confirmation email sent is simply not there. Merchants have been comparing notes on this since October 2021, in a thread that ran 26 replies and was still collecting posts in July 2025. The original case is the whole problem in miniature: a phone order, a draft, the email address added a moment too late, and Shopify staff confirming there is no way within the admin to send an order confirmation if none went out the first time, only a feature request that cannot be tracked. The thread aged publicly: a year later, did this ever come through, still a big issue; May 2023, in capitals, it's been a whole year; January 2024, it is nothing more than one resend button, could be fixed in five minutes; February 2024, other platforms are implementing AI and here I am not being able to send an order confirmation email. The workarounds merchants traded are their own indictment: email the customer a screenshot of the order page, or dig the order status URL out of More actions and paste it into a plain email. And the missing button is only one door. A March 2023 merchant reported a lot of customers saying they never received the confirmation, and named where their minds go: people automatically think they get scammed. Confirmations land in spam when the sending domain is not authenticated. They go to the typo the customer made at checkout. Orders placed through checkout links or the Storefront API arrive with the source marked via import and Shopify suppresses the email on purpose, as a July 2025 thread discovered, to prevent duplicates it decided you might send. And when an email bounces, nothing in the admin says so: asked in a thread active in February 2025 where to find emails that were not delivered, merchants learned there is no such log. The AI playbook that watches every new order for the confirmation event, diagnoses the silent ones by cause, sends a replacement receipt through the invoice door before the customer asks, catches the typo addresses, matches bounces and never-got-it tickets back to their orders, and reports weekly on which door the silence came through." />
+<meta property="og:url" content="https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html" />
+<meta property="og:image" content="https://blog.dugong.live/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to fix order confirmation emails not sending on Shopify" />
+<meta name="twitter:description" content="Shopify order confirmations that never send: spam, typos, suppressed channels, no resend button. The AI playbook that catches every silent order in minutes." />
+<meta name="twitter:image" content="https://blog.dugong.live/og-image.png" />
+    <meta name="twitter:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#article",
+      "isPartOf": {
+        "@id": "https://blog.dugong.live/#blog"
+      },
+      "mainEntityOfPage": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html",
+      "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html",
+      "headline": "How to fix order confirmation emails not sending on Shopify",
+      "description": "The phone rings at ten past four: I placed an order this morning and I never got a receipt. Did you actually charge me? You open the order and the timeline line that should read Order confirmation email sent is simply not there. Merchants have been comparing notes on this since October 2021, in a thread that ran 26 replies and was still collecting posts in July 2025. The original case is the whole problem in miniature: a phone order, a draft, the email address added a moment too late, and Shopify staff confirming there is no way within the admin to send an order confirmation if none went out the first time, only a feature request that cannot be tracked. The thread aged publicly: a year later, did this ever come through, still a big issue; May 2023, in capitals, it's been a whole year; January 2024, it is nothing more than one resend button, could be fixed in five minutes; February 2024, other platforms are implementing AI and here I am not being able to send an order confirmation email. The workarounds merchants traded are their own indictment: email the customer a screenshot of the order page, or dig the order status URL out of More actions and paste it into a plain email. And the missing button is only one door. A March 2023 merchant reported a lot of customers saying they never received the confirmation, and named where their minds go: people automatically think they get scammed. Confirmations land in spam when the sending domain is not authenticated. They go to the typo the customer made at checkout. Orders placed through checkout links or the Storefront API arrive with the source marked via import and Shopify suppresses the email on purpose, as a July 2025 thread discovered, to prevent duplicates it decided you might send. And when an email bounces, nothing in the admin says so: asked in a thread active in February 2025 where to find emails that were not delivered, merchants learned there is no such log. The AI playbook that watches every new order for the confirmation event, diagnoses the silent ones by cause, sends a replacement receipt through the invoice door before the customer asks, catches the typo addresses, matches bounces and never-got-it tickets back to their orders, and reports weekly on which door the silence came through.",
+      "datePublished": "2026-08-23",
+      "dateModified": "2026-08-23",
+      "articleSection": "Research",
+      "keywords": "order confirmation email not sending, customer did not receive order confirmation, resend order confirmation, confirmation email spam, checkout links no confirmation email, draft order confirmation, email delivery log, order confirmation automation, AI order monitoring",
+      "wordCount": 2600,
+      "timeRequired": "PT10M",
+      "inLanguage": "en",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.dugong.live/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Email spam",
+          "sameAs": "https://en.wikipedia.org/wiki/Email_spam"
+        },
+        {
+          "@type": "Thing",
+          "name": "DMARC",
+          "sameAs": "https://en.wikipedia.org/wiki/DMARC"
+        },
+        {
+          "@type": "Thing",
+          "name": "Shopify",
+          "sameAs": "https://en.wikipedia.org/wiki/Shopify"
+        }
+      ],
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".article-title",
+          ".faq"
+        ]
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://blog.dugong.live/#priya-singh",
+        "name": "Priya Singh",
+        "jobTitle": "Commerce Research, Dugong",
+        "worksFor": {
+          "@id": "https://blog.dugong.live/#organization"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://blog.dugong.live/#organization",
+        "name": "Dugong",
+        "url": "https://dugong.live",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://blog.dugong.live/og-image.png",
+          "width": 1200,
+          "height": 630
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Field Notes",
+          "item": "https://blog.dugong.live/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The order confirmation that never arrives",
+          "item": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why are my Shopify order confirmation emails not sending?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There are five distinct causes, and the first job is telling them apart. The email may be sending and landing in spam, which happens at scale when your sending domain is not authenticated with SPF, DKIM, and DMARC. It may never have been sent because the order had no email address at the moment it was created, which covers phone orders, POS sales, and draft orders where the address was added a step late; Shopify permanently cannot send a confirmation for those orders. It may have gone to a typo'd address the customer entered at checkout. It may be suppressed by design: orders arriving through checkout links or the Storefront API's checkout URL show a source like via import, and Shopify deliberately withholds the confirmation because the order did not originate from the Online Store channel, a behavior confirmed in a July 2025 community thread. Or it was sent and bounced, which the admin records nowhere. Check the order timeline first: if the Order confirmation email sent line is missing, the email never went out, and the order source and the moment the address was added will usually tell you which door the silence came through."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I resend a Shopify order confirmation that was never sent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You cannot, natively. If the confirmation was sent, the timeline offers a resend; if it never sent, there is no button, and Shopify staff confirmed as much in an October 2021 community thread: there is no way within the admin to send an order confirmation if none went out the first time, including after you add or correct the email address on the order. The thread collected workarounds for four years. Send the customer the order status page link, found under More actions on the order, which any customer can open. Create and send an invoice from the order, since the invoice email can always be sent and carries the order contents. Or, as one merchant settled on, email a screenshot of the order page. Shopify Flow on Plus plans and the Admin API can trigger emails programmatically for channels that suppress them. The durable fix is not any single workaround but the noticing: a watcher that flags every order still missing its sent event a few minutes after creation, so the replacement receipt goes out the same morning instead of after the customer calls."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do Shopify order confirmation emails go to spam?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because mailbox providers do not trust the sending setup, and transactional templates are not exempt from filtering. The biggest lever is domain authentication: if SPF, DKIM, and DMARC are not configured and aligned for your sending domain, Gmail and Outlook have every reason to file your receipts as spam or promotions, and community threads on confirmations landing in junk folders come back to authentication again and again. Verify your domain in Shopify's settings, check the three records, and test with a fresh mailbox before assuming delivery. Content matters at the margin, spammy subject lines and heavy images hurt, but authentication decides most cases. The deeper operational problem is that you get no signal either way: Shopify's timeline records that an email was sent and says nothing about placement, and when a merchant asked in a thread active in February 2025 whether there is a place to find emails that were not delivered, the answer was that no such log exists. Treat silence from customers as data. A cluster of never-got-it tickets from one mailbox provider in one week is your deliverability alarm, and a watcher can correlate that faster than an inbox can."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do Shopify checkout links and Storefront API orders send confirmation emails?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Orders created through the Storefront API's checkout URL, which includes direct checkout links and QR code flows, arrive with a source like Direct, Checkout Links and QR, via import, and Shopify suppresses the order confirmation email for them by design, to prevent what it considers unintended or duplicate emails from orders that did not originate on the Online Store channel. A July 2025 community thread confirmed the behavior after a developer noticed the Order confirmation email sent line missing from the timeline on every such order despite valid emails and completed payments. Nothing in the admin warns you this is happening, and no setting turns it back on. The options are to send each confirmation manually from the order page, to use Shopify Flow on Plus plans, to trigger the notification through the Admin API, or to route the receipt through the invoice email, which can be sent for any order. If you sell through bio links, QR codes, or a headless storefront, assume the channel is silent until a test order proves otherwise, and give every order from it a receipt through a door that opens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI catch Shopify orders where the confirmation email never went out?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, because the failure has a reliable signature: an order that reaches a few minutes old with no Order confirmation email sent event in its timeline. An automation like Dugong watches every new order for that event, and diagnoses the silent ones by cause: no email address on the order at creation, a suppressed source like via import, an address added after the fact, a domain that looks like a typo. The cause picks the response. Suppressed channels get a replacement receipt through the invoice door on your template, with the order status link inside, minutes after the order lands. Obvious typos like gmial.com get a correction request instead of a wasted send, while plausible addresses are flagged for a human rather than guessed at. Bounce reports and never-got-it tickets get matched back to their orders, so a one-off becomes a pattern you can see. The honest limits: nothing adds Shopify's missing resend button, fixes your DMARC records for you, or reaches inside a spam filter. What changes is discovery. The silent order is found at minute ten with the cause attached and the replacement sent, instead of at 4pm by the customer who thought she had been scammed."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#howto",
+      "name": "The order confirmation that never arrives",
+      "description": "The AI playbook for Shopify order confirmation emails that never send: baselining which sales channels send confirmations and what a normal order timeline looks like, watching every new order for the confirmation sent event within minutes, diagnosing the silent orders by cause, reading the address itself for obvious typos, sending a replacement receipt through the invoice door on your template, matching bounces and never-got-it tickets back to their orders, and reporting weekly on sends, silences, causes, and domain authentication health.",
+      "inLanguage": "en",
+      "totalTime": "PT10M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Baseline each channel",
+          "text": "Which sources send confirmations, and what a normal timeline looks like",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Watch every order",
+          "text": "The confirmation sent event, checked within minutes of creation",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Diagnose the silent ones",
+          "text": "No address, suppressed channel, or an email added a step late",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Read the address itself",
+          "text": "The typo'd domain and the impossible inbox, caught before sending",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Send the receipt by another door",
+          "text": "Invoice or order status link, on your template, minutes later",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Listen for the echo",
+          "text": "Bounces and never-got-it tickets matched back to their orders",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Report weekly",
+          "text": "Sends, silences, causes, and the domain auth health check",
+          "url": "https://blog.dugong.live/how-to-fix-order-confirmation-emails-not-sending-on-shopify.html#playbook"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* =========================================================
+   DUGONG FIELD NOTES — matches dugong.live
+   Lime + warm off-white · Hanken Grotesk / Inter · easy to read
+   ========================================================= */
+
+:root {
+  --bg:           #f6f6f1;
+  --bg-2:         #ffffff;
+  --surface:      #ffffff;
+  --surface-2:    #fbfbf7;
+  --border:       rgba(15,15,12,.10);
+  --border-strong:rgba(15,15,12,.18);
+
+  --text:         #11110e;
+  --text-dim:     #56564e;
+  --text-faint:   #71716a;
+
+  --lime:         #c6fe1e;
+  --lime-deep:    #4f7000;
+  --lime-line:    rgba(168,224,0,.55);
+  --lime-tint:    rgba(198,254,30,.22);
+  --green:        #0a8f54;
+  --pink:         #c61f93;
+
+  /* legacy aliases so any stray var() still resolves */
+  --ink: var(--text); --ink-2: var(--text-dim); --muted: var(--text-dim);
+  --dim: var(--text-faint); --line: var(--border); --line-2: var(--border-strong);
+  --teal: var(--lime-deep); --sand: var(--pink);
+  --cream-dim: var(--text-dim); --gold: #b5882c;
+
+  --display: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --maxw:   1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+::selection { background: var(--lime); color: #11110e; }
+
+/* atmospheric background — lime glow + faint grid (from dugong.live) */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 78% -12%, rgba(198,254,30,.30), transparent 60%),
+    radial-gradient(720px 520px at 3% 8%, rgba(198,254,30,.12), transparent 58%);
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; opacity: .55; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15,15,12,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,15,12,.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+}
+.grain { display: none; }
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+em { font-style: italic; }
+
+/* ---- buttons (shared, dugong.live) ---- */
+.btn {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  border-radius: 10px; padding: 10px 18px;
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  border: 1px solid transparent; white-space: nowrap;
+  transition: transform .15s ease, background .2s, box-shadow .2s, border-color .2s;
+}
+.btn-primary { background: var(--lime); color: #11110e !important; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+.btn-ghost { background: var(--surface); color: var(--text) !important; border-color: var(--border-strong); }
+.btn-ghost:hover { background: #fff; transform: translateY(-1px); border-color: var(--text); }
+.btn-lg { padding: 14px 26px; font-size: 16px; border-radius: 12px; }
+
+/* TICKER */
+.ticker {
+  position: relative; z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: rgba(246,246,241,.6);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+  color: var(--text-faint); padding: 9px 0;
+}
+.ticker-track { display: inline-flex; white-space: nowrap; gap: 3rem; animation: ticker 55s linear infinite; }
+.ticker-track span { flex-shrink: 0; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0 var(--gutter); min-height: 66px;
+  background: rgba(246,246,241,.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 800; min-width: 0; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px; background: #11110e;
+  display: inline-grid; place-items: center; flex: none; color: #fff; font-size: 0;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark.big { width: 40px; height: 40px; border-radius: 11px; }
+.brand-mark.big svg { width: 24px; height: 24px; }
+.brand-name { font-size: 21px; letter-spacing: -0.02em; color: var(--text); }
+.brand-slash { color: var(--text-faint); font-size: 18px; font-weight: 500; }
+.brand-section { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em; color: var(--text-dim); text-transform: lowercase; font-weight: 400; }
+
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: var(--text-dim); font-family: var(--body); }
+.nav-links a { color: var(--text-dim); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  background: var(--lime); color: #11110e !important;
+  border: 1px solid var(--lime); padding: 10px 18px; border-radius: 10px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: transform .15s ease, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+@media (max-width: 820px) { .nav-links a:not(.nav-cta) { display: none; } }
+@media (max-width: 480px) {
+  .brand-slash, .brand-section { display: none; }
+  .nav-cta { font-size: 12.5px; padding: 8px 12px; }
+}
+@media (max-width: 360px) {
+  .nav-cta { font-size: 11.5px; padding: 7px 10px; }
+}
+
+/* SECTION HEAD */
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; flex-wrap: wrap; }
+.section-eyebrow {
+  font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em;
+  color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0;
+}
+.section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-strong), transparent); min-width: 40px; }
+
+.post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+
+.tag {
+  font-family: var(--display); font-weight: 700;
+  padding: 0.28rem 0.65rem; border-radius: 100px;
+  font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--lime-tint); color: var(--lime-deep); border: 1px solid var(--lime-line);
+}
+.tag-research   { background: var(--lime-tint); color: var(--lime-deep); border-color: var(--lime-line); }
+.tag-essay      { background: rgba(10,143,84,.12); color: var(--green); border-color: rgba(10,143,84,.30); }
+.tag-postmortem { background: rgba(198,31,147,.10); color: var(--pink); border-color: rgba(198,31,147,.30); }
+.tag-tactics    { background: #11110e; color: #fff; border-color: #11110e; }
+.tag-interview  { background: var(--surface); color: var(--text-dim); border-color: var(--border-strong); }
+.post-read { color: var(--text-faint); text-transform: uppercase; }
+
+/* GRID (for related cards) */
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+.card:hover { transform: translateY(-3px); border-color: var(--lime-line); box-shadow: 0 16px 40px -30px rgba(15,15,12,.4); }
+.card:hover .card-title { color: var(--lime-deep); }
+.card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-title { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.7rem; transition: color 0.25s; }
+.card-dek { font-family: var(--body); font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 1.2rem; flex: 1; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+.card-date { color: var(--text-faint); }
+.card-author { color: var(--text-dim); }
+
+/* FOOTER */
+.foot { position: relative; z-index: 2; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--border); background: var(--surface-2); }
+.foot-top { display: grid; grid-template-columns: 1.4fr 2fr; gap: clamp(2rem, 5vw, 5rem); max-width: var(--maxw); margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem; }
+@media (max-width: 760px) { .foot-top { grid-template-columns: 1fr; } }
+.foot-brand { display: flex; flex-direction: column; gap: 1rem; }
+.foot-tag { font-family: var(--body); font-weight: 400; font-size: 0.95rem; color: var(--text-dim); max-width: 22em; line-height: 1.45; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 560px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.25rem; } }
+@media (max-width: 340px) { .foot-cols { grid-template-columns: 1fr; } }
+.foot-cols > div { display: flex; flex-direction: column; gap: 0.55rem; }
+.foot-h { font-family: var(--display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.foot-cols a { font-family: var(--body); font-size: 0.92rem; color: var(--text-dim); transition: color 0.2s; }
+.foot-cols a:hover { color: var(--lime-deep); }
+.foot-bot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: var(--maxw); margin: 0 auto; padding: 1.5rem var(--gutter); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--text-faint); }
+
+/* POST PAGE */
+.article { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+.article-back { font-family: var(--display); font-weight: 600; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 2.5rem; display: inline-block; }
+.article-back:hover { color: var(--lime-deep); }
+.article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.4rem; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em; flex-wrap: wrap; }
+.article-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.035em; color: var(--text); margin-bottom: 1.35rem; }
+.article-title em { font-style: normal; position: relative; white-space: nowrap; color: var(--text); }
+.article-title em::after { content: ""; position: absolute; left: -.06em; right: -.06em; bottom: .06em; height: .32em; background: var(--lime); z-index: -1; border-radius: 3px; transform: rotate(-.5deg); }
+.article-dek { font-family: var(--body); font-weight: 400; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.55; color: var(--text-dim); margin-bottom: 2.25rem; }
+.article-byline { display: flex; align-items: center; gap: 0.75rem; padding: 1.2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.75rem; font-family: var(--mono); font-size: 0.85rem; }
+.byline-avatar { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 0.68rem; font-weight: 700; color: #fff; letter-spacing: 0; }
+.byline-name { color: var(--text); font-family: var(--display); font-weight: 600; }
+.byline-divider { color: var(--border-strong); }
+.byline-role { color: var(--text-faint); }
+
+.article-body { font-family: var(--body); font-weight: 400; font-size: 1.2rem; line-height: 1.8; color: var(--text); }
+.article-body p { margin-bottom: 1.5rem; }
+.article-body h2 { font-family: var(--display); font-weight: 800; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.03em; margin: 2.85rem 0 1.1rem; color: var(--text); }
+.article-body h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.02em; margin: 2.25rem 0 0.9rem; color: var(--text); }
+.article-body blockquote { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.4; letter-spacing: -0.02em; padding: 0.3rem 0 0.3rem 1.5rem; border-left: 4px solid var(--lime); margin: 2rem 0; color: var(--text); }
+.article-body blockquote em { font-style: normal; color: var(--text-faint); }
+.article-body code { font-family: var(--mono); font-size: 0.88em; background: var(--lime-tint); padding: 0.12em 0.4em; border-radius: 5px; color: var(--lime-deep); }
+.article-body pre { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 1.25rem; margin: 2rem 0; overflow-x: auto; font-family: var(--mono); font-size: 0.86rem; line-height: 1.65; color: var(--text-dim); }
+
+@media (max-width: 560px) {
+  .article-body pre { font-size: 0.74rem; padding: 1rem; white-space: pre-wrap; overflow-wrap: break-word; }
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body pre .k { color: var(--lime-deep); font-weight: 600; }
+.article-body pre .s { color: var(--pink); }
+.article-body pre .c { color: var(--text-faint); font-style: italic; }
+.article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.4rem; }
+.article-body li { margin-bottom: 0.65rem; padding-left: 0.25rem; }
+.article-body li::marker { color: var(--lime-deep); }
+.article-body strong { font-weight: 700; color: var(--text); }
+.article-body a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); transition: background 0.2s, border-color 0.2s; }
+.article-body a:hover { background: var(--lime-tint); border-color: var(--lime-deep); }
+.article-body hr { border: none; height: 1px; background: var(--border-strong); margin: 2.85rem 0; }
+
+.callout { display: flex; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--lime-tint); border: 1px solid var(--lime-line); border-left: 3px solid var(--lime-deep); border-radius: 12px; margin: 2rem 0; font-family: var(--body); font-size: 1rem; line-height: 1.6; color: var(--text-dim); }
+.callout strong { color: var(--text); }
+.callout-mark { font-family: var(--display); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0; padding-top: 0.2rem; }
+.callout-sand { background: rgba(198,31,147,.08); border-color: rgba(198,31,147,.28); border-left-color: var(--pink); }
+.callout-sand .callout-mark { color: var(--pink); }
+.callout a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); }
+
+.article-end { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.article-end-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.article-end-share { font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+.faq { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); position: relative; z-index: 2; border-top: 1px solid var(--border); }
+.faq .section-head { margin-bottom: 2rem; }
+.faq-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-family: var(--display); font-weight: 700; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--text); margin: 0 0 0.7rem; }
+.faq-a { font-family: var(--body); font-weight: 400; font-size: 1.08rem; line-height: 1.7; color: var(--text-dim); margin: 0; }
+.related { max-width: 1080px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); position: relative; z-index: 2; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 1.5rem; }
+@media (max-width: 760px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA band (to dugong.live) — mirrors the site's final card ---- */
+.cta-band { position: relative; z-index: 2; max-width: var(--maxw); margin: clamp(2.5rem,6vw,4.5rem) auto; padding: 0 var(--gutter); }
+.cta-band-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  padding: clamp(2.25rem,4vw,3.25rem) clamp(1.75rem,4vw,3.25rem);
+  border-radius: 26px; border: 1px solid var(--lime-line);
+  background: linear-gradient(135deg, rgba(198,254,30,.4), rgba(198,254,30,.12));
+  position: relative; overflow: hidden;
+}
+.cta-band-inner::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(198,254,30,.7), transparent 70%); top: -160px; right: -90px; pointer-events: none; }
+.cta-band-copy { max-width: 32em; position: relative; }
+.cta-eyebrow { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 0.7rem; display: block; }
+.cta-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem,3.4vw,2.5rem); line-height: 1.05; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.55rem; }
+.cta-title em { font-style: normal; color: var(--text-faint); }
+.cta-sub { font-size: 1rem; line-height: 1.55; color: var(--text-dim); }
+.cta-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; position: relative; }
+.cta-band .btn-primary { background: #11110e; color: #fff !important; border-color: #11110e; }
+.cta-band .btn-primary:hover { box-shadow: 0 12px 30px -10px rgba(15,15,12,.5); }
+.cta-fine { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.03em; color: var(--text-dim); }
+@media (max-width: 640px) { .cta-band-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+
+/* mobile: let highlighted title phrases wrap (nowrap em overflows small screens) */
+@media (max-width: 640px) {
+  .article-title em { white-space: normal; background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 96%, transparent 96%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .article-title em::after { display: none; }
+}
+
+/* ACCESSIBILITY */
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--lime-deep); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>&#9670; DISPATCH N&ordm; 113 &mdash; AUG 23, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+    <span>&#9670; DISPATCH N&ordm; 113 &mdash; AUG 23, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+  </div>
+</div>
+
+<header class="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+    <span class="brand-name">dugong</span>
+    <span class="brand-slash">/</span>
+    <span class="brand-section">field&nbsp;notes</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html#latest">Latest</a>
+    <a href="index.html#tags">Topics</a>
+    <a href="index.html#archive">Archive</a>
+    <a href="https://dugong.live" class="nav-cta">Try Dugong free &rarr;</a>
+  </nav>
+</header>
+<article class="article">
+
+  <a href="index.html" class="article-back">&larr; back to field notes</a>
+
+  <div class="article-meta">
+    <span class="tag tag-research">research</span>
+    <span style="color: var(--cream-dim);">DISPATCH N&ordm; 113</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">AUG 23, 2026</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">10 MIN READ</span>
+  </div>
+
+  <h1 class="article-title">
+    How to fix order confirmation emails <em>not sending</em> on Shopify
+  </h1>
+
+  <p class="article-dek">
+    The customer paid this morning and by afternoon she is asking if you charged her at all. Here is the community record of Shopify confirmations that never send, the five doors the silence comes through, and the playbook that gets a receipt into her inbox before she thinks to call.
+  </p>
+
+  <div class="article-byline">
+    <span class="byline-avatar" style="background: var(--gold);">PS</span>
+    <span class="byline-name">Priya Singh</span>
+    <span class="byline-divider">&middot;</span>
+    <span class="byline-role">Commerce Research, Dugong</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>
+      The order lands on a Tuesday at 9:47am: a candle trio, paid
+      in full, a first time customer. At ten past four the phone
+      rings. I placed an order this morning, she says, and I never
+      got a receipt. Did you actually charge me? You pull the
+      order up while she waits. Paid, yes. Address, fine. And in
+      the timeline, where every other order shows a quiet gray
+      line reading Order confirmation email sent, there is
+      nothing. No line, no error, nothing to click.
+    </p>
+
+    <p>
+      You check the obvious things in the wrong order, the way
+      everyone does the first time. Her junk folder. Her
+      promotions tab. The spelling of the address on the order.
+      Then you go looking for the resend button and make the
+      discovery that has kept one community thread alive for four
+      years: if the confirmation never went out, Shopify has no
+      way to send one. The resend button you remember exists only
+      on orders that already sent it.
+    </p>
+
+    <h2>The receipt is the product, for a while</h2>
+
+    <p>
+      For the customer, the confirmation email is not a nicety.
+      For the first day or two it is the entire purchase: the only
+      proof that money left their card and something is coming
+      back. A merchant in a March 2023 thread described the
+      failure from the receiving end, a lot of customers saying
+      they didn't receive the order confirmation, and named the
+      conclusion those customers jump to: people automatically
+      think they get scammed. Which is the correct instinct on
+      their side of the screen. A charge with no receipt is
+      exactly what fraud looks like.
+    </p>
+
+    <p>
+      What follows is predictable and all of it lands on you. The
+      nervous ones write in and join
+      <a href="how-to-reduce-where-is-my-order-wismo-tickets-on-shopify.html">the
+      ticket queue that eats your afternoon</a>. The impatient
+      ones assume the checkout failed and place
+      <a href="how-to-catch-and-cancel-duplicate-orders-on-shopify.html">the
+      same order twice</a>, leaving you a duplicate to catch and
+      refund. The worst case sees an unfamiliar charge, no
+      receipt anywhere, and disputes it, and a cardholder who can
+      say they never received any confirmation is a harder
+      <a href="how-to-win-chargeback-disputes-on-shopify.html">chargeback</a>
+      to win than it should be. Three different costs, one silent
+      minute on day one.
+    </p>
+
+    <h2>The community record</h2>
+
+    <p>
+      The reference thread was opened in October 2021 by a
+      merchant who took a phone order, built it as a draft, and
+      added the customer's email a beat after the order went
+      through. Then she went looking for the resend button that
+      was not there. Shopify staff answered plainly, and the
+      answer has aged into the problem's epitaph: at this stage
+      there isn't a way within the Shopify admin natively to
+      resend an order confirmation email if none was sent through
+      in the first place. A feature request would be passed
+      along, staff added, though we're unable to track it. The
+      thread ran to 26 replies and more than two thousand views,
+      and was still collecting posts in July 2025.
+    </p>
+
+    <p>
+      Read in order, the replies are a time lapse of patience
+      failing. May 2022: did this ever come through? Still a big
+      issue. May 2023, in capitals: it's been a whole year. In
+      November 2023 a merchant explained what he does now, which
+      is send the customer a regular email with a screenshot of
+      the order page. December 2023 produced the thread's best
+      workaround, dig the order status page URL out of the More
+      actions menu and paste it into a plain email, along with
+      the thread's own review of that workaround: definitely not
+      a solution, and unbelievable that something this simple has
+      not been fixed for years. Days later another merchant hit
+      the adjacent wall: her customer had typo'd the email at
+      checkout, she corrected it on the order, and found there is
+      no way to send the confirmation to the fixed address
+      either. January 2024: it is nothing more than one resend
+      button, could be fixed in five minutes. February 2024
+      supplied the closing line: other platforms are implementing
+      AI, and here I am not being able to send an order
+      confirmation email.
+    </p>
+
+    <p>
+      The missing button is only the loudest door. In July 2025 a
+      developer posted a genuine puzzle: orders placed through
+      checkout links, valid email present, payment complete,
+      Shopify's own checkout page, and no confirmation email,
+      ever. The one visible difference was the order source,
+      reading Direct, Checkout Links &amp; QR, via import. The
+      in-thread answer: Shopify suppresses confirmation emails
+      for orders that arrive through the Storefront API's
+      checkout URL, on purpose, to prevent unintended or
+      duplicate emails, because the order did not originate from
+      the Online Store channel. No setting says so, and nothing
+      warns you. The timeline just misses its line, on every
+      order from that channel, until a customer asks. And
+      running underneath all of it is the plainest question in
+      the genre, asked by a retail merchant in a thread still
+      active in February 2025: is there a place to find emails
+      that weren't delivered? There is not. Shopify records that
+      an email was sent. Whether it arrived, bounced, or died in
+      a spam folder is recorded nowhere a merchant can see.
+    </p>
+
+    <div class="callout callout-sand">
+      <span class="callout-mark">&#9670; NOTE</span>
+      <span>
+        The record, in the merchants' own words: no way within
+        the admin to send a confirmation if none went out the
+        first time, per Shopify staff, October 2021, with a
+        feature request that cannot be tracked. It's been a whole
+        year, May 2023, in capitals. A merchant emailing
+        customers screenshots of the order page, November 2023.
+        No way to resend to a corrected address after a checkout
+        typo, December 2023. Could be fixed in five minutes,
+        January 2024. Checkout link orders suppressed by design,
+        confirmed July 2025. And the question with no answer,
+        active February 2025: is there a place to find emails
+        that weren't delivered?
+      </span>
+    </div>
+
+    <h2>Five doors to silence</h2>
+
+    <p>
+      Trace enough of these and the missing receipt turns out to
+      have five distinct causes, each with its own signature.
+      The email was sent and filtered: the sending domain is not
+      authenticated, SPF, DKIM, and DMARC do not line up, and
+      the mailbox provider files your receipt under spam or
+      promotions, which is where whole satellite threads live.
+      The email was never sent because the order had no address
+      at the moment it was created: phone orders, POS sales,
+      drafts where the email arrived one step late, and for that
+      order the admin can never send one. The email went to an
+      address that does not exist, because the customer typed
+      gmial.com at checkout and nothing checked, the same class
+      of silent typo as
+      <a href="how-to-validate-shipping-addresses-on-shopify.html">the
+      bad address that ships anyway</a>. The email was suppressed
+      by channel: checkout links, Storefront API orders, imports,
+      anything wearing via import in the source field. And the
+      email was sent and bounced, which Shopify records nowhere.
+    </p>
+
+    <p>
+      Five causes, five different fixes, and from the outside one
+      identical symptom: the order looks routine and the customer
+      is holding nothing. That is why the phone call is the
+      discovery mechanism. The merchant learns about the failure
+      one order at a time, always from the person it embarrassed
+      them in front of, the same shape as
+      <a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html">the
+      order that never reaches the warehouse</a>: every system
+      says fine, and the proof of the failure lives outside all
+      of them.
+    </p>
+
+    <h2>The screenshot is the right idea in the wrong tool</h2>
+
+    <p>
+      Look at what the thread's veterans converged on. One emails
+      a screenshot of the order page. One sends the order status
+      link by hand. One creates a
+      <a href="how-to-automatically-send-invoices-on-shopify.html">manual
+      invoice</a> and fires that instead, because the invoice
+      email, unlike the confirmation, can always be sent. Each of
+      these is a person doing delivery assurance by hand: notice
+      the silent order, work out why it was silent, and get the
+      customer proof of purchase through whatever door still
+      opens. The instinct is exactly right. The flaw is that
+      every step depends on noticing, and noticing is the step
+      that fails, because the admin surfaces nothing to notice.
+      A missing gray line in one timeline among hundreds is not
+      a signal anyone scans for past Wednesday of the first
+      week. The merchants in the record are not short of fixes.
+      They are short of the alarm.
+    </p>
+
+    <h2>What the automation actually has to do</h2>
+
+    <p>
+      As a Dugong playbook, in plain prose:
+    </p>
+
+    <pre id="playbook"><code><span class="c"># trigger</span>
+<span class="k">On</span> every new order,
+and on a clock for the sweep
+
+<span class="c"># steps</span>
+1. <span class="k">Baseline</span> each channel: which
+   sources send confirmations,
+   and what normal looks like
+2. <span class="k">Watch</span> every order for the
+   sent event, within minutes
+   of creation
+3. <span class="k">Diagnose</span> the silent ones:
+   no address, suppressed
+   channel, email added late
+4. <span class="k">Read</span> the address itself:
+   the typo'd domain, the
+   impossible inbox
+5. <span class="k">Send</span> the receipt by another
+   door: invoice or status
+   link, your template
+6. <span class="k">Listen</span> for the echo: bounces
+   and never-got-it tickets,
+   matched back to orders
+7. <span class="k">Report</span> weekly: sends,
+   silences, causes, and the
+   domain auth health check
+</code></pre>
+
+    <p>
+      Step two is the alarm the record is missing. Every order
+      that reaches ten minutes old without its sent event goes on
+      a list, and the list is short enough to act on because most
+      orders pass. Step three turns the list into causes, and the
+      cause picks the fix. An order with no email address needs a
+      human or a phone number, not a resend. An order from a
+      channel Shopify suppresses needs its receipt sent through
+      the invoice door, every time, as policy. An email added
+      late, the October 2021 case, needs the same. A typo'd
+      domain needs a correction first, because confirming to
+      gmial.com helps nobody.
+    </p>
+
+    <p>
+      Step five is where the trust gets saved, and it is the
+      thread's own December 2023 workaround with the noticing
+      automated. Shopify will not resend a confirmation that
+      never sent, but every order has an invoice email that can
+      always go out, and an order status page whose link can be
+      shared. A receipt built on your template, carrying the
+      order contents and that link, lands within minutes of the
+      silence being detected, and the customer never learns
+      there was a failure at all. The one judgment call worth
+      being careful with is step four: gmial.com and hotnail.com
+      are machine-catchable, but jsmith versus jsmyth is not,
+      and a system that guesses at addresses burns more trust
+      than it saves. Flag those,
+      <a href="how-to-edit-a-shopify-order-after-its-been-placed.html">fix
+      the order</a> when the customer answers, and send then.
+      Knowing which case is which is the reading work that runs
+      through
+      <a href="best-shopify-automations-to-set-up.html">every
+      automation worth building</a>: the rule is cheap, knowing
+      when the rule applies is the job.
+    </p>
+
+    <p>
+      The honest limits, stated plainly. None of this adds the
+      resend button Shopify has declined to build since 2021;
+      the native email stays unsent, and what the customer gets
+      is a replacement receipt through a door that opens. No
+      tool can see inside Gmail's classifier or force an inbox
+      placement, and a wrong-but-plausible address stays wrong
+      until a human confirms the right one. Domain
+      authentication is your DNS to fix, not the watcher's,
+      though the watcher can tell you the day your DMARC
+      alignment breaks instead of the month your open rate
+      quietly halves. What changes is discovery. In the
+      documented cases, discovery is the customer: the 4pm phone
+      call, the second order, the dispute. On a watched store the
+      silent order is a line item at 9:57am with the cause
+      attached and the replacement already sent.
+    </p>
+
+    <h2>Why this is a compiler problem, not an app problem</h2>
+
+    <p>
+      Email apps exist on both sides of this. Marketing platforms
+      will happily take over your transactional sending, and
+      deliverability suites will score your domain. But the
+      replacement sender does not watch the orders that skipped
+      sending, and the deliverability score does not know that
+      your checkout link channel is suppressed by design. What
+      this failure wants is a witness with your store's
+      definition of silence, and that definition is specific in
+      ways no settings page survives. Which channels are
+      supposed to send receipts at all? Do POS orders get one,
+      or is the paper slip the receipt? Do wholesale drafts on
+      net terms get a retail-looking confirmation, or would that
+      confuse the bookkeeper on the other end? How long is too
+      long for a store that batches imports overnight? Who gets
+      woken when an entire channel goes quiet at once, the way
+      it does when a template edit breaks or an app hijacks the
+      notification? Those are sentences about your operation.
+      They should compile into the watcher as written, instead
+      of being shaved down to whatever a checkbox happens to
+      offer.
+    </p>
+
+    <p>
+      Run Tuesday's candle order again with the sentences
+      compiled. The order lands at 9:47 through the Instagram
+      bio's checkout link, and the source says via import, a
+      channel the watcher knows never sends. At 9:49 the
+      replacement receipt goes out through the invoice door, on
+      your template, with the order status link inside. At 9:50
+      the order timeline gets a note saying so, with the cause.
+      The 4:10pm phone call never happens, and the weekly report
+      counts one silence, caught, channel known, alongside the
+      two bounced Yahoo addresses and the one gmial.com the
+      customer thanked you for catching.
+    </p>
+
+    <hr />
+
+    <h2>The workflow worth building this week</h2>
+
+    <p>
+      Start by measuring the silence you already have. Pull the
+      last 90 days of orders and check each for the confirmation
+      sent event; the count of orders missing it is a number
+      most merchants have never seen, and the sources those
+      orders share will name your suppressed channels
+      immediately. Place a test order through every door you
+      sell through, the store, the checkout links, the POS, a
+      draft, and watch which ones produce the gray line. Then
+      open Settings and confirm your sending domain actually
+      authenticates, because if SPF or DKIM fails, your
+      confirmations are landing in spam at scale and no thread
+      workaround fixes that.
+    </p>
+
+    <p>
+      Then write the policy in plain language: which channels
+      should send a receipt, what the replacement receipt looks
+      like and which template it uses, when to ask for a
+      corrected address instead of sending, and who hears about
+      it when a whole channel goes silent. This list is the
+      spec. Run the watcher in observe mode for a week and read
+      what it flags; the innocents, a wholesale draft that was
+      never meant to get a receipt, tune the policy, and what
+      remains is your store's true silence rate, pre-diagnosed.
+    </p>
+
+    <p>
+      Then say the brief the way you would hand it to a new
+      hire. Watch every order that lands in the store. If the
+      confirmation email has not gone out within ten minutes,
+      find out why, and unless the order is wholesale or POS,
+      send the customer a receipt through the invoice door on
+      our template, with the order status link inside. If the
+      email address looks like a typo, ask for the right one
+      instead of sending. If a whole channel goes quiet, or the
+      domain stops authenticating, tell me the same hour. Note
+      everything on the order timeline, and every Monday tell me
+      how many receipts went out, how many orders went silent,
+      and which door the silence came through. That is the whole
+      paragraph. The compiler turns it into the workflow, and
+      the next time a confirmation fails to send, your customer
+      is reading the replacement before the kettle boils.
+    </p>
+
+    <div class="callout">
+      <span class="callout-mark">&#9670; READING</span>
+      <span>
+        Two companion pieces if this one landed:
+        <a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html">the
+        gift card that never arrives</a>, on Shopify's other
+        one-shot email with no delivery check, and
+        <a href="how-to-catch-and-cancel-duplicate-orders-on-shopify.html">the
+        order your customer placed twice</a>, on the most
+        expensive thing a missing receipt causes next.
+      </span>
+    </div>
+
+    <p>
+      If you are a Shopify merchant with a receipt ghost story,
+      the channel you discovered was suppressed all along, the
+      typo you caught a week too late, the customer who called
+      the bank before they called you, the inbox is open:
+      <code>field-notes@dugong.live</code>. We are collecting
+      case studies for the next issue.
+    </p>
+
+  </div>
+
+  <div class="article-end">
+    <div class="article-end-tags">
+      <span class="tag tag-research">research</span>
+      <span class="tag tag-essay">essay</span>
+    </div>
+    <span class="article-end-share">share &middot; copy link &middot; &#10022;</span>
+  </div>
+
+</article>
+
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="section-head">
+    <span class="section-eyebrow" id="faq-heading">&#9670; COMMON QUESTIONS</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h2 class="faq-q">Why are my Shopify order confirmation emails not sending?</h2>
+      <p class="faq-a">There are five distinct causes, and the first job is telling them apart. The email may be sending and landing in spam, which happens at scale when your sending domain is not authenticated with SPF, DKIM, and DMARC. It may never have been sent because the order had no email address at the moment it was created, which covers phone orders, POS sales, and draft orders where the address was added a step late; Shopify permanently cannot send a confirmation for those orders. It may have gone to a typo'd address the customer entered at checkout. It may be suppressed by design: orders arriving through checkout links or the Storefront API's checkout URL show a source like via import, and Shopify deliberately withholds the confirmation because the order did not originate from the Online Store channel, a behavior confirmed in a July 2025 community thread. Or it was sent and bounced, which the admin records nowhere. Check the order timeline first: if the Order confirmation email sent line is missing, the email never went out, and the order source and the moment the address was added will usually tell you which door the silence came through.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How do I resend a Shopify order confirmation that was never sent?</h2>
+      <p class="faq-a">You cannot, natively. If the confirmation was sent, the timeline offers a resend; if it never sent, there is no button, and Shopify staff confirmed as much in an October 2021 community thread: there is no way within the admin to send an order confirmation if none went out the first time, including after you add or correct the email address on the order. The thread collected workarounds for four years. Send the customer the order status page link, found under More actions on the order, which any customer can open. Create and send an invoice from the order, since the invoice email can always be sent and carries the order contents. Or, as one merchant settled on, email a screenshot of the order page. Shopify Flow on Plus plans and the Admin API can trigger emails programmatically for channels that suppress them. The durable fix is not any single workaround but the noticing: a watcher that flags every order still missing its sent event a few minutes after creation, so the replacement receipt goes out the same morning instead of after the customer calls.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Why do Shopify order confirmation emails go to spam?</h2>
+      <p class="faq-a">Because mailbox providers do not trust the sending setup, and transactional templates are not exempt from filtering. The biggest lever is domain authentication: if SPF, DKIM, and DMARC are not configured and aligned for your sending domain, Gmail and Outlook have every reason to file your receipts as spam or promotions, and community threads on confirmations landing in junk folders come back to authentication again and again. Verify your domain in Shopify's settings, check the three records, and test with a fresh mailbox before assuming delivery. Content matters at the margin, spammy subject lines and heavy images hurt, but authentication decides most cases. The deeper operational problem is that you get no signal either way: Shopify's timeline records that an email was sent and says nothing about placement, and when a merchant asked in a thread active in February 2025 whether there is a place to find emails that were not delivered, the answer was that no such log exists. Treat silence from customers as data. A cluster of never-got-it tickets from one mailbox provider in one week is your deliverability alarm, and a watcher can correlate that faster than an inbox can.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Do Shopify checkout links and Storefront API orders send confirmation emails?</h2>
+      <p class="faq-a">No. Orders created through the Storefront API's checkout URL, which includes direct checkout links and QR code flows, arrive with a source like Direct, Checkout Links and QR, via import, and Shopify suppresses the order confirmation email for them by design, to prevent what it considers unintended or duplicate emails from orders that did not originate on the Online Store channel. A July 2025 community thread confirmed the behavior after a developer noticed the Order confirmation email sent line missing from the timeline on every such order despite valid emails and completed payments. Nothing in the admin warns you this is happening, and no setting turns it back on. The options are to send each confirmation manually from the order page, to use Shopify Flow on Plus plans, to trigger the notification through the Admin API, or to route the receipt through the invoice email, which can be sent for any order. If you sell through bio links, QR codes, or a headless storefront, assume the channel is silent until a test order proves otherwise, and give every order from it a receipt through a door that opens.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Can AI catch Shopify orders where the confirmation email never went out?</h2>
+      <p class="faq-a">Yes, because the failure has a reliable signature: an order that reaches a few minutes old with no Order confirmation email sent event in its timeline. An automation like Dugong watches every new order for that event, and diagnoses the silent ones by cause: no email address on the order at creation, a suppressed source like via import, an address added after the fact, a domain that looks like a typo. The cause picks the response. Suppressed channels get a replacement receipt through the invoice door on your template, with the order status link inside, minutes after the order lands. Obvious typos like gmial.com get a correction request instead of a wasted send, while plausible addresses are flagged for a human rather than guessed at. Bounce reports and never-got-it tickets get matched back to their orders, so a one-off becomes a pattern you can see. The honest limits: nothing adds Shopify's missing resend button, fixes your DMARC records for you, or reaches inside a spam filter. What changes is discovery. The silent order is found at minute ten with the cause attached and the replacement sent, instead of at 4pm by the customer who thought she had been scammed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="section-head">
+    <span class="section-eyebrow">&#9670; READ NEXT</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="related-grid">
+<a href="how-to-stop-your-shopify-inventory-changing-by-itself.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">11&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The stock count that changes overnight</h3>
+        <p class="card-dek">
+          Sold out products refill themselves, full ones zero out at 9:20pm, and the adjustment history can show nothing at all. The AI playbook that matches every inventory change to its story and names the hand on the dial.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 22</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-that-never-sync-to-shipstation.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your warehouse never heard about</h3>
+        <p class="card-dek">
+          Shopify says paid, the customer has a confirmation, and ShipStation has no row: the order fell into the gap between systems, and neither side alerts you. The AI playbook that reconciles every paid order against the fulfillment queue and catches the one that never arrived.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 20</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-shopify-orders-with-missing-personalization-before-they-ship-blank.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The custom order that arrives blank</h3>
+        <p class="card-dek">
+          A brass pet tag, paid in full, and the engraving line is empty. Where personalization text dies on Shopify, and the AI playbook that holds production until the blank is filled.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 16</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-cancelled-orders-showing-as-unfulfilled-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The cancelled order that never leaves your queue</h3>
+        <p class="card-dek">
+          The order is cancelled, the refund is done, and Shopify still stamps it unfulfilled forever. The AI playbook that keeps the queue honest so real orders stop hiding in the noise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 15</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-fake-customer-accounts-and-spam-signups-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The customer list the bots built</h3>
+        <p class="card-dek">
+          Overnight the store gains 340 customers and 19 sessions: bots minting fake accounts that captcha does not stop, every one subscribed to your emails. The AI playbook that reads each new profile, quarantines the fakes before your email platform syncs, and keeps the list human.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 14</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-fix-missing-hs-codes-on-shopify-before-customs-holds-your-orders.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The parcel customs sends back</h3>
+        <p class="card-dek">
+          De minimis is gone, the EU followed, and every parcel now bills by the six digit code your catalog never carried. The AI playbook that classifies every variant and stops the doorstep surprise.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 13</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-catch-and-cancel-duplicate-orders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order your customer placed twice</h3>
+        <p class="card-dek">
+          Two identical orders land four minutes apart, and Shopify has no duplicate detection anywhere in the admin. The AI playbook that cancels the copy before the label prints and tells the customer first.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUL 24</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-reduce-where-is-my-order-wismo-tickets-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">6&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The WISMO tickets that eat your afternoon</h3>
+        <p class="card-dek">
+          Half your support queue is one question, and every answer is a copy and paste from a carrier page. The AI playbook that answers it before the customer asks.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUN 4</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark big"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+      <span class="foot-tag">field&nbsp;notes from the dugong research desk</span>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <span class="foot-h">read</span>
+        <a href="index.html">Latest</a>
+        <a href="index.html">Essays</a>
+        <a href="index.html">Post-mortems</a>
+        <a href="index.html">Interviews</a>
+      </div>
+      <div>
+        <span class="foot-h">product</span>
+        <a href="https://dugong.live">Dugong</a>
+        <a href="https://dugong.live">Pricing</a>
+        <a href="https://dugong.live">AI Engine</a>
+        <a href="https://dugong.live">Docs</a>
+      </div>
+      <div>
+        <span class="foot-h">company</span>
+        <a href="https://dugong.live">About</a>
+        <a href="https://dugong.live">Careers</a>
+        <a href="https://dugong.live">Privacy</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>&copy; 2026 Dugong AI Inc.</span>
+    <span>Set in Hanken Grotesk &amp; Inter. Made on a slow afternoon.</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".card, .section-head, .article-body p, .article-body h2, .article-body pre, .article-body .callout, .article-body blockquote")
+  .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+</script>
+</body>
+</html>
