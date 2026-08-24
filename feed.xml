@@ -15,7 +15,17 @@
       <title>Dugong Field Notes</title>
       <link>https://blog.dugong.live/</link>
     </image>
-    <lastBuildDate>Sun, 23 Aug 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2026 12:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>How to handle Shopify pickup orders customers never collect</title>
+      <link>https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Mon, 24 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The shelf behind the register tells the story: eleven paper bags with sticky notes, and the oldest is from March. The customer paid in full, you packed the order, marked it ready, Shopify sent its one email, and then everyone went quiet. Merchants have been asking for the obvious fix since October 2021, in a thread that ran 27 replies and was still collecting posts in April 2025: a Hawaii tea merchant whose customers sometimes forget about their order for a month or more, sending personal reminder emails one at a time, asking for a resend button in the order timeline. Shopify staff confirmed the feature does not exist and suggested watching the changelog. The thread aged the way these threads do: almost a year and no fix, August 2022; a resend button visible in the timeline but greyed out, October 2022, still greyed out in a screenshot posted August 2023; it is completely asinine that this is not an existing feature, March 2024; it has been YEARS, lol, September 2024. A second thread asked again in May 2024 and closed on the same note in June 2025: how is this not an option yet. And the operational cost was documented back in March 2021 by a schoolwear shop that ended one peak season with hundreds of uncollected orders and sifted through every last one to send reminders by hand, while bags sat for months, inventory stayed committed, and the only app anyone could name charged ten dollars a month for what one merchant called a one in a hundred problem. The AI playbook that starts a clock the moment an order is marked ready, reminds on a schedule through a door that opens, catches the notification that bounced or went to a typo, offers shipping or a refund when the shelf date passes, restocks and closes per your policy, and reports weekly on shelf age and recovered sales.</description>
+    </item>
 
     <item>
       <title>How to fix order confirmation emails not sending on Shopify</title>

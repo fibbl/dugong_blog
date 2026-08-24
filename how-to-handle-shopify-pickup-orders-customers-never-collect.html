@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to handle Shopify pickup orders customers never collect &mdash; Dugong Field Notes</title>
+<meta name="description" content="Shopify sends one ready for pickup email and goes silent: no reminders, no resend button, no auto-cancel window. The AI playbook that clears the pickup shelf." />
+<link rel="canonical" href="https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html" />
+<meta name="author" content="Priya Singh" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="keywords" content="shopify pickup reminder email, resend ready for pickup notification shopify, shopify local pickup order not collected, shopify uncollected pickup orders, ready for pickup resend button greyed out, shopify pickup reminder app, cancel pickup order not collected shopify, automatic pickup reminders shopify, local pickup automation, AI order monitoring, Dugong" />
+<meta name="theme-color" content="#c6fe1e" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Dugong Field Notes &mdash; RSS" href="/feed.xml" />
+<meta property="article:published_time" content="2026-08-24" />
+<meta property="article:modified_time" content="2026-08-24" />
+<meta property="article:author" content="Priya Singh" />
+<meta property="article:section" content="Research" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Dugong Field Notes" />
+<meta property="og:title" content="How to handle Shopify pickup orders customers never collect" />
+<meta property="og:description" content="The shelf behind the register tells the story: eleven paper bags with sticky notes, and the oldest is from March. The customer paid in full, you packed the order, marked it ready, Shopify sent its one email, and then everyone went quiet. Merchants have been asking for the obvious fix since October 2021, in a thread that ran 27 replies and was still collecting posts in April 2025: a Hawaii tea merchant whose customers sometimes forget about their order for a month or more, sending personal reminder emails one at a time, asking for a resend button in the order timeline. Shopify staff confirmed the feature does not exist and suggested watching the changelog. The thread aged the way these threads do: almost a year and no fix, August 2022; a resend button visible in the timeline but greyed out, October 2022, still greyed out in a screenshot posted August 2023; it is completely asinine that this is not an existing feature, March 2024; it has been YEARS, lol, September 2024. A second thread asked again in May 2024 and closed on the same note in June 2025: how is this not an option yet. And the operational cost was documented back in March 2021 by a schoolwear shop that ended one peak season with hundreds of uncollected orders and sifted through every last one to send reminders by hand, while bags sat for months, inventory stayed committed, and the only app anyone could name charged ten dollars a month for what one merchant called a one in a hundred problem. The AI playbook that starts a clock the moment an order is marked ready, reminds on a schedule through a door that opens, catches the notification that bounced or went to a typo, offers shipping or a refund when the shelf date passes, restocks and closes per your policy, and reports weekly on shelf age and recovered sales." />
+<meta property="og:url" content="https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html" />
+<meta property="og:image" content="https://blog.dugong.live/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to handle Shopify pickup orders customers never collect" />
+<meta name="twitter:description" content="Shopify sends one ready for pickup email and goes silent: no reminders, no resend button, no auto-cancel window. The AI playbook that clears the pickup shelf." />
+<meta name="twitter:image" content="https://blog.dugong.live/og-image.png" />
+    <meta name="twitter:image:alt" content="Dugong Field Notes banner: &ldquo;Workflows, thought through.&rdquo; Field notes on AI-native workflow automation, agents, and the playbooks that run modern teams. blog.dugong.live" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#article",
+      "isPartOf": {
+        "@id": "https://blog.dugong.live/#blog"
+      },
+      "mainEntityOfPage": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html",
+      "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html",
+      "headline": "How to handle Shopify pickup orders customers never collect",
+      "description": "The shelf behind the register tells the story: eleven paper bags with sticky notes, and the oldest is from March. The customer paid in full, you packed the order, marked it ready, Shopify sent its one email, and then everyone went quiet. Merchants have been asking for the obvious fix since October 2021, in a thread that ran 27 replies and was still collecting posts in April 2025: a Hawaii tea merchant whose customers sometimes forget about their order for a month or more, sending personal reminder emails one at a time, asking for a resend button in the order timeline. Shopify staff confirmed the feature does not exist and suggested watching the changelog. The thread aged the way these threads do: almost a year and no fix, August 2022; a resend button visible in the timeline but greyed out, October 2022, still greyed out in a screenshot posted August 2023; it is completely asinine that this is not an existing feature, March 2024; it has been YEARS, lol, September 2024. A second thread asked again in May 2024 and closed on the same note in June 2025: how is this not an option yet. And the operational cost was documented back in March 2021 by a schoolwear shop that ended one peak season with hundreds of uncollected orders and sifted through every last one to send reminders by hand, while bags sat for months, inventory stayed committed, and the only app anyone could name charged ten dollars a month for what one merchant called a one in a hundred problem. The AI playbook that starts a clock the moment an order is marked ready, reminds on a schedule through a door that opens, catches the notification that bounced or went to a typo, offers shipping or a refund when the shelf date passes, restocks and closes per your policy, and reports weekly on shelf age and recovered sales.",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-08-24",
+      "articleSection": "Research",
+      "keywords": "pickup reminder email, resend ready for pickup notification, local pickup order not collected, uncollected pickup orders, ready for pickup resend button greyed out, cancel pickup order not collected, automatic pickup reminders, local pickup automation, AI order monitoring",
+      "wordCount": 2600,
+      "timeRequired": "PT10M",
+      "inLanguage": "en",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.dugong.live/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Click and collect",
+          "sameAs": "https://en.wikipedia.org/wiki/Click_and_collect"
+        },
+        {
+          "@type": "Thing",
+          "name": "Order fulfillment",
+          "sameAs": "https://en.wikipedia.org/wiki/Order_fulfillment"
+        },
+        {
+          "@type": "Thing",
+          "name": "Shopify",
+          "sameAs": "https://en.wikipedia.org/wiki/Shopify"
+        }
+      ],
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".article-title",
+          ".faq"
+        ]
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://blog.dugong.live/#priya-singh",
+        "name": "Priya Singh",
+        "jobTitle": "Commerce Research, Dugong",
+        "worksFor": {
+          "@id": "https://blog.dugong.live/#organization"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://blog.dugong.live/#organization",
+        "name": "Dugong",
+        "url": "https://dugong.live",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://blog.dugong.live/og-image.png",
+          "width": 1200,
+          "height": 630
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Field Notes",
+          "item": "https://blog.dugong.live/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The pickup order nobody comes to collect",
+          "item": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I resend a ready for pickup notification on Shopify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You cannot, natively. Shopify sends the Ready for pickup email exactly once, when you mark the order ready, and there is no resend button for it anywhere in the admin or the POS app. Shopify staff confirmed this in an October 2021 community thread, and the thread was still collecting requests for the button in April 2025. The workarounds merchants use: send the customer a manual email with the pickup details retyped, send the order status page link from the More actions menu on the order, or the template swap trick, where you temporarily paste the Ready for Local Pickup template code into the Contact customer email template so the reminder carries the real pickup details. Shopify Flow can send scheduled follow-ups on some plans, and the Admin API can trigger notifications programmatically. The durable fix is not any single resend but a schedule: a watcher that starts a clock when the order is marked ready and sends reminders at day two and day five without anyone remembering to."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the resend button greyed out on my ready for pickup order?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the button you can see was never wired up for pickup notifications. Merchants first reported the greyed out resend control in the order timeline in October 2022, and a screenshot posted in August 2023 showed it still inert, which reads like the functionality exists but is not working. The resend that does work on a Shopify order is the order confirmation email, which is the wrong email for this job: it tells the customer what they bought, not that their bag is packed and waiting at the counter with an address and opening hours. A June 2022 reply in the same thread made the point plainly: there is no point resending the order confirmation when the pickup notice is the one that matters, especially when pickup details change and every affected customer must be emailed by hand. Until Shopify ships the button, treat the greyed out control as decoration and route reminders through a door that opens: a manual email, the order status link, the template swap, or an automation that sends on a schedule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Shopify send automatic pickup reminder emails?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not out of the box. Shopify's native pickup flow sends one Ready for pickup email at the moment you mark the order ready, and nothing afterward: no day three nudge, no final notice, no expiry warning. Merchants asked for exactly this, a reminder that can be set to send automatically after a few days, in threads dating to March 2021 and as recently as August 2024, and staff responses have been to pass the feedback along. The options today: Shopify Flow on eligible plans can wait a set number of days after fulfillment events and send or tag, third party apps built for payment reminders have been bent into pickup reminder duty, POS-adjacent apps handle it for specific carriers and lockers, and an AI automation layer like Dugong can watch for orders marked ready, wait your chosen interval, and send reminders on your template through email or SMS, escalating to a final notice and a ship-or-refund offer as the shelf date approaches. Whichever route you pick, the reminder schedule matters more than the tool: day two and day five catch most stragglers before the shelf does."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long should you hold uncollected pickup orders before cancelling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The retail convention is about seven days: a March 2021 community post noted that most high street chains return goods to stock and cancel the order after a week. Small merchants hold far longer, partly from kindness and partly because nothing in Shopify forces the decision, and the same thread records the cost of that: hundreds of uncollected orders after one peak season, some collected months after purchase, every one sifted by hand. A workable policy has three dates. Remind at day two. Remind again at day five, with a deadline named. At day seven, offer the customer a choice: we can ship this for a small fee, or refund it. At day ten to fourteen, cancel, refund, restock, and note the timeline. Publish the window on your pickup page and in the ready email so the cancellation is never a surprise. The policy only works if the dates fire themselves; a shelf policy that depends on someone remembering to check order ages during peak season is how the shelf got full in the first place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI automate pickup reminders and uncollected order handling on Shopify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, because the whole failure is a timer problem, and timers are what automation is for. An automation like Dugong watches for the moment an order is marked ready for pickup and starts a clock. Day two, a reminder goes out on your template with the address, hours, and what to bring. Day five, a firmer note with the shelf deadline. Day seven, a choice: switch to shipping for a fee, or take a refund. Day fourteen, the order is cancelled, refunded, restocked, and annotated, per the policy you wrote. Along the way it catches the cases a schedule alone misses: the ready email that bounced, the address that looks like a typo, the customer who replied asking to ship it, the order whose pickup location changed after the ready email went out. The honest limits: no automation walks the customer to your door, Shopify still lacks a native resend button so reminders travel through the invoice, contact, or app door instead, and a store policy still needs a human to write it. What changes is that the shelf stops being a memory test. Every bag has a clock, every clock has a next step, and the weekly report tells you the collection rate instead of the shelf telling you the backlog."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#howto",
+      "name": "The pickup order nobody comes to collect",
+      "description": "The AI playbook for Shopify pickup orders that never get collected: baselining a pickup window policy per location, starting a clock the moment an order is marked ready, sending reminders on a schedule through email or SMS, catching ready notifications that bounced or went to a bad address, offering shipping or a refund when the shelf date passes, cancelling, refunding, and restocking per policy, and reporting weekly on shelf age and collection rate.",
+      "inLanguage": "en",
+      "totalTime": "PT10M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Write the shelf policy",
+          "text": "Pickup window, reminder days, and what happens at the deadline",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Start the clock at ready",
+          "text": "Every order marked ready for pickup gets a shelf age",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Remind on a schedule",
+          "text": "Day two nudge, day five deadline, email or SMS, your template",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Catch the silent ready email",
+          "text": "Bounces, typo addresses, and the notification that never landed",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Offer another door",
+          "text": "Switch to shipping for a fee, or refund, when the window closes",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Close and restock",
+          "text": "Cancel, refund, restock, and note the timeline, per policy",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Report weekly",
+          "text": "Shelf age, collection rate, recovered sales, and the repeat offenders",
+          "url": "https://blog.dugong.live/how-to-handle-shopify-pickup-orders-customers-never-collect.html#playbook"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* =========================================================
+   DUGONG FIELD NOTES — matches dugong.live
+   Lime + warm off-white · Hanken Grotesk / Inter · easy to read
+   ========================================================= */
+
+:root {
+  --bg:           #f6f6f1;
+  --bg-2:         #ffffff;
+  --surface:      #ffffff;
+  --surface-2:    #fbfbf7;
+  --border:       rgba(15,15,12,.10);
+  --border-strong:rgba(15,15,12,.18);
+
+  --text:         #11110e;
+  --text-dim:     #56564e;
+  --text-faint:   #71716a;
+
+  --lime:         #c6fe1e;
+  --lime-deep:    #4f7000;
+  --lime-line:    rgba(168,224,0,.55);
+  --lime-tint:    rgba(198,254,30,.22);
+  --green:        #0a8f54;
+  --pink:         #c61f93;
+
+  /* legacy aliases so any stray var() still resolves */
+  --ink: var(--text); --ink-2: var(--text-dim); --muted: var(--text-dim);
+  --dim: var(--text-faint); --line: var(--border); --line-2: var(--border-strong);
+  --teal: var(--lime-deep); --sand: var(--pink);
+  --cream-dim: var(--text-dim); --gold: #b5882c;
+
+  --display: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --maxw:   1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+::selection { background: var(--lime); color: #11110e; }
+
+/* atmospheric background — lime glow + faint grid (from dugong.live) */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 78% -12%, rgba(198,254,30,.30), transparent 60%),
+    radial-gradient(720px 520px at 3% 8%, rgba(198,254,30,.12), transparent 58%);
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; opacity: .55; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15,15,12,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,15,12,.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+}
+.grain { display: none; }
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+em { font-style: italic; }
+
+/* ---- buttons (shared, dugong.live) ---- */
+.btn {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  border-radius: 10px; padding: 10px 18px;
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  border: 1px solid transparent; white-space: nowrap;
+  transition: transform .15s ease, background .2s, box-shadow .2s, border-color .2s;
+}
+.btn-primary { background: var(--lime); color: #11110e !important; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+.btn-ghost { background: var(--surface); color: var(--text) !important; border-color: var(--border-strong); }
+.btn-ghost:hover { background: #fff; transform: translateY(-1px); border-color: var(--text); }
+.btn-lg { padding: 14px 26px; font-size: 16px; border-radius: 12px; }
+
+/* TICKER */
+.ticker {
+  position: relative; z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: rgba(246,246,241,.6);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+  color: var(--text-faint); padding: 9px 0;
+}
+.ticker-track { display: inline-flex; white-space: nowrap; gap: 3rem; animation: ticker 55s linear infinite; }
+.ticker-track span { flex-shrink: 0; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0 var(--gutter); min-height: 66px;
+  background: rgba(246,246,241,.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 800; min-width: 0; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px; background: #11110e;
+  display: inline-grid; place-items: center; flex: none; color: #fff; font-size: 0;
+}
+.brand-mark svg { width: 16px; height: 16px; }
+.brand-mark.big { width: 40px; height: 40px; border-radius: 11px; }
+.brand-mark.big svg { width: 24px; height: 24px; }
+.brand-name { font-size: 21px; letter-spacing: -0.02em; color: var(--text); }
+.brand-slash { color: var(--text-faint); font-size: 18px; font-weight: 500; }
+.brand-section { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em; color: var(--text-dim); text-transform: lowercase; font-weight: 400; }
+
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 14.5px; color: var(--text-dim); font-family: var(--body); }
+.nav-links a { color: var(--text-dim); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-family: var(--display); font-weight: 700; font-size: 14.5px;
+  background: var(--lime); color: #11110e !important;
+  border: 1px solid var(--lime); padding: 10px 18px; border-radius: 10px;
+  white-space: nowrap; flex-shrink: 0;
+  transition: transform .15s ease, box-shadow .2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(168,224,0,.7); }
+@media (max-width: 820px) { .nav-links a:not(.nav-cta) { display: none; } }
+@media (max-width: 480px) {
+  .brand-slash, .brand-section { display: none; }
+  .nav-cta { font-size: 12.5px; padding: 8px 12px; }
+}
+@media (max-width: 360px) {
+  .nav-cta { font-size: 11.5px; padding: 7px 10px; }
+}
+
+/* SECTION HEAD */
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; flex-wrap: wrap; }
+.section-eyebrow {
+  font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em;
+  color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0;
+}
+.section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-strong), transparent); min-width: 40px; }
+
+.post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; }
+
+.tag {
+  font-family: var(--display); font-weight: 700;
+  padding: 0.28rem 0.65rem; border-radius: 100px;
+  font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--lime-tint); color: var(--lime-deep); border: 1px solid var(--lime-line);
+}
+.tag-research   { background: var(--lime-tint); color: var(--lime-deep); border-color: var(--lime-line); }
+.tag-essay      { background: rgba(10,143,84,.12); color: var(--green); border-color: rgba(10,143,84,.30); }
+.tag-postmortem { background: rgba(198,31,147,.10); color: var(--pink); border-color: rgba(198,31,147,.30); }
+.tag-tactics    { background: #11110e; color: #fff; border-color: #11110e; }
+.tag-interview  { background: var(--surface); color: var(--text-dim); border-color: var(--border-strong); }
+.post-read { color: var(--text-faint); text-transform: uppercase; }
+
+/* GRID (for related cards) */
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+.card:hover { transform: translateY(-3px); border-color: var(--lime-line); box-shadow: 0 16px 40px -30px rgba(15,15,12,.4); }
+.card:hover .card-title { color: var(--lime-deep); }
+.card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-title { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.7rem; transition: color 0.25s; }
+.card-dek { font-family: var(--body); font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 1.2rem; flex: 1; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 0.85rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+.card-date { color: var(--text-faint); }
+.card-author { color: var(--text-dim); }
+
+/* FOOTER */
+.foot { position: relative; z-index: 2; margin-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--border); background: var(--surface-2); }
+.foot-top { display: grid; grid-template-columns: 1.4fr 2fr; gap: clamp(2rem, 5vw, 5rem); max-width: var(--maxw); margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem; }
+@media (max-width: 760px) { .foot-top { grid-template-columns: 1fr; } }
+.foot-brand { display: flex; flex-direction: column; gap: 1rem; }
+.foot-tag { font-family: var(--body); font-weight: 400; font-size: 0.95rem; color: var(--text-dim); max-width: 22em; line-height: 1.45; }
+.foot-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 560px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.25rem; } }
+@media (max-width: 340px) { .foot-cols { grid-template-columns: 1fr; } }
+.foot-cols > div { display: flex; flex-direction: column; gap: 0.55rem; }
+.foot-h { font-family: var(--display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.foot-cols a { font-family: var(--body); font-size: 0.92rem; color: var(--text-dim); transition: color 0.2s; }
+.foot-cols a:hover { color: var(--lime-deep); }
+.foot-bot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; max-width: var(--maxw); margin: 0 auto; padding: 1.5rem var(--gutter); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--text-faint); }
+
+/* POST PAGE */
+.article { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); }
+.article-back { font-family: var(--display); font-weight: 600; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 2.5rem; display: inline-block; }
+.article-back:hover { color: var(--lime-deep); }
+.article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.4rem; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em; flex-wrap: wrap; }
+.article-title { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.035em; color: var(--text); margin-bottom: 1.35rem; }
+.article-title em { font-style: normal; position: relative; white-space: nowrap; color: var(--text); }
+.article-title em::after { content: ""; position: absolute; left: -.06em; right: -.06em; bottom: .06em; height: .32em; background: var(--lime); z-index: -1; border-radius: 3px; transform: rotate(-.5deg); }
+.article-dek { font-family: var(--body); font-weight: 400; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.55; color: var(--text-dim); margin-bottom: 2.25rem; }
+.article-byline { display: flex; align-items: center; gap: 0.75rem; padding: 1.2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.75rem; font-family: var(--mono); font-size: 0.85rem; }
+.byline-avatar { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 0.68rem; font-weight: 700; color: #fff; letter-spacing: 0; }
+.byline-name { color: var(--text); font-family: var(--display); font-weight: 600; }
+.byline-divider { color: var(--border-strong); }
+.byline-role { color: var(--text-faint); }
+
+.article-body { font-family: var(--body); font-weight: 400; font-size: 1.2rem; line-height: 1.8; color: var(--text); }
+.article-body p { margin-bottom: 1.5rem; }
+.article-body h2 { font-family: var(--display); font-weight: 800; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.03em; margin: 2.85rem 0 1.1rem; color: var(--text); }
+.article-body h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.02em; margin: 2.25rem 0 0.9rem; color: var(--text); }
+.article-body blockquote { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.4; letter-spacing: -0.02em; padding: 0.3rem 0 0.3rem 1.5rem; border-left: 4px solid var(--lime); margin: 2rem 0; color: var(--text); }
+.article-body blockquote em { font-style: normal; color: var(--text-faint); }
+.article-body code { font-family: var(--mono); font-size: 0.88em; background: var(--lime-tint); padding: 0.12em 0.4em; border-radius: 5px; color: var(--lime-deep); }
+.article-body pre { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 10px; padding: 1.25rem; margin: 2rem 0; overflow-x: auto; font-family: var(--mono); font-size: 0.86rem; line-height: 1.65; color: var(--text-dim); }
+
+@media (max-width: 560px) {
+  .article-body pre { font-size: 0.74rem; padding: 1rem; white-space: pre-wrap; overflow-wrap: break-word; }
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body pre .k { color: var(--lime-deep); font-weight: 600; }
+.article-body pre .s { color: var(--pink); }
+.article-body pre .c { color: var(--text-faint); font-style: italic; }
+.article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.4rem; }
+.article-body li { margin-bottom: 0.65rem; padding-left: 0.25rem; }
+.article-body li::marker { color: var(--lime-deep); }
+.article-body strong { font-weight: 700; color: var(--text); }
+.article-body a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); transition: background 0.2s, border-color 0.2s; }
+.article-body a:hover { background: var(--lime-tint); border-color: var(--lime-deep); }
+.article-body hr { border: none; height: 1px; background: var(--border-strong); margin: 2.85rem 0; }
+
+.callout { display: flex; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--lime-tint); border: 1px solid var(--lime-line); border-left: 3px solid var(--lime-deep); border-radius: 12px; margin: 2rem 0; font-family: var(--body); font-size: 1rem; line-height: 1.6; color: var(--text-dim); }
+.callout strong { color: var(--text); }
+.callout-mark { font-family: var(--display); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; color: var(--lime-deep); text-transform: uppercase; flex-shrink: 0; padding-top: 0.2rem; }
+.callout-sand { background: rgba(198,31,147,.08); border-color: rgba(198,31,147,.28); border-left-color: var(--pink); }
+.callout-sand .callout-mark { color: var(--pink); }
+.callout a { color: var(--lime-deep); border-bottom: 1px solid var(--lime-line); }
+
+.article-end { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.article-end-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.article-end-share { font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.04em; }
+
+.faq { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) var(--gutter); position: relative; z-index: 2; border-top: 1px solid var(--border); }
+.faq .section-head { margin-bottom: 2rem; }
+.faq-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-family: var(--display); font-weight: 700; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--text); margin: 0 0 0.7rem; }
+.faq-a { font-family: var(--body); font-weight: 400; font-size: 1.08rem; line-height: 1.7; color: var(--text-dim); margin: 0; }
+.related { max-width: 1080px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter); position: relative; z-index: 2; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 1.5rem; }
+@media (max-width: 760px) { .related-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA band (to dugong.live) — mirrors the site's final card ---- */
+.cta-band { position: relative; z-index: 2; max-width: var(--maxw); margin: clamp(2.5rem,6vw,4.5rem) auto; padding: 0 var(--gutter); }
+.cta-band-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  padding: clamp(2.25rem,4vw,3.25rem) clamp(1.75rem,4vw,3.25rem);
+  border-radius: 26px; border: 1px solid var(--lime-line);
+  background: linear-gradient(135deg, rgba(198,254,30,.4), rgba(198,254,30,.12));
+  position: relative; overflow: hidden;
+}
+.cta-band-inner::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(198,254,30,.7), transparent 70%); top: -160px; right: -90px; pointer-events: none; }
+.cta-band-copy { max-width: 32em; position: relative; }
+.cta-eyebrow { font-family: var(--display); font-weight: 700; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lime-deep); margin-bottom: 0.7rem; display: block; }
+.cta-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem,3.4vw,2.5rem); line-height: 1.05; letter-spacing: -0.03em; color: var(--text); margin-bottom: 0.55rem; }
+.cta-title em { font-style: normal; color: var(--text-faint); }
+.cta-sub { font-size: 1rem; line-height: 1.55; color: var(--text-dim); }
+.cta-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; position: relative; }
+.cta-band .btn-primary { background: #11110e; color: #fff !important; border-color: #11110e; }
+.cta-band .btn-primary:hover { box-shadow: 0 12px 30px -10px rgba(15,15,12,.5); }
+.cta-fine { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.03em; color: var(--text-dim); }
+@media (max-width: 640px) { .cta-band-inner { flex-direction: column; align-items: flex-start; } }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+
+/* mobile: let highlighted title phrases wrap (nowrap em overflows small screens) */
+@media (max-width: 640px) {
+  .article-title em { white-space: normal; background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 96%, transparent 96%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .article-title em::after { display: none; }
+}
+
+/* ACCESSIBILITY */
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--lime-deep); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>&#9670; DISPATCH N&ordm; 114 &mdash; AUG 24, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+    <span>&#9670; DISPATCH N&ordm; 114 &mdash; AUG 24, 2026</span>
+    <span>&#9670; FILED UNDER: RESEARCH &middot; SHOPIFY</span>
+    <span>&#9670; 10 MIN READ &middot; 2,600 WORDS</span>
+    <span>&#9670; BY PRIYA SINGH</span>
+  </div>
+</div>
+
+<header class="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+    <span class="brand-name">dugong</span>
+    <span class="brand-slash">/</span>
+    <span class="brand-section">field&nbsp;notes</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html#latest">Latest</a>
+    <a href="index.html#tags">Topics</a>
+    <a href="index.html#archive">Archive</a>
+    <a href="https://dugong.live" class="nav-cta">Try Dugong free &rarr;</a>
+  </nav>
+</header>
+<article class="article">
+
+  <a href="index.html" class="article-back">&larr; back to field notes</a>
+
+  <div class="article-meta">
+    <span class="tag tag-research">research</span>
+    <span style="color: var(--cream-dim);">DISPATCH N&ordm; 114</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">AUG 24, 2026</span>
+    <span style="color: var(--line-2);">&middot;</span>
+    <span style="color: var(--cream-dim);">10 MIN READ</span>
+  </div>
+
+  <h1 class="article-title">
+    How to handle Shopify pickup orders customers <em>never collect</em>
+  </h1>
+
+  <p class="article-dek">
+    The order is paid, packed, and marked ready, and the bag is still on the shelf three weeks later. Here is the community record of Shopify's one-email pickup flow, and the playbook that clears the shelf without you writing a single reminder.
+  </p>
+
+  <div class="article-byline">
+    <span class="byline-avatar" style="background: var(--gold);">PS</span>
+    <span class="byline-name">Priya Singh</span>
+    <span class="byline-divider">&middot;</span>
+    <span class="byline-role">Commerce Research, Dugong</span>
+  </div>
+
+  <div class="article-body">
+
+    <p>
+      The shelf behind the register tells the story better than
+      any report. Eleven paper bags, each with a sticky note: a
+      name, an order number, a date. The newest is from Saturday.
+      The oldest is from March. Every one of them is a completed
+      sale, paid in full, picked and packed by someone on your
+      payroll, and every one of them is also a small standing
+      question: does she know it's here? Did the email land? Do we
+      call? At what point does a sold candle become a stored
+      candle become a problem?
+    </p>
+
+    <p>
+      Shopify's answer to that question is one email. When you
+      mark a pickup order ready, the customer gets a Ready for
+      pickup notification, once. If it goes to spam, that was the
+      notification. If she reads it on a busy Tuesday and forgets,
+      that was the notification. There is no reminder after three
+      days, no resend button when she calls to say she never got
+      it, no expiry date on the shelf, and no policy engine
+      deciding what happens next. The flow assumes every customer
+      collects promptly, and the shelf is where that assumption
+      goes to age.
+    </p>
+
+    <h2>The shelf is money standing still</h2>
+
+    <p>
+      Count what one uncollected bag actually costs. The inventory
+      inside it is sold but not gone: it cannot be resold, and it
+      sits outside the counts that drive reordering, a cousin of
+      <a href="how-to-automatically-clear-dead-stock-on-shopify.html">the
+      dead stock your dashboard never mentions</a>. The order sits
+      unfulfilled in the admin, cluttering the queue your team
+      works from every morning. The customer's money is captured,
+      which starts a quiet clock of its own: a shopper who paid
+      months ago and never received anything is a refund request
+      at best and a chargeback at worst, and a cardholder who can
+      say the goods were never received is a hard dispute to win.
+      And the shelf itself is real estate. A florist loses the
+      cooler space, a bakery throws the order away, a schoolwear
+      shop watches the uniform sizes it could have resold in
+      August sit in bags until October.
+    </p>
+
+    <p>
+      Multiply by peak season and the number stops being funny.
+      The merchant who documented this best runs a schoolwear
+      shop, essential purchases for parents, and still ended one
+      summer with hundreds of uncollected orders. The team sifted
+      through every last one to send reminders by hand. Many
+      orders, she wrote, didn't get collected until months after
+      purchase.
+    </p>
+
+    <h2>The community record</h2>
+
+    <p>
+      The reference thread was opened in October 2021 by a tea
+      merchant in Hawaii with a problem he described mildly: I
+      have customers who sometimes forget about their order for a
+      month or more, and I have to send personal emails to remind
+      them. A resend button in the order timeline would be much
+      easier. Shopify staff answered the same week, and the answer
+      has not changed since: re-sending the Ready for pickup
+      notification is a feature that isn't available in the
+      Shopify admin yet, the feedback would be passed to the
+      developers, and the merchant should keep an eye on the
+      changelog. The thread ran to 27 replies and well over a
+      thousand views, and was still collecting posts in April
+      2025. The changelog never delivered.
+    </p>
+
+    <p>
+      Read in order, the replies map every corner of the failure.
+      June 2022: there is no point resending the order
+      confirmation, which is allowed, when the pickup notification
+      is the one that matters, especially if the pickup details
+      change and every affected customer must be emailed by hand.
+      July 2022: it should be a simple button in the POS app.
+      October 2022, a genuine puzzle: the resend control appears
+      in the order timeline but sits greyed out, unclickable, and
+      in August 2023 another merchant posted a screenshot of the
+      same dead button, wondering if the functionality exists but
+      isn't working. December 2023: would be hugely valuable to
+      remind customers to come get their stuff after 3 days, 7
+      days, any solutions here, after 2+ years on the initial
+      request? March 2024 lost patience entirely: it's completely
+      asinine that this is not an existing feature. August 2024
+      asked for the fuller fix, a pickup reminder email that can
+      be set to send automatically, and staff replied that the
+      feedback had been shared with the developers, again.
+      September 2024 needed one line: it's been YEARS, lol. Any
+      update?
+    </p>
+
+    <p>
+      A second thread opened in May 2024 to ask for the same
+      button, called it a very, very basic function, and aged the
+      same way: a me-too in December 2024, a May 2025 reply
+      pointing out that the other thread requesting this feature
+      goes back five years, and a June 2025 closing note that
+      stands for the whole genre: how is this not an option yet?!
+      Meanwhile the apps thread from March 2021, the schoolwear
+      shop's thread, recorded the market's answer. One developer
+      offered to build the app. One vendor pitched a payment
+      reminder app bent into pickup duty at ten dollars a month,
+      and got the reply every app store pitch dreads: no thanks,
+      it's a one in a hundred problem, not worth a monthly charge.
+      The thread's real finding was the norm it named in passing:
+      most high street chains return goods to stock after 7 days
+      or so and cancel the order. The big retailers have a shelf
+      policy. Shopify merchants have a shelf.
+    </p>
+
+    <div class="callout callout-sand">
+      <span class="callout-mark">&#9670; NOTE</span>
+      <span>
+        The record, in the merchants' own words: customers forget
+        their orders for a month or more, October 2021, with
+        Shopify staff confirming no resend exists. Hundreds of
+        uncollected orders in one peak season, sifted by hand,
+        March 2021. The resend button visible but greyed out,
+        October 2022, still dead in an August 2023 screenshot.
+        Remind customers after 3 days, 7 days, any solutions,
+        December 2023. Completely asinine, March 2024. A pickup
+        reminder that sends automatically, requested August 2024,
+        passed to developers, again. It's been YEARS, lol,
+        September 2024. How is this not an option yet, June 2025.
+      </span>
+    </div>
+
+    <h2>One email, then silence</h2>
+
+    <p>
+      Look at where the pickup flow actually leaks, because there
+      are four holes and they need different patches. The ready
+      email never lands: it bounces, files into spam, or goes to
+      the typo the customer made at checkout, the same silent
+      failure as
+      <a href="how-to-fix-order-confirmation-emails-not-sending-on-shopify.html">the
+      order confirmation that never arrives</a>, and nothing in
+      the admin tells you. The email lands and evaporates: read
+      once, forgotten by Friday, and Shopify's flow has no second
+      touch, the same one-shot design as
+      <a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html">the
+      gift card that never arrives</a>. The details change after
+      the send: a moved counter, new hours, a different location,
+      and there is no way to re-notify anyone except by hand. And
+      the shelf date passes with no consequence, because Shopify
+      has no pickup window: the order will sit unfulfilled for a
+      year without anything asking whether it should.
+    </p>
+
+    <p>
+      The admin adds two aggravations of its own. Pickup orders
+      cannot be edited the way shipped orders can, so when a
+      customer finally writes back asking you to just mail it,
+      you are into
+      <a href="how-to-change-a-shopify-order-from-local-pickup-to-shipping.html">the
+      pickup order that should have shipped</a>, a workaround
+      genre of its own. And the fulfillment queue has no concept
+      of shelf age: an order marked ready yesterday and an order
+      marked ready in March look identical in the list, so the
+      backlog hides in plain sight until someone physically counts
+      the bags.
+    </p>
+
+    <h2>The sticky note is the right idea in the wrong tool</h2>
+
+    <p>
+      Watch what merchants actually do, because as always the
+      workarounds contain the spec. The Hawaii merchant writes
+      personal reminder emails, one at a time. The schoolwear
+      shop sifts hundreds of orders after peak. One thread
+      documents the template swap: temporarily paste the Ready
+      for Local Pickup template code into the Contact customer
+      email template, so a manual send carries the real pickup
+      details instead of a retyped approximation. The sticky
+      notes on the bags are a shelf-age database maintained in
+      handwriting. Every one of these is a person performing a
+      schedule: notice the order aging, remember the interval,
+      compose the nudge, escalate politely, and eventually decide
+      when a sale becomes a restock. The instinct is exactly
+      right. The flaw is that every step depends on someone
+      noticing, during exactly the seasons when nobody has time
+      to notice, which is how a shop that sells school uniforms
+      in August ends up doing collections in October.
+    </p>
+
+    <h2>What the automation actually has to do</h2>
+
+    <p>
+      As a Dugong playbook, in plain prose:
+    </p>
+
+    <pre id="playbook"><code><span class="c"># trigger</span>
+<span class="k">On</span> order marked ready for
+pickup, and on a daily sweep
+of the shelf
+
+<span class="c"># steps</span>
+1. <span class="k">Write</span> the shelf policy:
+   pickup window, reminder
+   days, deadline outcome
+2. <span class="k">Start</span> the clock at ready:
+   every bag gets a shelf age,
+   visible in one list
+3. <span class="k">Remind</span> on a schedule: day
+   two nudge, day five with
+   the deadline named
+4. <span class="k">Catch</span> the silent ready
+   email: bounces, typos, the
+   notification that died
+5. <span class="k">Offer</span> another door at the
+   window's edge: ship it for
+   a fee, or refund
+6. <span class="k">Close</span> and restock at the
+   deadline: cancel, refund,
+   note the timeline
+7. <span class="k">Report</span> weekly: shelf age,
+   collection rate, recovered
+   sales, repeat offenders
+</code></pre>
+
+    <p>
+      Step two is the missing column in the admin: shelf age. The
+      moment an order is marked ready, it joins a list sorted by
+      days waiting, and the list is the whole dashboard, because
+      most orders leave it in a day or two on their own. Step
+      three is the feature the threads have requested since 2021,
+      running on your templates and your intervals. The day two
+      note is friendly and complete: address, hours, what to
+      bring. The day five note names the deadline, which is not
+      rudeness, it is the courtesy the big chains extend by
+      policy. Both go by email, and by SMS if you have the
+      number, because the phone is where the original ready email
+      went to die.
+    </p>
+
+    <p>
+      Step four is the reading work. A reminder schedule is
+      wasted on an address that bounces, so the watcher checks
+      whether the ready email landed at all, flags the gmial.com
+      typos for
+      <a href="how-to-edit-a-shopify-order-after-its-been-placed.html">a
+      correction</a> instead of a third send into the void, and
+      switches to SMS when email has failed twice. Step five is
+      where sales get recovered instead of refunded: at day seven
+      the customer gets a choice, we can hold it three more days,
+      ship it to you for a small fee, or refund you, and the
+      reply routes to a human when it needs one. Step six is the
+      high street policy, executed with a paper trail: cancel,
+      refund, restock, a timeline note saying which reminders
+      went out and when, so the customer who surfaces in
+      November gets a polite history instead of an argument. The
+      same discipline that runs
+      <a href="how-to-automatically-cancel-unpaid-orders-on-shopify.html">the
+      unpaid order that never cancels itself</a> applies here:
+      the deadline is only real if something happens when it
+      passes.
+    </p>
+
+    <p>
+      The honest limits, stated plainly. No automation walks the
+      customer to your door, and a fraction of bags will always
+      hit the deadline. Shopify still has no native resend for
+      the ready notification, so reminders travel through the
+      doors that open: your email platform, SMS, the contact
+      template, the order status link. Switching a pickup order
+      to shipping still runs through Shopify's own constraints
+      on editing pickup orders. And the policy is yours to write:
+      seven days or fourteen, fee or free, restock or hold, those
+      are judgment calls about your customers, not settings a
+      tool should guess. What changes is that the policy executes
+      itself, on every order, in every season, including the one
+      where you have no time to execute anything.
+    </p>
+
+    <h2>Why this is a compiler problem, not an app problem</h2>
+
+    <p>
+      There are apps in this neighborhood: payment reminder apps
+      bent sideways into pickup duty, carrier-specific tools for
+      lockers and parcel shops, POS add-ons. The thread record
+      shows why they never quite stick. The ten dollar app
+      solved one interval for one email and cost more than the
+      problem seemed worth. The carrier app only worked for that
+      carrier. And none of them hold the part that varies, which
+      is the policy. A bakery's shelf window is two days and the
+      deadline outcome is the bin. A schoolwear shop's window is
+      long and forgiving in August and ruthless in October. A
+      gallery holds a sold painting for a month but wants a
+      personal phone call at day ten, not an automated email.
+      Those are sentences about your shop. They should compile
+      into the watcher as written, the same principle that runs
+      <a href="best-shopify-automations-to-set-up.html">every
+      automation worth building</a>: the schedule is cheap,
+      knowing what your store means by too long is the job.
+    </p>
+
+    <p>
+      Run the March bag again with the sentences compiled. The
+      order is marked ready on a Tuesday; it joins the shelf list
+      at age zero. Thursday, a reminder with the address and
+      hours. Sunday, a second note: we'll hold your order through
+      Friday. Wednesday, the choice: ship it for six dollars,
+      collect by Friday, or we refund you. She picks shipping,
+      pays the fee from her phone, and the order routes into the
+      shipping queue. Total staff time spent: none. The sticky
+      note never gets written, and the shelf holds three bags,
+      all under five days old, which is what a shelf is for.
+    </p>
+
+    <hr />
+
+    <h2>The workflow worth building this week</h2>
+
+    <p>
+      Start by counting the shelf you already have. Filter orders
+      to unfulfilled pickup orders, sort by date, and put an age
+      on each one; most merchants have never seen the number, and
+      the oldest sticky note is usually a surprise. While you are
+      in there, check the ready emails on the stragglers: how
+      many bounced, how many went to addresses with obvious
+      typos, how many customers plausibly never knew their bag
+      was waiting. That split, forgot versus never told, decides
+      how much of your problem is reminders and how much is
+      deliverability.
+    </p>
+
+    <p>
+      Then write the shelf policy in plain language: how long the
+      window is, which days the reminders go, what the day seven
+      offer says, what happens at the deadline, and which orders
+      are exceptions, the wedding cake, the commissioned piece,
+      the wholesale pallet. Publish the window on your pickup
+      page and inside the ready email, because a deadline the
+      customer has seen twice is customer service, and a
+      cancellation from nowhere is a one star review.
+    </p>
+
+    <p>
+      Then say the brief the way you would hand it to a new hire.
+      Watch every order we mark ready for pickup. If it's still
+      waiting after two days, remind the customer with the
+      address and hours; after five, remind them again and name
+      the deadline. If the ready email bounced or the address
+      looks wrong, tell me instead of sending again. At seven
+      days, offer shipping for our flat fee or a refund, and
+      route any reply to me. At fourteen, cancel, refund,
+      restock, and note everything on the order. Every Monday,
+      tell me how many bags are on the shelf, the oldest age,
+      and how many sales we recovered by shipping. That is the
+      whole paragraph. The compiler turns it into the workflow,
+      and the shelf behind the register goes back to being
+      furniture.
+    </p>
+
+    <div class="callout">
+      <span class="callout-mark">&#9670; READING</span>
+      <span>
+        Two companion pieces if this one landed:
+        <a href="how-to-change-a-shopify-order-from-local-pickup-to-shipping.html">the
+        pickup order that should have shipped</a>, on the
+        workaround maze when a customer asks you to mail it, and
+        <a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html">the
+        gift card that never arrives</a>, on Shopify's other
+        one-shot email with no reminder behind it.
+      </span>
+    </div>
+
+    <p>
+      If you are a Shopify merchant with a shelf story, the bag
+      that sat for a season, the customer who swore they were
+      never told, the peak-season backlog you cleared by hand,
+      the inbox is open:
+      <code>field-notes@dugong.live</code>. We are collecting
+      case studies for the next issue.
+    </p>
+
+  </div>
+
+  <div class="article-end">
+    <div class="article-end-tags">
+      <span class="tag tag-research">research</span>
+      <span class="tag tag-essay">essay</span>
+    </div>
+    <span class="article-end-share">share &middot; copy link &middot; &#10022;</span>
+  </div>
+
+</article>
+
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="section-head">
+    <span class="section-eyebrow" id="faq-heading">&#9670; COMMON QUESTIONS</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h2 class="faq-q">How do I resend a ready for pickup notification on Shopify?</h2>
+      <p class="faq-a">You cannot, natively. Shopify sends the Ready for pickup email exactly once, when you mark the order ready, and there is no resend button for it anywhere in the admin or the POS app. Shopify staff confirmed this in an October 2021 community thread, and the thread was still collecting requests for the button in April 2025. The workarounds merchants use: send the customer a manual email with the pickup details retyped, send the order status page link from the More actions menu on the order, or the template swap trick, where you temporarily paste the Ready for Local Pickup template code into the Contact customer email template so the reminder carries the real pickup details. Shopify Flow can send scheduled follow-ups on some plans, and the Admin API can trigger notifications programmatically. The durable fix is not any single resend but a schedule: a watcher that starts a clock when the order is marked ready and sends reminders at day two and day five without anyone remembering to.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Why is the resend button greyed out on my ready for pickup order?</h2>
+      <p class="faq-a">Because the button you can see was never wired up for pickup notifications. Merchants first reported the greyed out resend control in the order timeline in October 2022, and a screenshot posted in August 2023 showed it still inert, which reads like the functionality exists but is not working. The resend that does work on a Shopify order is the order confirmation email, which is the wrong email for this job: it tells the customer what they bought, not that their bag is packed and waiting at the counter with an address and opening hours. A June 2022 reply in the same thread made the point plainly: there is no point resending the order confirmation when the pickup notice is the one that matters, especially when pickup details change and every affected customer must be emailed by hand. Until Shopify ships the button, treat the greyed out control as decoration and route reminders through a door that opens: a manual email, the order status link, the template swap, or an automation that sends on a schedule.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Can Shopify send automatic pickup reminder emails?</h2>
+      <p class="faq-a">Not out of the box. Shopify's native pickup flow sends one Ready for pickup email at the moment you mark the order ready, and nothing afterward: no day three nudge, no final notice, no expiry warning. Merchants asked for exactly this, a reminder that can be set to send automatically after a few days, in threads dating to March 2021 and as recently as August 2024, and staff responses have been to pass the feedback along. The options today: Shopify Flow on eligible plans can wait a set number of days after fulfillment events and send or tag, third party apps built for payment reminders have been bent into pickup reminder duty, POS-adjacent apps handle it for specific carriers and lockers, and an AI automation layer like Dugong can watch for orders marked ready, wait your chosen interval, and send reminders on your template through email or SMS, escalating to a final notice and a ship-or-refund offer as the shelf date approaches. Whichever route you pick, the reminder schedule matters more than the tool: day two and day five catch most stragglers before the shelf does.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">How long should you hold uncollected pickup orders before cancelling?</h2>
+      <p class="faq-a">The retail convention is about seven days: a March 2021 community post noted that most high street chains return goods to stock and cancel the order after a week. Small merchants hold far longer, partly from kindness and partly because nothing in Shopify forces the decision, and the same thread records the cost of that: hundreds of uncollected orders after one peak season, some collected months after purchase, every one sifted by hand. A workable policy has three dates. Remind at day two. Remind again at day five, with a deadline named. At day seven, offer the customer a choice: we can ship this for a small fee, or refund it. At day ten to fourteen, cancel, refund, restock, and note the timeline. Publish the window on your pickup page and in the ready email so the cancellation is never a surprise. The policy only works if the dates fire themselves; a shelf policy that depends on someone remembering to check order ages during peak season is how the shelf got full in the first place.</p>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-q">Can AI automate pickup reminders and uncollected order handling on Shopify?</h2>
+      <p class="faq-a">Yes, because the whole failure is a timer problem, and timers are what automation is for. An automation like Dugong watches for the moment an order is marked ready for pickup and starts a clock. Day two, a reminder goes out on your template with the address, hours, and what to bring. Day five, a firmer note with the shelf deadline. Day seven, a choice: switch to shipping for a fee, or take a refund. Day fourteen, the order is cancelled, refunded, restocked, and annotated, per the policy you wrote. Along the way it catches the cases a schedule alone misses: the ready email that bounced, the address that looks like a typo, the customer who replied asking to ship it, the order whose pickup location changed after the ready email went out. The honest limits: no automation walks the customer to your door, Shopify still lacks a native resend button so reminders travel through the invoice, contact, or app door instead, and a store policy still needs a human to write it. What changes is that the shelf stops being a memory test. Every bag has a clock, every clock has a next step, and the weekly report tells you the collection rate instead of the shelf telling you the backlog.</p>
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="section-head">
+    <span class="section-eyebrow">&#9670; READ NEXT</span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="related-grid">
+<a href="how-to-change-a-shopify-order-from-local-pickup-to-shipping.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The pickup order that should have shipped</h3>
+        <p class="card-dek">
+          The customer chose local pickup by accident, asks you to mail it, and Shopify will not let you edit the delivery method. The workaround maze, and the AI playbook that handles the switch cleanly.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUL 31</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-fix-order-confirmation-emails-not-sending-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The order confirmation that never arrives</h3>
+        <p class="card-dek">
+          The customer paid this morning and by afternoon she is asking if you charged her at all. The five doors the silence comes through, and the AI playbook that gets a receipt into her inbox before she thinks to call.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 23</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automate-gift-card-delivery-and-reminders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The gift card that never arrives</h3>
+        <p class="card-dek">
+          Shopify mints the code, emails it once, and goes silent: no delivery check, no reminders, no expiry warnings. The AI playbook that walks every gift card from minted to spent.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 10</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automatically-cancel-unpaid-orders-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The unpaid order that never cancels itself</h3>
+        <p class="card-dek">
+          Pending payments squat on your inventory for days because Shopify has no cancel-after deadline. The AI playbook that chases the payment, frees the stock, and keeps the queue honest.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUN 24</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automatically-clear-dead-stock-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">9&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The dead stock your dashboard never mentions</h3>
+        <p class="card-dek">
+          Money sleeping on shelves, in products that stopped selling months ago and nothing in the admin says so. The AI playbook that finds it, prices it to move, and frees the cash.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 1</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-stop-your-shopify-inventory-changing-by-itself.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">11&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The stock count that changes overnight</h3>
+        <p class="card-dek">
+          Sold out products refill themselves, full ones zero out at 9:20pm, and the adjustment history can show nothing at all. The AI playbook that matches every inventory change to its story and names the hand on the dial.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 22</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-reduce-where-is-my-order-wismo-tickets-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">6&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The WISMO tickets that eat your afternoon</h3>
+        <p class="card-dek">
+          Half your support queue is one question, and every answer is a copy and paste from a carrier page. The AI playbook that answers it before the customer asks.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">JUN 4</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="how-to-automatically-restock-returns-on-shopify.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-research">research</span>
+          <span class="post-read">10&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The return that never goes back on the shelf</h3>
+        <p class="card-dek">
+          Refunded items pile up in a bin behind the desk while the website says sold out. The AI playbook that walks every return from refund to restocked and sellable.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">AUG 9</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+<a href="best-shopify-automations-to-set-up.html" class="card">
+      <div class="card-body">
+        <div class="post-meta">
+          <span class="tag tag-tactics">tactics</span>
+          <span class="post-read">8&nbsp;min</span>
+        </div>
+        <h3 class="card-title">The Shopify automations no one builds</h3>
+        <p class="card-dek">
+          A field guide to the automations that pay for themselves in a week, ranked by pain saved per hour of setup, from the team that watches them run.
+        </p>
+        <div class="card-foot">
+          <span class="card-date">MAY 28</span>
+          <span class="card-author">P. Singh</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark big"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9"></path><path d="M12 3c2 3 3 6 3 9s-1 6-3 9"></path><path d="M3 12h18"></path></svg></span>
+      <span class="foot-tag">field&nbsp;notes from the dugong research desk</span>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <span class="foot-h">read</span>
+        <a href="index.html">Latest</a>
+        <a href="index.html">Essays</a>
+        <a href="index.html">Post-mortems</a>
+        <a href="index.html">Interviews</a>
+      </div>
+      <div>
+        <span class="foot-h">product</span>
+        <a href="https://dugong.live">Dugong</a>
+        <a href="https://dugong.live">Pricing</a>
+        <a href="https://dugong.live">AI Engine</a>
+        <a href="https://dugong.live">Docs</a>
+      </div>
+      <div>
+        <span class="foot-h">company</span>
+        <a href="https://dugong.live">About</a>
+        <a href="https://dugong.live">Careers</a>
+        <a href="https://dugong.live">Privacy</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>&copy; 2026 Dugong AI Inc.</span>
+    <span>Set in Hanken Grotesk &amp; Inter. Made on a slow afternoon.</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".card, .section-head, .article-body p, .article-body h2, .article-body pre, .article-body .callout, .article-body blockquote")
+  .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+</script>
+</body>
+</html>
