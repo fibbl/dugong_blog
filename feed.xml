@@ -15,7 +15,17 @@
       <title>Dugong Field Notes</title>
       <link>https://blog.dugong.live/</link>
     </image>
-    <lastBuildDate>Tue, 25 Aug 2026 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 12:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>How to track product expiry dates on Shopify before the stock goes bad</title>
+      <link>https://blog.dugong.live/how-to-track-product-expiry-dates-on-shopify.html</link>
+      <guid isPermaLink="true">https://blog.dugong.live/how-to-track-product-expiry-dates-on-shopify.html</guid>
+      <dc:creator>Priya Singh</dc:creator>
+      <category>Research</category>
+      <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
+      <description>The pallet lands on a Tuesday: sixty fresh jars, best before next June. Forty older jars are already on the shelf, best before November. Shopify receives the delivery the only way it knows how, 40 becomes 100, and the one fact that decides whether you sell those jars or bin them stops existing. Shopify inventory is a single quantity per variant per location: no expiry field, no batch or lot dimension, no report that mentions a date. The community's standard answer is a date metafield updated by hand, and merchants have spent two years asking Shopify Flow to read it. October 2023: a merchant asks for an email ten days before the metafield date, and staff reply this is not currently possible. June 2024: a grocery seller asks for ten, five and two day notices plus automatic discounts, and staff name the wall, you cannot yet use metafields with Get product data, adding that it is not a Flow limitation, the API does not support it. January 2025: a merchant with 6,000 dated products is told a recent change lets you query products by metafield value but you cannot yet query by dates, and that there is no straight-forward way to scan them daily. February 2025: the same question, and the same staff answer, you cannot query by date metafields currently, so not sure that use case is possible. Meanwhile the oldest batch quietly ages out under the fresher batch's label, short-dated stock that could have sold at thirty percent off becomes a write-off at one hundred, and for supplement and food sellers a recall notice naming a lot number has no order list to match. The AI playbook that records every batch as it lands, sweeps every date daily, tiers the alerts, marks down short-dated stock on schedule, pulls the listing when the last good batch ages out, and keeps lot-to-order records so a recall is a lookup, not an apology tour.</description>
+    </item>
 
     <item>
       <title>How to put your Shopify store on vacation mode without losing sales</title>
